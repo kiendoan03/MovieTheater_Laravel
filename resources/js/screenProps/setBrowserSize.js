@@ -7,7 +7,8 @@ var win = window,
 
 document.querySelector('.full-screen-element').style.height = y + 'px';
 document.querySelector('.fullscreen-height').style.height = y + 'px';
+
+document.querySelector('.full-height').style.height = y + 'px';
 // document.querySelector('.full-screen-element').style.width = x + 'px';    
 // alert(x + ' × ' + y);
 
-document.body.style.overflow = "hidden";
