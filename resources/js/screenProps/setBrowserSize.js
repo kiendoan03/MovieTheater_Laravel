@@ -3,7 +3,7 @@ var win = window,
     docElem = doc.documentElement,
     // body = doc.getElementsByTagName('body')[0],
     x = win.innerWidth || docElem.clientWidth,
-    y = win.innerHeight|| docElem.clientHeight;
+    y = win.innerHeight || docElem.clientHeight;
 
 document.querySelector('.full-screen-element').style.height = y + 'px';
 document.querySelector('.fullscreen-height').style.height = y + 'px';
