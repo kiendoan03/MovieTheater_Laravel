@@ -1,8 +1,8 @@
-let box = document.getElementById('box');
-let width = box.offsetWidth;
-let height = box.offsetHeight;
+// let box = document.getElementsByName('overlay-image');
+// let width = box.offsetWidth;
+// let height = box.offsetHeight;
 
-let number = document.getElementById('number');
-number.style.height = height + "px";
+// let number = document.getElementsByName('background-image');
+// number.style.fontSize = height + "px";
 
 // alert('height =' + height + "width" + width);

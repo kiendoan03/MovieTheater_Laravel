@@ -91,22 +91,22 @@
 .card {
     background-color: black;
 }
-/* 
+
 .image-container {
     position: relative;
 }
 
 .background-image,
 .overlay-image {
-    width: 250px;
-    height: 350px;
+    width: 14vmax;
+    height: 20vmax;
     object-fit: cover;
 }
 
 .overlay-image {
     position: absolute;
     top: 0;
-    left: 32%;
+    left: 35%;
     z-index: 1;
     border-radius: 3%;
 }
@@ -121,13 +121,12 @@
     color: #303030;
     position: absolute;
     top: 0;
-    left: -3%;
+    left: -25%;
 }
 
 .overlay-content h1 {
     display: flex;
-    font-size: 415px;
+    font-size: 24vmax;
     font-family: fantasy;
     font-weight: bolder;
-} */
-
+}
