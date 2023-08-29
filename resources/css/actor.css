@@ -47,29 +47,6 @@
     font-size: 3vmax;
 }
 
-.slick-dots {
-    text-align: center;
-}
-
-.slick-dots li {
-    display: inline-block;
-    padding: 1px;
-    background-color: #ccc;
-    margin: 20px 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.slick-dots button {
-    display: none;
-}
-
-.slick-dots li.slick-active {
-    background: red;
-}
-
 .slick-slider img {
     width: 20vmax;
     height: 100%;
@@ -96,5 +73,5 @@
 }
 
 .card {
-    background-color: black;
+    background-color: transparent;
 }

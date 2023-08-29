@@ -3,6 +3,7 @@ $('.slider').slick({
     centerPadding: '100px',
     slidesToShow: 3,
     dots: true,
+    speed: 1000,
     autoplay: true,
     arrows: false,
     responsive: [{
@@ -10,6 +11,7 @@ $('.slider').slick({
         settings: {
             arrows: false,
             centerMode: true,
+            speed: 1000,
             centerPadding: '40px',
             slidesToShow: 3
         }
@@ -18,6 +20,7 @@ $('.slider').slick({
         settings: {
             arrows: false,
             centerMode: true,
+            speed: 1000,
             centerPadding: '40px',
             slidesToShow: 1
         }
