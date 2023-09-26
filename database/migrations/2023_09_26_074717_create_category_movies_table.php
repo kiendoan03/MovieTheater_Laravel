@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category_movies', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            
         });
     }
 
