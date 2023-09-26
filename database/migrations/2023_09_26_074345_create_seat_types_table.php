@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('seat_types', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('type');
+            $table->integer('price');
         });
     }
 
