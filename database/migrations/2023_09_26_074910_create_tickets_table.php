@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('final_price');
+            $table->foreignId('schedule_id')->constrained('schedules');
+            $table->foreignId('seat_id')->constrained('seats');
+            $table->foreignId('customer_id')->constrained('customers');
+            $table->foreignId('staff_id')->constrained('staff');
         });
     }
 
