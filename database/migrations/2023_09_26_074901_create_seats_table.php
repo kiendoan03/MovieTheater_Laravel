@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('number');
+            $table->foreignId('type_id')->constrained('seat_types');
         });
     }
 
