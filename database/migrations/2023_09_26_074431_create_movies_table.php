@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('movie_name');
             $table->float('rating',2,1);
             $table->string('description');
-            $table->text('image');
+            $table->text('poster_img');
+            $table->text('thumbnail_img');
             $table->string('language');
             $table->integer('length');
             $table->date('release_date');
