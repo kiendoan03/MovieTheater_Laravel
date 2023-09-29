@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,125 +10,127 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="/admin/admin_resource/css/custom.css">
 </head>
-<body>
-    
+
+<body style="background-color: black;">
+
     <div class="container-fluid">
         <div class="row">
-             <!-- Header -->
+            <!-- Header -->
 
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="../public/img/ThinkPro-Logo-PNG cut.png" alt="" height="35" class="d-inline-block align-text-top">
-                </a>
-                <div class="dropdown d-flex">
-                    <div class=" d-flex">
-                        <i class="fa-solid fa-user my-auto mx-3"></i>
-                        <p class="my-auto">Admin</p>
-                    </div>
-                    <button class="dropdown-toggle bg-transparent border-0" style="outline:none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <nav class="navbar navbar-expand-lg fixed-top " style="background-color: black;">
+                <div class="container mx-auto p-0">
+                    <a class="navbar-brand" href="#">
+                        <img src="../../../../public/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
+                    </a>
+                    <div class="dropdown d-flex">
+                        <div class=" d-flex">
+                            <i class="fa-solid fa-user my-auto mx-3 text-light"></i>
+                            <p class="my-auto text-light">Admin</p>
+                        </div>
+                        <button class="dropdown-toggle bg-transparent border-0 text-light" style="outline:none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     </button>
-                    <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="?controller=admin&redirect=profile">Profile</a></li>
-                      <li><a class="dropdown-item d-block" href="?controller=login&action=logout">Logout</a></li>
-                    </ul>
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item text-light bg-dark" href="">Profile</a></li>
+                            <li><a class="dropdown-item d-block text-light bg-dark" href="">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         </div>
         <div class="row">
-            <div class="col-10 mx-auto"  style="margin-top:5em;">
-                <div class="row">
-                    <div class="col-3 shadow p-3 bg-body rounded mb-3 min-vh-100">
+            <div class="col-10 mx-auto" style="margin-top:5em;">
+                <div class="row ">
+                    <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">
                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
-                            <a href="" class="btn border-0 rounded text-start" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start" tabindex="-1" role="button" aria-disabled="true">Member management</a>
-                            <a href="" class="btn border-0 rounded text-start" tabindex="-1" role="button" aria-disabled="true">Category management</a>
-                            <a href="" class="btn border-0 rounded text-start bg-primary text-light" tabindex="-1" role="button" aria-disabled="true">Product management</a>
-                            <a href="" class="btn border-0 rounded text-start" tabindex="-1" role="button" aria-disabled="true">Order management</a>
-                        
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Sataff management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Category management</a>
+                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Order management</a>
+
                         </div>
                     </div>
                     <div class="col-9">
 
                         <!-- Title -->
-                         <div class="row">
+                        <div class="row">
                             <div class="col">
-                                <h2 class="text-muted">Product management site</h2>
+                                <h2 class="text-light">Movies management site</h2>
                             </div>
-                         </div>
+                        </div>
 
-                         <!-- Main -->
-                         <div class="row">
+                        <!-- Main -->
+                        <div class="row">
 
                             <div class="container-fluid">
                                 <form class="d-flex my-1" method="GET" action="">
-                                <input class="d-none" name = "controller" value="">
-                                <input class="d-none" name = "redirect" value="">
-                                <input class="d-none" name = "action" value="search">
-                                <input class="form-control me-2" type="search" name="search" placeholder="Search">
-                                <button class="btn btn-outline-info" type="submit" name = "search_btn">Search</button>
-                              </form>
+                                    <input class="d-none" name="controller" value="">
+                                    <input class="d-none" name="redirect" value="">
+                                    <input class="d-none" name="action" value="search">
+                                    <input class="form-control me-2 bg-dark shadow-none border-0 text-light" type="search" name="search" placeholder="Search">
+                                    <button class="btn btn-outline-danger" type="submit" name="search_btn">Search</button>
+                                </form>
                             </div>
 
-                         </div>
+                        </div>
 
-                         <div class="row">
+                        <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-success my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i>
-                                    New product
+                                <a href="" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
+                                    <i class="fa-solid fa-plus"></i> New product
                                 </a>
                             </div>
-                         </div>
+                        </div>
 
-                         <div class="row">
+                        <div class="row">
 
                             <div class="col">
-                                <table class="table my-3">
+                                <table class="table my-3 text-light">
                                     <thead>
-                                      <tr>
-                                        <th scope="col">No</th>
-                                        <th scope="col">Product name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Product image</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Action</th>
-                                      </tr>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Product name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Product image</th>
+                                            <th scope="col">Category</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
 
-                                  
-                                            <tr>
-                                            <th scope="row" class = "col-1"> 8  </th>
-                                            <td class="col-3"> 8  </td>
-                                            <td class="col-2"> 8 vnd</td>
+
+                                        <tr>
+                                            <th scope="row" class="col-1">7</th>
+                                            <td class="col-3">7 </td>
+                                            <td class="col-2"> 7 vnd</td>
                                             <td class="col-2">
-                                                <img class="col-12" src="public/upload/ ">
+                                                <img class="col-12" src="">
                                             </td>
                                             <td class="col-2">
-                                                 8
+                                                7
                                             </td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-primary my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
                                                 <a href="" type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
-                                               
+
                                             </td>
-                                          </tr>
-                                    
+                                        </tr>
+
+
 
                                     </tbody>
-                                  </table>
+                                </table>
 
-                                
-                               
+
+
+
                             </div>
 
-                         </div>
+                        </div>
 
                     </div>
                 </div>
@@ -138,4 +141,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

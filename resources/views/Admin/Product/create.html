@@ -8,7 +8,8 @@
     <title>ThinkPro-Member Management-Add Product</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <!-- <script src="public/vendor/ckeditor/ckeditor.js"></script> -->
+    <script src="../../../../public/vendor/ckeditor/ckeditor.js"></script>
+
     <style>
         input::file-selector-button {
             font-weight: bold;
@@ -22,7 +23,7 @@
         <div class="row">
             <!-- Header -->
 
-            <nav class="navbar navbar-expand-lg fixed-top ">
+            <nav class="navbar navbar-expand-lg fixed-top " style="background-color: black;">
                 <div class="container  mx-auto p-0">
                     <a class="navbar-brand" href="#">
                         <img src="../../../../public/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
@@ -138,7 +139,7 @@
 
                                         <div class="mb-3">
                                             <label for="floatingTextarea" class="text-light form-label">Description</label>
-                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="product_description" name="product_description"></textarea>
+                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
                                         </div>
                                     </div>
 
@@ -149,15 +150,15 @@
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
-                                                <div class="row my-3">
-                                                    <img id="poster_img" class=" rounded-3" src="Public/images/no_image.jpg" />
+                                                <div class="row my-3" style="width: 15vmax;">
+                                                    <img id="poster_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../public/img/poster_film/no_img_poster.jpg" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="thumbnail" class="form-label text-light">Thubnail</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()" required>
                                                 <div class="row  my-3">
-                                                    <img id="thumbnail_img" class=" rounded-3" src="Public/images/no_image.jpg" />
+                                                    <img id="thumbnail_img" class=" rounded-3" src="../../../../public/img/movieThumbnail/no_image_thumbnail.png" />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -182,7 +183,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
-        CKEDITOR.replace(product_description);
+        CKEDITOR.replace(movie_description);
     </script>
     <script>
         function show_poster() {
