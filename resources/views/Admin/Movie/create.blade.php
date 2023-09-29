@@ -22,10 +22,10 @@
         <div class="row">
             <!-- Header -->
 
-            <nav class="navbar navbar-expand-lg fixed-top ">
+            <nav class="navbar navbar-expand-lg fixed-top" style="background-color: black">
                 <div class="container  mx-auto p-0">
                     <a class="navbar-brand" href="#">
-                        <img src="../../../../public/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
+                        <img src="img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
                     <div class="dropdown d-flex">
                         <div class=" d-flex">
@@ -77,11 +77,6 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_price" class="form-label text-light">Language</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_price" name="product_price" required>
-                                        </div>
-
-                                        <div class="mb-3">
                                             <label for="product_promotion" class="form-label text-light">Length(m)</label>
                                             <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
                                         </div>
@@ -89,6 +84,19 @@
                                         <div class="mb-3">
                                             <label for="product_promotion" class="form-label text-light">Age</label>
                                             <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="language" class="form-label text-light">Language</label>
+                                            <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="language">
+                                                        <!-- Get all category -->
+                                                    
+
+                                                        <option value= "7">7 </option>
+
+                                                    
+
+                                                </select>
                                         </div>
 
                                         <div class="mb-3">

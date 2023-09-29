@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [App\Http\Controllers\MovieController::class, 'create']) -> name('movie.add');
+
+Route::prefix('Admin/Movie/') -> group(function(){
+    Route::get('/create', [App\Http\Controllers\MovieController::class, 'create']) -> name('movie.create');
+
 });
+
+
