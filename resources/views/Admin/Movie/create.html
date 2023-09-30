@@ -50,11 +50,13 @@
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">
                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Sataff management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Customer management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Category management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
+                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9 ">
@@ -75,27 +77,27 @@
 
                                         <div class="mb-3">
                                             <label for="movie_name " class="form-label text-light">Movie name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="product_name" name="product_name" required>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_price" class="form-label text-light">Language</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="product_price" name="product_price" required>
+                                            <label for="movie_language" class="form-label text-light">Language</label>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_language" name="movie_language" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Length(m)</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
+                                            <label for="movie_length" class="form-label text-light">Length(m)</label>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Age</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
+                                            <label for="movie_age" class="form-label text-light">Age</label>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="category_select" class="form-label text-light">Film genre</label>
-                                            <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="product_category">
+                                            <label for="film_genre" class="form-label text-light">Film genre</label>
+                                            <select id="film_genre" class="form-select bg-dark border-0 shadow-none text-light" name="film_genre">
                                                         <!-- Get all category -->
                                                     
 
@@ -108,8 +110,8 @@
 
 
                                         <div class="mb-3">
-                                            <label for="actors" class="form-label text-light">Actors</label>
-                                            <select id="actors" class="form-select bg-dark border-0 shadow-none text-light" name="actors">
+                                            <label for="actor" class="form-label text-light">Actors</label>
+                                            <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="actor">
                                                         <!-- Get all category -->
                                                     
 
@@ -121,8 +123,8 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="directors" class="form-label text-light">Directors</label>
-                                            <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="directors">
+                                            <label for="director" class="form-label text-light">Directors</label>
+                                            <select id="director" class="form-select bg-dark border-0 shadow-none text-light" name="director">
                                                         <!-- Get all category -->
                                                     
 
@@ -134,7 +136,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Release date</label>
+                                            <label for="movie_release_date" class="form-label text-light">Release date</label>
                                             <input type="datetime-local" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" name="movie_release_date" required>
                                         </div>
 
