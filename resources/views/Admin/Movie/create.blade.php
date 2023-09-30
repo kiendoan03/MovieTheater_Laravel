@@ -66,29 +66,32 @@
 
                         <!-- Main -->
                         <div class="row">
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                            <form role="form" method="post" action="{{route('admin.movies.store')}}" enctype="multipart/form-data">
+                                
+                                @csrf
+                                
                                 <div class="row">
                                     <div class="col-8">
 
 
                                         <div class="mb-3">
                                             <label for="movie_name " class="form-label text-light">Movie name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="product_name" name="product_name" required>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Length(m)</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
+                                            <label for="movie_length" class="form-label text-light">Length(m)</label>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Age</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="product_promotion" name="product_promotion" required>
+                                            <label for="movie_age" class="form-label text-light">Age</label>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" required>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="language" class="form-label text-light">Language</label>
-                                            <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="language">
+                                            <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="movie_language">
                                                         <!-- Get all category -->
                                                     
 
@@ -101,7 +104,7 @@
 
                                         <div class="mb-3">
                                             <label for="category_select" class="form-label text-light">Film genre</label>
-                                            <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="product_category">
+                                            <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
                                                         <!-- Get all category -->
                                                     
 
@@ -114,8 +117,8 @@
 
 
                                         <div class="mb-3">
-                                            <label for="actors" class="form-label text-light">Actors</label>
-                                            <select id="actors" class="form-select bg-dark border-0 shadow-none text-light" name="actors">
+                                            <label for="actor" class="form-label text-light">Actors</label>
+                                            <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="movie_actor">
                                                         <!-- Get all category -->
                                                     
 
@@ -128,7 +131,7 @@
 
                                         <div class="mb-3">
                                             <label for="directors" class="form-label text-light">Directors</label>
-                                            <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="directors">
+                                            <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="movie_director">
                                                         <!-- Get all category -->
                                                     
 
@@ -140,13 +143,13 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="product_promotion" class="form-label text-light">Release date</label>
+                                            <label for="movie_release_date" class="form-label text-light">Release date</label>
                                             <input type="datetime-local" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" name="movie_release_date" required>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="floatingTextarea" class="text-light form-label">Description</label>
-                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="product_description" name="product_description"></textarea>
+                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
                                         </div>
                                     </div>
 
@@ -156,28 +159,28 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
                                                 <div class="row my-3">
                                                     <img id="poster_img" class=" rounded-3" src="Public/images/no_image.jpg" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="thumbnail" class="form-label text-light">Thubnail</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="movie_thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()" required>
                                                 <div class="row  my-3">
                                                     <img id="thumbnail_img" class=" rounded-3" src="Public/images/no_image.jpg" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="trailer" class="form-label text-light">Trailer</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="trailer[]" onchange="loadFile(event)" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="movie_trailer" onchange="loadFile(event)" required>
                                                 <div id="trailers_preview" class="my-3"></div>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Upload" name="submit_btn"></input>
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Upload" name="submit_btn">
                             </form>
                         </div>
 
@@ -208,12 +211,7 @@
         function loadFile(event) {
             let output = document.getElementById('trailers_preview');
             output.innerHTML = '';
-            console.log([...event.target.files]);
-            [...event.target.files].forEach(
-                (file) => (output.innerHTML += video(URL.createObjectURL(file)))
-            );
-            // output.src = URL.createObjectURL(event.target.files[0]);
-            console.log(output.src);
+            output.innerHTML += video(URL.createObjectURL(event.target.files[0]))
             output.onload = function() {
                 URL.revokeObjectURL(output.src) // free memory
             }

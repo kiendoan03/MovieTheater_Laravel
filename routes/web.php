@@ -12,4 +12,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::prefix('Admin/Movie')->name('admin.')->group(function () {
+    Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
+    Route::post('/create', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
+});
 
