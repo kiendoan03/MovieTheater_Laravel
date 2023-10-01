@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Member Management - Edit Category</title>
+    <title>Netfnix - Category Management - Edit Category</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -69,7 +69,7 @@
                                         <label for="category_name" class="form-label text-light">Category name</label>
                                         <input type="text" class="form-control bg-dark text-light border-0 shadow-none" id="category_name" name="category_name" required>
                                     </div>
-                                    <input type="submit" class="btn btn-danger my-3 col-2" value="Add" name="submit_btn"></input>
+                                    <input type="submit" class="btn btn-danger my-3 col-2" value="Edit" name="submit_btn"></input>
                                 </form>
                             </div>
                         </div>
