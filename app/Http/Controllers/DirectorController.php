@@ -15,7 +15,12 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        return view('admin.director.main');
+        $directors = Director::all();
+
+        return view('admin.director.main',[
+            'directors' => $directors,
+        
+        ]);
     }
 
     /**
@@ -42,6 +47,8 @@ class DirectorController extends Controller
         $array = Arr::add($array, 'director_image', $director_img);
 
         Director::create($array);
+
+        return redirect()->route('admin.directors.index');
     }
 
     /**
@@ -57,7 +64,9 @@ class DirectorController extends Controller
      */
     public function edit(Director $director)
     {
-        //
+        return view('admin.director.edit',[
+            'director' => $director,
+        ]);   
     }
 
     /**
@@ -65,7 +74,23 @@ class DirectorController extends Controller
      */
     public function update(UpdateDirectorRequest $request, Director $director)
     {
-        //
+        if($request->hasFile('director_img')){
+            $director_img = $request->file('director_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/director/'.$director_img)){
+                Storage::putFileAs('public/img/director/', $request->file('director_img'), $director_img);
+            }
+        }else{
+            $director_img = $director->director_image;
+        } 
+
+        $array = [];
+        $array = Arr::add($array, 'director_name', $request->director_name);
+        $array = Arr::add($array, 'director_image', $director_img);
+
+        $director->update($array);
+
+        return redirect()->route('admin.directors.index');
     }
 
     /**
@@ -73,6 +98,8 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
-        //
+        $director->delete();
+
+        return redirect()->route('admin.directors.index');
     }
 }

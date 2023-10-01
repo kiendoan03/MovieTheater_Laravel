@@ -89,22 +89,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                    
+                                    @foreach($categories as $category)
 
                                         <tr>
-                                            <th scope="row" class="col-1">7 </th>
-                                            <td class="col-9"> 7 </td>
+                                            <th scope="row" class="col-1">{{$category -> id}}</th>
+                                            <td class="col-9"> {{$category -> category_name}} </td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                <a href="{{route('admin.categories.edit', $category)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="" type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <form class="d-inline" method="post" action="{{route('admin.categories.destroy', $category)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
 
                                             </td>
                                         </tr>
 
+                                    @endforeach
 
 
                                     </tbody>
