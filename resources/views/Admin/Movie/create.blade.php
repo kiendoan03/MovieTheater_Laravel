@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Member Management - Upload movie</title>
+    <title>Netfnix - Movie Management - Upload movie</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -49,11 +49,13 @@
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">
                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Sataff management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Category management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Order management</a>
-
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
+                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9 ">
