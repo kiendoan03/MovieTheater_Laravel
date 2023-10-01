@@ -16,3 +16,10 @@ Route::prefix('Admin/Movie')->name('admin.')->group(function () {
     Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
     Route::post('/create', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
 });
+ 
+Route::prefix('Login')->name('login.')->group(function(){
+    Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('index');
+    Route::get('/register', [App\Http\Controllers\CustomerController::class, 'create'])->name('create');
+    Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'store'])->name('store');
+
+});

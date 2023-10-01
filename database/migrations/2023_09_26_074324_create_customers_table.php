@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('customer_username');
             $table->string('customer_password');
             $table->string('customer_avatar');
-            $table->string('customer_date_of_birth');
+            $table->date('customer_date_of_birth');
         });
     }
 
