@@ -65,17 +65,13 @@
                         <div class="row">
 
                             <div class="container-fluid">
-                                <!-- <form class="d-flex my-1">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-info" type="submit">Search</button>
-                              </form> -->
                             </div>
 
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
+                                <a href="{{route('admin.categories.create')}}" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
                                     <i class="fa-solid fa-plus"></i> New category
                                 </a>
                             </div>

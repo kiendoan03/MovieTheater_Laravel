@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Member Management - Actor</title>
+    <title>Netfnix - Member Management - Directors</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -49,8 +49,8 @@
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -58,7 +58,7 @@
                         <!-- Title -->
                         <div class="row">
                             <div class="col">
-                                <h2 class="text-light">Actors management site</h2>
+                                <h2 class="text-light">Directors management site</h2>
                             </div>
                         </div>
 
@@ -79,8 +79,8 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New actor
+                                <a href="{{route('admin.directors.create')}}" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
+                                    <i class="fa-solid fa-plus"></i> New director
                                 </a>
                             </div>
                         </div>
@@ -92,8 +92,8 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Actor name</th>
-                                            <th scope="col">ACtor image</th>
+                                            <th scope="col">Director name</th>
+                                            <th scope="col">Director image</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>

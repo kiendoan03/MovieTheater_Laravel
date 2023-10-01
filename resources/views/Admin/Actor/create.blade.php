@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Member Management - Add director</title>
+    <title>Netfnix - Member Management - Add actor</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -55,8 +55,8 @@
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9 ">
@@ -64,24 +64,20 @@
                         <!-- Title -->
                         <div class="row">
                             <div class="col">
-                                <h2 class="text-light mb-4">Add director</h2>
+                                <h2 class="text-light mb-4">Add Actor</h2>
                             </div>
                         </div>
 
                         <!-- Main -->
                         <div class="row">
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                            <form role="form" method="post" action="{{route('admin.actors.store')}}" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="mb-3">
-                                            <label for="director_name" class="form-label text-light">Director name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="director" name="director_name" required>
+                                            <label for="actor_name" class="form-label text-light">Actor name</label>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="actor" name="actor_name" required>
                                         </div>
-
-                                        <!-- <div class="mb-3">
-                                            <label for="floatingTextarea" class="text-light form-label">Description</label>
-                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
-                                        </div> -->
                                     </div>
 
                                     <!-- File img -->
@@ -89,16 +85,17 @@
 
                                         <div class="col-12">
                                             <div class="row">
-                                                <label for="image" class="form-label text-light">Director image</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="image" name="director_img" accept="image/png, image/jpg, image/jpeg" onchange="show_img()" required>
+                                                <label for="image" class="form-label text-light">Actor image</label>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="image" name="actor_img" accept="image/png, image/jpg, image/jpeg" onchange="show_img()" required>
                                                 <div class="row my-3" style="width: 15vmax;">
-                                                    <img id="director_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../public/img/poster_film/no_img_poster.jpg" />
+                                                    <img id="actor_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../public/img/poster_film/no_img_poster.jpg" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Add" name="submit_btn"></input>
+
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Add" name="submit_btn">
                             </form>
                         </div>
 
@@ -115,7 +112,7 @@
     </script>
     <script>
         function show_img() {
-            director_img.src = URL.createObjectURL(event.target.files[0]);
+            actor_img.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
 </body>

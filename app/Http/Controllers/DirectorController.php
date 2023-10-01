@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Director;
 use App\Http\Requests\StoreDirectorRequest;
 use App\Http\Requests\UpdateDirectorRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class DirectorController extends Controller
 {
@@ -13,7 +15,7 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.director.main');
     }
 
     /**
@@ -21,7 +23,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.director.create');
     }
 
     /**
@@ -29,7 +31,17 @@ class DirectorController extends Controller
      */
     public function store(StoreDirectorRequest $request)
     {
-        //
+        $director_img = $request->file('director_img')-> getClientOriginalName();
+
+        if(!Storage::exists('public/img/director/'.$director_img)){
+            Storage::putFileAs('public/img/director/', $request->file('director_img'), $director_img);
+        }
+
+        $array = [];
+        $array = Arr::add($array, 'director_name', $request->director_name);
+        $array = Arr::add($array, 'director_image', $director_img);
+
+        Director::create($array);
     }
 
     /**

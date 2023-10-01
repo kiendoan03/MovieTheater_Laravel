@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('directors', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('director_name');
             $table->text('director_image');
         });

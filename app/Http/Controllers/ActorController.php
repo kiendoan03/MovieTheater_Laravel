@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class ActorController extends Controller
 {
@@ -13,7 +15,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.actor.main');
     }
 
     /**
@@ -21,7 +23,7 @@ class ActorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.actor.create');
     }
 
     /**
@@ -29,7 +31,17 @@ class ActorController extends Controller
      */
     public function store(StoreActorRequest $request)
     {
-        //
+        $actor_img = $request->file('actor_img')-> getClientOriginalName();
+
+        if(!Storage::exists('public/img/actor/'.$actor_img)){
+            Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+        }
+
+        $array = [];
+        $array = Arr::add($array, 'actor_name', $request->actor_name);
+        $array = Arr::add($array, 'actor_image', $actor_img);
+
+        Actor::create($array);
     }
 
     /**
