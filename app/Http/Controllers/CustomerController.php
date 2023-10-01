@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Arr;
 class CustomerController extends Controller
 {
     /**
@@ -14,6 +15,7 @@ class CustomerController extends Controller
     public function index()
     {
         //
+        return view('Login.login');
     }
 
     /**
@@ -22,6 +24,7 @@ class CustomerController extends Controller
     public function create()
     {
         //
+        return view('Login.register');
     }
 
     /**
@@ -30,6 +33,26 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         //
+        $password = $request->password;
+        $re_password = $request->re_password;
+
+        $array = [];
+        $array = Arr::add($array, 'customer_name', $request->full_name);
+        $array = Arr::add($array, 'customer_email', $request->cus_email);
+        $array = Arr::add($array, 'customer_phonenumber', $request->cus_phonenumber);
+        $array = Arr::add($array, 'customer_address', $request->cus_address);
+        $array = Arr::add($array, 'customer_username', $request->user_name);
+         if($password == $re_password){
+            $array = Arr::add($array, 'customer_password', $password);
+        }else{
+            return redirect()->route('login.create');
+        }
+        $array = Arr::add($array, 'customer_avatar', 'avatar_default.jpg');
+        $array = Arr::add($array, 'customer_date_of_birth', $request->date_of_birth);
+
+        Customer::create($array);
+
+        return redirect()->route('login.index');
     }
 
     /**

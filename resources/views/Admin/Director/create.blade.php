@@ -95,6 +95,7 @@
                                     </div>
                                 </div>
                                 <input type="submit" class="btn btn-danger my-2 col-2" value="Add" name="submit_btn">
+
                             </form>
                         </div>
 
