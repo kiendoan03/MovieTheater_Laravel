@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('Admin/Movie')->name('admin.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
     Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
     Route::post('/create', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
 });
