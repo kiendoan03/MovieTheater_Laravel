@@ -9,5 +9,6 @@ class Director extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['director_name','director_image'];
 }

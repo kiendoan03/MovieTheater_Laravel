@@ -70,18 +70,16 @@
 
                         <!-- Main -->
                         <div class="row">
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                            <form role="form" method="post" action="{{route('admin.directors.update', $director)}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="mb-3">
                                             <label for="director_name" class="form-label text-light">Director name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="director" name="director_name" required>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="director" name="director_name" value ="{{$director -> director_name}}" required>
                                         </div>
-
-                                        <!-- <div class="mb-3">
-                                            <label for="floatingTextarea" class="text-light form-label">Description</label>
-                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
-                                        </div> -->
                                     </div>
 
                                     <!-- File img -->
@@ -90,15 +88,15 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <label for="image" class="form-label text-light">Director image</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="image" name="director_img" accept="image/png, image/jpg, image/jpeg" onchange="show_img()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="image" name="director_img" accept="image/png, image/jpg, image/jpeg" onchange="show_img()">
                                                 <div class="row my-3" style="width: 15vmax;">
-                                                    <img id="director_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../public/img/poster_film/no_img_poster.jpg" />
+                                                    <img id="director_img" class=" rounded-3 object-fit-cover mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/'). $director -> director_image)}}" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Add" name="submit_btn"></input>
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Edit" name="submit_btn">
                             </form>
                         </div>
 

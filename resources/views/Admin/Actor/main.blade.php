@@ -48,8 +48,8 @@
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
                             <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
+                            <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -98,21 +98,29 @@
                                     </thead>
                                     <tbody>
 
+                                        @foreach($actors as $actor)
+
                                         <tr>
-                                            <th scope="row" class="col-1">7</th>
-                                            <td class="col-5">7 </td>
+                                            <th scope="row" class="col-1">{{$actor -> id}}</th>
+                                            <td class="col-5"> {{$actor -> actor_name}} </td>
                                             <td class="col-4">
-                                                <img class="col-12" src="">
+                                                <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
                                             </td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                <a href="{{route('admin.actors.edit', $actor)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="" type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <form class="d-inline" method="post" action="{{route('admin.actors.destroy', $actor)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
+
+                                        @endforeach
 
                                     </tbody>
                                 </table>

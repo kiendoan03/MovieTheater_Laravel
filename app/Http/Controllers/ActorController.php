@@ -15,7 +15,11 @@ class ActorController extends Controller
      */
     public function index()
     {
-        return view('admin.actor.main');
+        $actors = Actor::all();
+
+        return view('admin.actor.main',[
+            'actors' => $actors,
+        ]);
     }
 
     /**
@@ -42,6 +46,8 @@ class ActorController extends Controller
         $array = Arr::add($array, 'actor_image', $actor_img);
 
         Actor::create($array);
+
+        return redirect()->route('admin.actors.index');
     }
 
     /**
@@ -57,7 +63,9 @@ class ActorController extends Controller
      */
     public function edit(Actor $actor)
     {
-        //
+        return view('admin.actor.edit',[
+            'actor' => $actor,
+        ]);
     }
 
     /**
@@ -65,7 +73,23 @@ class ActorController extends Controller
      */
     public function update(UpdateActorRequest $request, Actor $actor)
     {
-        //
+        if($request->hasFile('actor_img')){
+            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/actor/'.$actor_img)){
+                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            }
+        }else{
+            $actor_img = $actor->actor_image;
+        }
+
+        $array = [];
+        $array = Arr::add($array, 'actor_name', $request->actor_name);
+        $array = Arr::add($array, 'actor_image', $actor_img);
+
+        $actor->update($array);
+
+        return redirect()->route('admin.actors.index');
     }
 
     /**
@@ -73,6 +97,8 @@ class ActorController extends Controller
      */
     public function destroy(Actor $actor)
     {
-        //
+        $actor->delete();
+
+        return redirect()->route('admin.actors.index'); 
     }
 }

@@ -9,5 +9,6 @@ class Actor extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $fillable = ['actor_name','actor_image'];
 }
