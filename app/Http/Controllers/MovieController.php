@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Models\Actor;
+use App\Models\Category;
+use App\Models\Director;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,8 +25,17 @@ class MovieController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('Admin.Movie.create');
+    {   
+        $movies = Movie::all();
+        $actors = Actor::all();
+        $directors = Director::all();
+        $categories = Category::all();
+        return view('Admin.Movie.create',[
+            'movies' => $movies,
+            'actors' => $actors,
+            'directors' => $directors,
+            'categories' => $categories,
+        ]);
     }
 
     /**

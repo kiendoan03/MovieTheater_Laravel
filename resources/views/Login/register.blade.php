@@ -17,7 +17,7 @@
         <div class="row" style="padding-top:10em;">
             <div class="col-6 mx-auto">
 
-                <h2 class="text-danger text-center">Register</h2>
+                <h2 class="text-light text-center">Register</h2>
                 <form method="post" class="" action="{{route('login.store')}}">
                     @csrf
                     <div class="fs-5 my-3 text-white border-0 border-bottom pb-2 border-light d-none">

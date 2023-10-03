@@ -96,26 +96,24 @@
                                             <label for="language" class="form-label text-light">Language</label>
                                             <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="movie_language">
                                                         <!-- Get all category -->
-                                                    
-
-                                                        <option value= "7">7 </option>
-
-                                                    
-
+                                                        <option value= "0">English</option>
+                                                        <option value= "1">Vietnamese</option>
                                                 </select>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="category_select" class="form-label text-light">Film genre</label>
+                                            
                                             <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
                                                         <!-- Get all category -->
-                                                    
+                                                    @foreach($categories as $cate)
 
-                                                        <option value= "7">7 </option>
+                                                        <option value= "{{$actor -> id}}">{{$cate -> category_name}}</option>
 
-                                                    
+                                                     @endforeach
 
-                                                </select>
+                                            </select>
+
                                         </div>
 
 
@@ -124,10 +122,11 @@
                                             <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="movie_actor">
                                                         <!-- Get all category -->
                                                     
+                                                        @foreach($actors as $actor)
 
-                                                        <option value= "7">7 </option>
+                                                            <option value= "{{$actor -> id}}">{{$actor -> actor_name}}</option>
 
-                                                    
+                                                        @endforeach
 
                                                 </select>
                                         </div>
@@ -138,8 +137,11 @@
                                                         <!-- Get all category -->
                                                     
 
-                                                        <option value= "7">7 </option>
+                                                        @foreach($directors as $director)
 
+                                                            <option value= "{{$director -> id}}">{{$director -> director_name}}</option>
+
+                                                        @endforeach
                                                     
 
                                                 </select>
