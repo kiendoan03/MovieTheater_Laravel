@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Staff;
 use App\Http\Requests\StoreStaffRequest;
+use Illuminate\Support\Arr;
 use App\Http\Requests\UpdateStaffRequest;
+use Illuminate\Support\Facades\Storage;
 
 class StaffController extends Controller
 {
@@ -14,6 +16,12 @@ class StaffController extends Controller
     public function index()
     {
         //
+        $staffs = Staff::all();
+
+        return view('admin.staff.main',[
+            'staffs' => $staffs,
+        ]);
+        return view('admin.staff.main');
     }
 
     /**
@@ -22,6 +30,7 @@ class StaffController extends Controller
     public function create()
     {
         //
+        return view('admin.staff.create');
     }
 
     /**
@@ -30,6 +39,33 @@ class StaffController extends Controller
     public function store(StoreStaffRequest $request)
     {
         //
+        $password = $request->staff_password;
+        $re_password = $request->staff_re_psw;
+
+        $staff_img = $request->file('staff_img')-> getClientOriginalName();
+
+        if(!Storage::exists('public/img/staff/'.$staff_img)){
+            Storage::putFileAs('public/img/staff/', $request->file('staff_img'), $staff_img);
+        }
+
+        $array = [];
+        $array = Arr::add($array, 'staff_name', $request->staff_full_name);
+        $array = Arr::add($array, 'staff_email', $request->staff_email);
+        $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
+        $array = Arr::add($array, 'staff_address', $request->staff_address);
+        $array = Arr::add($array, 'staff_username', $request->staff_username);
+         if($password == $re_password){
+            $array = Arr::add($array, 'staff_password', $password);
+        }else{
+            return redirect()->route('admin.staffs.create');
+        }
+        $array = Arr::add($array, 'staff_avatar', $staff_img);
+        $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
+        $array = Arr::add($array, 'staff_role', $request->staff_role);
+
+        Staff::create($array);
+
+        return redirect()->route('admin.staffs.index');
     }
 
     /**
@@ -46,6 +82,9 @@ class StaffController extends Controller
     public function edit(Staff $staff)
     {
         //
+        return view('admin.staff.edit',[
+            'staff' => $staff,
+        ]);
     }
 
     /**
@@ -54,6 +93,37 @@ class StaffController extends Controller
     public function update(UpdateStaffRequest $request, Staff $staff)
     {
         //
+        if($request->hasFile('staff_img')){
+            $staff_img = $request->file('staff_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/staff/'.$staff_img)){
+                Storage::putFileAs('public/img/staff/', $request->file('staff_img'), $staff_img);
+            }
+        }else{
+            $staff_img = $staff->staff_avatar;
+        }
+
+        $password = $request->staff_pssw;
+        $re_password = $request->staff_re_pssw;
+
+        $array = [];
+        $array = Arr::add($array, 'staff_name', $request->staff_full_name);
+        $array = Arr::add($array, 'staff_email', $request->staff_email);
+        $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
+        $array = Arr::add($array, 'staff_address', $request->staff_address);
+        $array = Arr::add($array, 'staff_username', $request->staff_username);
+         if($password == $re_password){
+            $array = Arr::add($array, 'staff_password', $password);
+        }else{
+            return redirect()->route('admin.staffs.update', $staff);
+        }
+        $array = Arr::add($array, 'staff_avatar', $staff_img);
+        $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
+        $array = Arr::add($array, 'staff_role', $request->staff_role);
+
+        $staff->update($array);
+
+        return redirect()->route('admin.staffs.index');
     }
 
     /**
@@ -62,5 +132,8 @@ class StaffController extends Controller
     public function destroy(Staff $staff)
     {
         //
+        $staff->delete();
+
+        return redirect()->route('admin.staffs.index'); 
     }
 }

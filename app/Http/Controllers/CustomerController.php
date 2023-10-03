@@ -59,14 +59,14 @@ class CustomerController extends Controller
          if($password == $re_password){
             $array = Arr::add($array, 'customer_password', $password);
         }else{
-            return redirect()->route('login.create');
+            return redirect()->route('login.register');
         }
         $array = Arr::add($array, 'customer_avatar', 'avatar_default.jpg');
         $array = Arr::add($array, 'customer_date_of_birth', $request->date_of_birth);
 
         Customer::create($array);
 
-        return redirect()->route('login.index');
+        return redirect()->route('login.login');
     }
 
     /**

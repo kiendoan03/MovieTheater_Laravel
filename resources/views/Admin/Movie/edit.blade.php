@@ -96,14 +96,11 @@
                                             <label for="language" class="form-label text-light">Language</label>
                                             <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="movie_language">
                                                         <!-- Get all category -->
-                                                        @foreach($movie as $movie)
-                                                            if($movie -> language == 1){
-                                                              <option hidden value= "1">Vietnamese</option>
-                                                            }else{
-                                                              <option hidden value= "0">English</option>
-                                                            }
-
-                                                        @endforeach
+                                                        @if($movie -> language == 0)
+                                                          <option value = "0" hidden class="text-light">English</option>
+                                                        @else
+                                                          <option value = "1" hidden class="text-light ">Vietnamese</option>
+                                                        @endif
                                                         <option value= "0">English</option>
                                                         <option value= "1">Vietnamese</option>
                                                 </select>

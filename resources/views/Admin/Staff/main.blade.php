@@ -74,7 +74,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
+                                <a href="{{route('admin.staffs.create')}}" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
                                     <i class="fa-solid fa-plus"></i> New user
                                 </a>
                             </div>
@@ -94,23 +94,45 @@
                                     </thead>
                                     <tbody>
 
+                                    @foreach($staffs as $staff)
+
                                         <tr>
-                                            <th scope="row" class="col-1"> a</th>
-                                            <td class="col-3">a </td>
-                                            <td class="col-2">a </td>
-                                            <td class="col-2">a </td>
-                                            <td class="col-2">a </td>
+                                            <th scope="row" class="col-1">{{$staff -> id}}</th>
+                                            <td class="col-3">{{$staff -> staff_name}}</td>
+                                            <td class="col-2">{{$staff -> staff_email}}</td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                            @if ($staff -> staff_role == 0)
+                                                Manager
+                                            @else 
+                                                Staff
+                                            @endif
+                                            </td>
+                                            <!-- {(
+                                            if($staff -> staff_role == 0){
+                                                <td class="col-2">Manager</td>
+                                            }else{
+                                                <td class="col-2">Staff</td>
+                                            })} -->
+                                            <td class="col-2">
+                                            <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/'). $staff -> staff_avatar)}}">
+                                            </td>
+                                            <td class="col-2">
+                                                <a href="{{route('admin.staffs.edit',$staff)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href=" " type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <form class="d-inline" method="post" action="{{route('admin.staffs.destroy', $staff)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
 
                                             </td>
                                         </tr>
 
+                                        @endforeach
+                                    
                                     </tbody>
                                 </table>
 

@@ -68,7 +68,10 @@
                         <!-- Main -->
                         <div class="row">
                             <div class="col-10">
-                                <form role="form" method="post" action="">
+                                <form role="form" method="post" action="{{route('admin.staffs.store')}}" enctype="multipart/form-data">
+
+                                @csrf
+
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="alert alert-danger d-none" role="alert">
@@ -106,19 +109,20 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_password" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_psw" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="role_select" class="form-label text-light">Select role</label>
                                                 <select id="role_select" class="form-select bg-dark shadow-none border-0 text-light" name="staff_role">
-                                          <option value = "0" class="text-light">Management</option>
-                                          <option value = "1" selected class="text-light ">Staff</option>
-                                        </select>
+                                                    <option value = "1" class="text-light ">Staff</option>
+                                                    <option value = "0" class="text-light">Manager</option>
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -134,7 +138,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-success my-2 col-2">Add</button>
+                                    <button type="submit" class="btn btn-danger my-2 col-2">Add</button>
                                 </form>
                             </div>
                         </div>

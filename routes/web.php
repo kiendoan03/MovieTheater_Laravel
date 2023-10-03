@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\StaffController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,4 +65,13 @@ Route::prefix('Admin/Customer')->name('admin.')->group(function(){
     Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
     Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
     Route::get('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'showAdminSite'])->name('customers.show');
+});
+
+Route::prefix('Admin/Staff')->name('admin.')->group(function(){
+    Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('staffs.index');
+    Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.create');
+    Route::post('/create', [App\Http\Controllers\StaffController::class, 'store'])->name('staffs.store');
+    Route::get('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staffs.edit');
+    Route::put('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'update'])->name('staffs.update');
+    Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy');
 });
