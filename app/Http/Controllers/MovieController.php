@@ -102,11 +102,15 @@ class MovieController extends Controller
         $actors = Actor::all();
         $directors = Director::all();
         $categories = Category::all();
+        $date =  $movie->release_date;
+        // dd($movie->release_date);
         return view('Admin.Movie.edit',[
             'movie' => $movie,
             'actors' => $actors,
             'directors' => $directors,
             'categories' => $categories,
+            'date' => $date,
+
         ]);
     }
 

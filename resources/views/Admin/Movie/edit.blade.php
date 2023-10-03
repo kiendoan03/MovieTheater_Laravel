@@ -143,7 +143,7 @@
 
                                         <div class="mb-3">
                                             <label for="movie_release_date" class="form-label text-light">Release date</label>
-                                            <input type="datetime-local" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" value="" name="movie_release_date"  required>
+                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" value="{{$date}}" name="movie_release_date"  required>
                                         </div>
 
                                         <div class="mb-3">
