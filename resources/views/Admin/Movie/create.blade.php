@@ -162,7 +162,7 @@
                                     <div class="col-4">
 
                                         <div class="col-12">
-                                        <div class="row">
+                                            <div class="row">
                                                 <label for="poster" class="form-label text-light">Logo</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_logo" accept="image/png, image/jpg, image/jpeg" onchange="show_logo()" required>
                                                 <div class="row my-3">

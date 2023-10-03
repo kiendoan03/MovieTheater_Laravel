@@ -156,6 +156,13 @@
                                     <div class="col-4">
 
                                         <div class="col-12">
+                                           <div class="row">
+                                                <label for="poster" class="form-label text-light">Logo</label>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_logo" accept="image/png, image/jpg, image/jpeg" onchange="show_logo()" required>
+                                                <div class="row my-3">
+                                                    <img id="logo_img" class=" rounded-3" src="Public/images/no_image.jpg" />
+                                                </div>
+                                            </div>
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
@@ -197,6 +204,10 @@
     <script>
         function show_poster() {
             poster_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+
+        function show_logo() {
+            logo_img.src = URL.createObjectURL(event.target.files[0]);
         }
 
         function show_thumbnail() {
