@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actor;
+use App\Models\Category;
+use App\Models\Director;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -18,7 +21,10 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return view('Admin.Movie.main');
+        $movies = Movie::all();
+        return view('Admin.Movie.main',[
+            'movies' => $movies,
+        ]);
     }
 
     /**
@@ -89,7 +95,15 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        //
+        $actors = Actor::all();
+        $directors = Director::all();
+        $categories = Category::all();
+        return view('Admin.Movie.edit',[
+            'movie' => $movie,
+            'actors' => $actors,
+            'directors' => $directors,
+            'categories' => $categories,
+        ]);
     }
 
     /**

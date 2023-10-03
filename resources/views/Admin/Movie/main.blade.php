@@ -89,38 +89,50 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">No</th>
-                                            <th scope="col">Product name</th>
-                                            <th scope="col">Price</th>
-                                            <th scope="col">Product image</th>
-                                            <th scope="col">Category</th>
+                                            <th scope="col">Movie Name</th>
+                                            <th scope="col">Rating</th>
+                                            <th scope="col">Poster</th>
+                                            <th scope="col">Release date</th>
+                                            <th scope="col">Language</th>
+                                            <th scope="col">Length</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-
+                                    @foreach($movies as $movie)
                                         <tr>
-                                            <th scope="row" class="col-1">7</th>
-                                            <td class="col-3">7 </td>
-                                            <td class="col-2"> 7 vnd</td>
+                                            <th scope="row" class="col-1">{{$movie -> id}}</th>
+                                            <td class="col-2">{{$movie -> movie_name}}</td>
+                                            <td class="col-1"> {{$movie -> rating}}</td>
                                             <td class="col-2">
-                                                <img class="col-12" src="">
+                                                <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
                                             </td>
                                             <td class="col-2">
-                                                7
+                                                {{$movie -> release_date}}
                                             </td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                {{$movie -> language}}
+                                            </td>
+                                            <td class="col-1">
+                                                {{$movie -> length}}
+                                            </td>
+                                            <td class="col-2">
+                                                <a href="{{route('admin.movies.edit', $movie)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <a href="" type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <form class="d-inline" method="post" action="{{route('admin.movies.destroy', $movie)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
 
                                             </td>
                                         </tr>
 
-
+                                    @endforeach
 
                                     </tbody>
                                 </table>

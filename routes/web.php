@@ -16,6 +16,8 @@ Route::prefix('Admin/Movie')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
     Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
     Route::post('/create', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
+    Route::get('/{movie}/edit', [\App\Http\Controllers\MovieController::class, 'edit'])->name('movies.edit');
+    Route::put('/{movie}/edit', [\App\Http\Controllers\MovieController::class, 'update'])->name('movies.update');
 });
 Route::prefix('Admin/Category')->name('admin.')->group(function () {
     Route::get('/', [\App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
