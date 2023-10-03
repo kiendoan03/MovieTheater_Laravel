@@ -76,8 +76,8 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New product
+                                <a href="{{route('admin.movies.create')}}" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
+                                    <i class="fa-solid fa-plus"></i> Upload movie
                                 </a>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                             <td class="col-2">{{$movie -> movie_name}}</td>
                                             <td class="col-1"> {{$movie -> rating}}</td>
                                             <td class="col-2">
-                                                <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
+                                                <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movie -> poster_img)}}">
                                             </td>
                                             <td class="col-2">
                                                 {{$movie -> release_date}}

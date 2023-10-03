@@ -23,11 +23,10 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Header -->
-
             <nav class="navbar navbar-expand-lg fixed-top " style="background-color: black;">
                 <div class="container  mx-auto p-0">
                     <a class="navbar-brand" href="#">
-                        <img src="../../../../public/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
+                        <img src="img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
                     <div class="dropdown d-flex">
                         <div class=" d-flex">
@@ -39,7 +38,6 @@
                         <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item text-light bg-dark" href="">Profile</a></li>
                             <li><a class="dropdown-item d-block text-light bg-dark" href="">Logout</a></li>
-
                         </ul>
                     </div>
                 </div>
@@ -65,71 +63,78 @@
                         <!-- Title -->
                         <div class="row">
                             <div class="col">
-                                <h2 class="text-light mb-4">Upload Movie</h2>
+                                <h2 class="text-light mb-4">Edit Movie</h2>
                             </div>
                         </div>
 
                         <!-- Main -->
                         <div class="row">
-                            <form role="form" method="post" action="" enctype="multipart/form-data">
+                            <form role="form" method="post" action="{{route('admin.movies.update', $movie)}}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                
                                 <div class="row">
                                     <div class="col-8">
 
 
                                         <div class="mb-3">
                                             <label for="movie_name " class="form-label text-light">Movie name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" required>
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="movie_language" class="form-label text-light">Language</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_language" name="movie_language" required>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" value="{{$movie -> movie_name}}" required>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="movie_length" class="form-label text-light">Length(m)</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" required>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" value="{{$movie -> length}}" required>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="movie_age" class="form-label text-light">Age</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" required>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" value="{{$movie -> age}}" required>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="film_genre" class="form-label text-light">Film genre</label>
-                                            <select id="film_genre" class="form-select bg-dark border-0 shadow-none text-light" name="film_genre">
+                                            <label for="language" class="form-label text-light">Language</label>
+                                            <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="movie_language">
                                                         <!-- Get all category -->
-                                                    
+                                                        @foreach($movie as $movie)
+                                                            if($movie -> language == 1){
+                                                              <option hidden value= "1">Vietnamese</option>
+                                                            }else{
+                                                              <option hidden value= "0">English</option>
+                                                            }
 
-                                                        <option value= "7">7 </option>
-
-                                                    
-
+                                                        @endforeach
+                                                        <option value= "0">English</option>
+                                                        <option value= "1">Vietnamese</option>
                                                 </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="category_select" class="form-label text-light">Film genre</label>
+                                            
+                                            <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
+                                                        <!-- Get all category -->
+                                                       
+
+                                            </select>
+
                                         </div>
 
 
                                         <div class="mb-3">
                                             <label for="actor" class="form-label text-light">Actors</label>
-                                            <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="actor">
+                                            <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="movie_actor">
                                                         <!-- Get all category -->
                                                     
-
-                                                        <option value= "7">7 </option>
-
-                                                    
-
+                                                       
                                                 </select>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label for="director" class="form-label text-light">Directors</label>
-                                            <select id="director" class="form-select bg-dark border-0 shadow-none text-light" name="director">
+                                            <label for="directors" class="form-label text-light">Directors</label>
+                                            <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="movie_director">
                                                         <!-- Get all category -->
                                                     
-
-                                                        <option value= "7">7 </option>
 
                                                     
 
@@ -138,13 +143,12 @@
 
                                         <div class="mb-3">
                                             <label for="movie_release_date" class="form-label text-light">Release date</label>
-                                            <input type="datetime-local" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" name="movie_release_date" required>
+                                            <input type="datetime-local" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" value="" name="movie_release_date"  required>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="floatingTextarea" class="text-light form-label">Description</label>
                                             <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
-
                                         </div>
                                     </div>
 
@@ -154,30 +158,28 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
-                                                <div class="row my-3" style="width: 15vmax;">
-                                                    <img id="poster_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../public/img/poster_film/no_img_poster.jpg" />
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
+                                                <div class="row my-3">
+                                                    <img id="poster_img" class=" rounded-3" src="Public/images/no_image.jpg" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="thumbnail" class="form-label text-light">Thubnail</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="movie_thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()"  required>
                                                 <div class="row  my-3">
                                                     <img id="thumbnail_img" class=" rounded-3" src="../../../../public/img/movieThumbnail/no_image_thumbnail.png" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="trailer" class="form-label text-light">Trailer</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="trailer[]" onchange="loadFile(event)" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="movie_trailer" onchange="loadFile(event)"  required>
                                                 <div id="trailers_preview" class="my-3"></div>
-
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Upload" name="submit_btn"></input>
-
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Upload" name="submit_btn">
                             </form>
                         </div>
 
@@ -208,19 +210,13 @@
         function loadFile(event) {
             let output = document.getElementById('trailers_preview');
             output.innerHTML = '';
-            console.log([...event.target.files]);
-            [...event.target.files].forEach(
-                (file) => (output.innerHTML += video(URL.createObjectURL(file)))
-            );
-            // output.src = URL.createObjectURL(event.target.files[0]);
-            console.log(output.src);
+            output.innerHTML += video(URL.createObjectURL(event.target.files[0]))
             output.onload = function() {
                 URL.revokeObjectURL(output.src) // free memory
             }
 
         };
     </script>
-
 </body>
 
 </html>
