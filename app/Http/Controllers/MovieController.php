@@ -8,6 +8,9 @@ use App\Http\Requests\UpdateMovieRequest;
 use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Director;
+use App\Models\category_movie;
+use App\Models\director_movie;
+use App\Models\actor_movie;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -70,11 +73,8 @@ class MovieController extends Controller
         $array = Arr::add($array, 'rating', 5);
         $array = Arr::add($array, 'length', $request->movie_length);
         $array = Arr::add($array, 'release_date', $request->movie_release_date);
-        $array = Arr::add($array, 'movie_genre', $request->movie_genre);
         $array = Arr::add($array, 'age', $request->movie_age);
         $array = Arr::add($array, 'language', $request->movie_language);
-        $array = Arr::add($array, 'movie_actor', $request->movie_actor);
-        $array = Arr::add($array, 'movie_director', $request->movie_director);
         $array = Arr::add($array, 'description', $request->movie_description);
         $array = Arr::add($array, 'trailer', $movie_trailer);
         $array = Arr::add($array, 'poster_img', $movie_poster);
@@ -82,6 +82,27 @@ class MovieController extends Controller
         $array = Arr::add($array, 'thumbnail_img', $movie_thumbnail);
 
         Movie::create($array);
+
+        $movie = Movie::latest('id')->first();
+        $movie_id = $movie -> id;
+        $cate_id = $request->movie_genre;
+        $actor_id = $request->movie_actor;
+        $director_id = $request->movie_director;
+
+        $cate_movie =[];
+        $cate_movie = Arr::add($cate_movie, 'category_id', $cate_id);
+        $cate_movie = Arr::add($cate_movie, 'movie_id',(string)$movie_id);
+        category_movie::create($cate_movie);
+
+        $actor_movie =[];
+        $actor_movie = Arr::add($actor_movie, 'actor_id', $actor_id);
+        $actor_movie = Arr::add($actor_movie, 'movie_id', (string)$movie_id);
+        actor_movie::create($actor_movie);
+
+        $director_movie =[];
+        $director_movie = Arr::add($director_movie, 'director_id', $director_id);
+        $director_movie = Arr::add($director_movie, 'movie_id', (string)$movie_id);
+        director_movie::create($director_movie);
 
         return redirect()->route('admin.movies.index');
     }
