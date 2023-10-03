@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Actor;
-use App\Models\Category;
-use App\Models\Director;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
@@ -51,7 +48,11 @@ class MovieController extends Controller
         $movie_thumbnail = $request->file('movie_thumbnail')-> getClientOriginalName();
         $movie_trailer = $request->file('movie_trailer')-> getClientOriginalName();
         $movie_poster = $request->file('movie_poster')-> getClientOriginalName();
+        $movie_logo = $request->file('movie_logo')-> getClientOriginalName();
 
+        if(!Storage::exists('public/img/movie_logo/'.$movie_logo)){
+            Storage::putFileAs('public/img/movie_logo/', $request->file('movie_logo'), $movie_logo);
+        }
         if(!Storage::exists('public/img/movie_poster/'.$movie_poster)){
             Storage::putFileAs('public/img/movie_poster/', $request->file('movie_poster'), $movie_poster);
         }
@@ -75,9 +76,12 @@ class MovieController extends Controller
         $array = Arr::add($array, 'description', $request->movie_description);
         $array = Arr::add($array, 'trailer', $movie_trailer);
         $array = Arr::add($array, 'poster_img', $movie_poster);
+        $array = Arr::add($array, 'logo_img', $movie_logo);
         $array = Arr::add($array, 'thumbnail_img', $movie_thumbnail);
 
         Movie::create($array);
+
+        return redirect()->route('admin.movies.index');
     }
 
     /**
@@ -96,11 +100,15 @@ class MovieController extends Controller
         $actors = Actor::all();
         $directors = Director::all();
         $categories = Category::all();
+        $date =  $movie->release_date;
+        // dd($movie->release_date);
         return view('Admin.Movie.edit',[
             'movie' => $movie,
             'actors' => $actors,
             'directors' => $directors,
             'categories' => $categories,
+            'date' => $date,
+
         ]);
     }
 
@@ -110,6 +118,45 @@ class MovieController extends Controller
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
         //
+        if($request->hasFile('logo_img')){
+            $logo_img = $request->file('logo_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/movie/'.$logo_img)){
+                Storage::putFileAs('public/img/movie/', $request->file('logo_img'), $logo_img);
+            }
+        }else{
+            $logo_img = $movie->logo_img;
+        }
+
+        if($request->hasFile('actor_img')){
+            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/actor/'.$actor_img)){
+                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            }
+        }else{
+            $actor_img = $movie->actor_img;
+        }
+
+        if($request->hasFile('actor_img')){
+            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/actor/'.$actor_img)){
+                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            }
+        }else{
+            $actor_img = $movie->actor_image;
+        }
+
+        if($request->hasFile('actor_img')){
+            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/actor/'.$actor_img)){
+                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            }
+        }else{
+            $actor_img = $movie->actor_image;
+        }
     }
 
     /**

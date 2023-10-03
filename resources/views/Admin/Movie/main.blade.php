@@ -41,13 +41,15 @@
             <div class="col-10 mx-auto" style="margin-top:5em;">
                 <div class="row ">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">
-                        <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Sataff management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Category management</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Order management</a>
-
+                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="{{route('admin.categories.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
+                            <a href="{{route('admin.movies.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
+                            <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -76,8 +78,8 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New product
+                                <a href="{{route('admin.movies.create')}}" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
+                                    <i class="fa-solid fa-plus"></i> Upload movie
                                 </a>
                             </div>
                         </div>
@@ -106,7 +108,7 @@
                                             <td class="col-2">{{$movie -> movie_name}}</td>
                                             <td class="col-1"> {{$movie -> rating}}</td>
                                             <td class="col-2">
-                                                <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
+                                                <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movie -> poster_img)}}">
                                             </td>
                                             <td class="col-2">
                                                 {{$movie -> release_date}}
