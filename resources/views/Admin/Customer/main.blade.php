@@ -72,13 +72,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New user
-                                </a>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col">
                                 <table class="table my-3 text-light">
@@ -86,7 +80,6 @@
                                         <tr>
                                             <th scope="col">No.</th>
                                             <th scope="col">Full name</th>
-                                            <th scope="col">Email</th>
                                             <th scope="col">Watched movies</th>
                                             <th scope="col">Purchased tickets</th>
                                             <th scope="col">Image</th>
@@ -95,23 +88,31 @@
                                     </thead>
                                     <tbody>
 
+                                        @foreach($customers as $customer)
                                         <tr>
-                                            <th scope="row" class="col-1">a</th>
-                                            <td class="col-3">a</td>
-                                            <td class="col-2">a</td>
-                                            <td class="col-1">a</td>
-                                            <td class="col-1">a</td>
-                                            <td class="col-2">a</td>
+                                            <th scope="row" class="col-1">{{$customer -> id}}</th>
+                                            <td class="col-3">{{$customer -> customer_name}}</td>
+                                            <td class="col-2">1</td>
+                                            <td class="col-2">1</td>
                                             <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                <img class="col-8" src ="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/'). $customer -> customer_avatar)}}" />
+                                            </td>
+                                            <td class="col-2">
+                                                <a href="{{route('admin.customers.show', $customer)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-sharp fa-solid fa-eye"></i>
                                                 </a>
-                                                <a href=" " type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
+                                                <form class="d-inline" method="post" action="{{route('admin.customers.destroy', $customer)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
 
                                             </td>
                                         </tr>
+
+                                        @endforeach
 
                                     </tbody>
                                 </table>

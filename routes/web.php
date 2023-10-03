@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
 Route::prefix('Admin/Movie')->name('admin.')->group(function () {
+
     Route::get('/', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
     Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
     Route::post('/create', [\App\Http\Controllers\MovieController::class, 'store'])->name('movies.store');
@@ -47,8 +50,15 @@ Route::prefix('Admin/Director')->name('admin.')->group(function () {
 });
  
 Route::prefix('Login')->name('login.')->group(function(){
-    Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('index');
-    Route::get('/register', [App\Http\Controllers\CustomerController::class, 'create'])->name('create');
+    Route::get('/', [\App\Http\Controllers\CustomerController::class, 'login'])->name('login');
+    Route::get('/register', [\App\Http\Controllers\CustomerController::class, 'create'])->name('register');
     Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'store'])->name('store');
 
+});
+
+Route::prefix('Admin/Customer')->name('admin.')->group(function(){
+
+    Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
+    Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
+    Route::get('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'showAdminSite'])->name('customers.show');
 });

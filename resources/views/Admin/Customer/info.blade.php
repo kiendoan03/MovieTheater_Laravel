@@ -67,40 +67,40 @@
                         </div>
                         <!-- Main -->
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col">
                                 <form role="form" method="post" action="">
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-6">
                                             <div class="mb-3">
                                                 <label for="user_name" class="form-label text-light">User name</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="cus_username" name="cus_username" value="abc" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="cus_username" name="cus_username" value="{{$customer -> customer_username}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="fn" class="form-label text-light">Full name</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="fn" name="cus_full_name" value="abc" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="fn" name="cus_full_name" value="{{$customer -> customer_name}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="dob" class="form-label text-light">Date of birth</label>
-                                                <input type="date" class="form-control text-light bg-dark border-0 shadow-none" readonly id="dob" name="cus_dob" value="2003-12-24" required>
+                                                <input type="date" class="form-control text-light bg-dark border-0 shadow-none" readonly id="dob" name="cus_dob" value="{{$customer -> customer_date_of_birth}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
-                                                <input type="email" class="form-control text-light bg-dark border-0 shadow-none" readonly id="exampleInputEmail1" aria-describedby="emailHelp" name="cus_email" value="abc" required>
+                                                <input type="email" class="form-control text-light bg-dark border-0 shadow-none" readonly id="exampleInputEmail1" aria-describedby="emailHelp" name="cus_email" value="{{$customer -> customer_email}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="pn" class="form-label text-light">Phonenumber</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="pn" name="cus_phonenumber" value="abc" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="pn" name="cus_phonenumber" value="{{$customer -> customer_phonenumber}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="address" class="form-label text-light">Address</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="a" name="cus_address" value="abc" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="a" name="cus_address" value="{{$customer -> customer_address}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" readonly id="exampleInputPassword1" name="cus_pssw" value="abc" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" readonly id="exampleInputPassword1" name="cus_pssw" value="{{$customer -> customer_password}}" required>
                                             </div>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-3">
                                             <div class="mb-3">
                                                 <label for="pn" class="form-label text-light">Watched movies</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="pn" name="cus_phonenumber" value="21" required>
@@ -115,7 +115,7 @@
                                                 <div class="row">
                                                     <label for="image" class="form-label text-light">Customer image</label>
                                                     <div class="row my-3" style="width: 20vmax;">
-                                                        <img id="cus_img" class=" rounded-3 object-fit-cover mx-auto" src="../../../../storage\app\public\img\netfnix\avatar_default.jpg" />
+                                                        <img id="cus_img" class="col-12 rounded-3 object-fit-cover mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/'). $customer -> customer_avatar)}}" />
                                                     </div>
                                                 </div>
                                             </div>

@@ -53,7 +53,7 @@
                     <p class="mt-3 text-white">
                         - Receive information about hot movies and special promotions.
                     </p>
-                    <a href="{{route('login.create')}}" class="mt-3 text-white">
+                    <a href="{{route('login.register')}}" class="mt-3 text-white">
                         <button class="text-dark py-3 mt-3 col-12 border-0 bg-transparent login__button position-relative">
                             <div class="text-white">Register</div>
                         </button>

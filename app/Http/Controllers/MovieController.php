@@ -8,9 +8,6 @@ use App\Models\Director;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
-use App\Models\Actor;
-use App\Models\Category;
-use App\Models\Director;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +16,7 @@ class MovieController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
     public function index()
     {
         $movies = Movie::all();

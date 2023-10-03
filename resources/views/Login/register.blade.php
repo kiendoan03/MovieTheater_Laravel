@@ -59,7 +59,7 @@
                     <button type="submit" name="register_btn" class="mb-2 text-dark py-3 mt-3 col-12 border-0 bg-transparent login__button position-relative">
                             <div class="text-light fs-5">Register</div>
                         </button>
-                    <a class="text-decoration-danger fs-6 text-danger fw-light fst-italic" href="{{route('login.index')}}">Already have an account?</a>
+                    <a class="text-decoration-danger fs-6 text-danger fw-light fst-italic" href="{{route('login.login')}}">Already have an account?</a>
 
                 </form>
             </div>

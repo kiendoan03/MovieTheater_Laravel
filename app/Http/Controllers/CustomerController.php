@@ -14,8 +14,23 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::all();
+
+        return view('admin.customer.main',[
+            'customers' => $customers,
+        ]);
+        
+    }
+
+    public function login()
+    {
         return view('Login.login');
+    }
+
+    public function showAdminSite(Customer $customer){
+        return view('admin.customer.info',[
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -23,7 +38,6 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
         return view('Login.register');
     }
 
@@ -60,7 +74,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        
     }
 
     /**
@@ -84,6 +98,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete(); 
+        return redirect()->route('admin.customers.index');
     }
 }
