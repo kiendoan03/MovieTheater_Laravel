@@ -126,14 +126,34 @@ class MovieController extends Controller
         $directors = Director::all();
         $categories = Category::all();
         $date =  $movie->release_date;
-        // dd($movie->release_date);
+        $m_cate = category_movie::where('movie_id','=', $movie -> id);
+        // $m_actor = actor_movie::where('movie_id','=', $movie -> id);
+        // $m_director = director_movie::where('movie_id','=', $movie -> id);
+
+        // dd($m_cate -> movie_id);
+
+        // foreach($m_cate as $m_cate){
+        //     $movie_cate = Category::where('id','=', $m_cate -> category_id);
+        //     dd($movie_cate);
+        // }
+
+        // foreach($m_actor as $m_actor){
+        //     $movie_actor = Actor::where('id','=', $m_actor -> actor_id);
+        // }
+
+        // foreach($m_director as $m_director){
+        //     $movie_director = Director::where('id','=', $m_director -> director_id);
+        // }
+
         return view('Admin.Movie.edit',[
             'movie' => $movie,
             'actors' => $actors,
             'directors' => $directors,
             'categories' => $categories,
             'date' => $date,
-
+            // 'movie_cate' => $movie_cate,
+            // 'movie_actor' => $movie_actor,
+            // 'movie_director' => $movie_director,
         ]);
     }
 

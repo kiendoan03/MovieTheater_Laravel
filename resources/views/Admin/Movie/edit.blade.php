@@ -98,9 +98,9 @@
                                             <select id="language" class="form-select bg-dark border-0 shadow-none text-light" name="movie_language">
                                                         <!-- Get all category -->
                                                         @if($movie -> language == 0)
-                                                          <option value = "0" hidden class="text-light">English</option>
+                                                          <option value = "0" hidden selected class="text-light">English</option>
                                                         @else
-                                                          <option value = "1" hidden class="text-light ">Vietnamese</option>
+                                                          <option value = "1" hidden selected class="text-light ">Vietnamese</option>
                                                         @endif
                                                         <option value= "0">English</option>
                                                         <option value= "1">Vietnamese</option>
@@ -112,7 +112,12 @@
                                             
                                             <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
                                                         <!-- Get all category -->
-                                                       
+
+                                                       @foreach($categories as $cate)
+
+                                                            <option value="{{$cate -> id}}" class="text-light" >{{$cate -> category_name}}</option>
+
+                                                       @endforeach
 
                                             </select>
 
