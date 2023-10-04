@@ -71,10 +71,6 @@
                                         <label for="category_name" class="form-label text-light">Room name</label>
                                         <input type="text" class="form-control bg-dark text-light border-0 shadow-none" id="category_name" name="room_name" required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="category_name" class="form-label text-light">Room capacity</label>
-                                        <input type="text" class="form-control bg-dark text-light border-0 shadow-none" id="category_name" name="room_capacity" required>
-                                    </div>
                                     <input type="submit" class="btn btn-danger my-3 col-2" value="Add" name="submit_btn">
                                 </form>
                             </div>

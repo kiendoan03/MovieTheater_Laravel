@@ -105,7 +105,9 @@
                                                 <a href="{{route('admin.rooms.edit', $room)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-sharp fa-solid fa-eye"></i>
                                                 </a>
-                                                <form class="d-inline" method="post" action="">
+                                                <form class="d-inline" method="post" action="{{route('admin.rooms.destroy', $room)}}">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button class="btn btn-outline-danger my-1">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
