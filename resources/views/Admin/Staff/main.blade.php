@@ -99,8 +99,8 @@
 
                                         <tr>
                                             <th scope="row" class="col-1">{{$staff -> id}}</th>
-                                            <td class="col-3">{{$staff -> staff_name}}</td>
-                                            <td class="col-2">{{$staff -> staff_email}}</td>
+                                            <td class="col-2">{{$staff -> staff_name}}</td>
+                                            <td class="col-3">{{$staff -> staff_email}}</td>
                                             <td class="col-2">
                                             @if ($staff -> staff_role == 0)
                                                 Manager
@@ -115,7 +115,7 @@
                                                 <td class="col-2">Staff</td>
                                             })} -->
                                             <td class="col-2">
-                                            <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/'). $staff -> staff_avatar)}}">
+                                            <img class="col-12" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/'). $staff -> staff_avatar)}}">
                                             </td>
                                             <td class="col-2">
                                                 <a href="{{route('admin.staffs.edit',$staff)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
