@@ -75,3 +75,12 @@ Route::prefix('Admin/Staff')->name('admin.')->group(function(){
     Route::put('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'update'])->name('staffs.update');
     Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy');
 });
+
+Route::prefix('Admin/Room')->name('admin.')->group(function(){
+    Route::get('/', [App\Http\Controllers\RoomController::class, 'index'])->name('rooms.index');
+    Route::get('/create', [App\Http\Controllers\RoomController::class, 'create'])->name('rooms.create');
+    Route::post('/create', [App\Http\Controllers\RoomController::class, 'store'])->name('rooms.store');
+    Route::get('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'edit'])->name('rooms.edit');
+    Route::put('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'update'])->name('rooms.update');
+    Route::delete('/{room}/delete', [\App\Http\Controllers\RoomController::class, 'destroy'])->name('rooms.destroy');
+});
