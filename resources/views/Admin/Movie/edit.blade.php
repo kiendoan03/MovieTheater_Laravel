@@ -113,6 +113,12 @@
                                             <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
                                                         <!-- Get all category -->
 
+                                                        @foreach($movie_cate as $cate_movie)
+
+                                                            <option value="{{$cate_movie -> category_id}}" class="text-light" selected hidden >{{$cate_movie -> category_name}}</option>
+
+                                                        @endforeach
+
                                                        @foreach($categories as $cate)
 
                                                             <option value="{{$cate -> id}}" class="text-light" >{{$cate -> category_name}}</option>
@@ -127,19 +133,37 @@
                                         <div class="mb-3">
                                             <label for="actor" class="form-label text-light">Actors</label>
                                             <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="movie_actor">
-                                                        <!-- Get all category -->
                                                     
-                                                       
+                                                        @foreach($movie_actor as $movie_actor)
+
+                                                            <option value="{{$movie_actor -> actor_id}}" class="text-light" selected hidden >{{$movie_actor -> actor_name}}</option>
+
+                                                        @endforeach
+
+                                                       @foreach($actors as $actor)
+
+                                                            <option value="{{$actor -> id}}" class="text-light" >{{$actor -> actor_name}}</option>
+
+                                                       @endforeach
+
                                                 </select>
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="directors" class="form-label text-light">Directors</label>
                                             <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="movie_director">
-                                                        <!-- Get all category -->
-                                                    
 
-                                                    
+                                                     @foreach($movie_director as $movie_director)
+
+                                                            <option value="{{$movie_director -> director_id}}" class="text-light" selected hidden >{{$movie_director -> director_name}}</option>
+
+                                                        @endforeach
+
+                                                       @foreach($directors as $director)
+
+                                                            <option value="{{$director -> id}}" class="text-light" >{{$director -> director_name}}</option>
+
+                                                       @endforeach
 
                                                 </select>
                                         </div>
@@ -151,7 +175,7 @@
 
                                         <div class="mb-3">
                                             <label for="floatingTextarea" class="text-light form-label">Description</label>
-                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description"></textarea>
+                                            <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description">{{$movie -> description}}</textarea>
                                         </div>
                                     </div>
 
@@ -163,21 +187,21 @@
                                                 <label for="poster" class="form-label text-light">Logo</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_logo" accept="image/png, image/jpg, image/jpeg" onchange="show_logo()" required>
                                                 <div class="row my-3">
-                                                    <img id="logo_img" class=" rounded-3" src="Public/images/no_image.jpg" />
+                                                    <img id="logo_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_logo/'). $movie -> logo_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
                                                 <div class="row my-3">
-                                                    <img id="poster_img" class=" rounded-3" src="Public/images/no_image.jpg" />
+                                                    <img id="poster_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movie -> poster_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="thumbnail" class="form-label text-light">Thubnail</label>
                                                 <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="movie_thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()"  required>
                                                 <div class="row  my-3">
-                                                    <img id="thumbnail_img" class=" rounded-3" src="../../../../public/img/movieThumbnail/no_image_thumbnail.png" />
+                                                    <img id="thumbnail_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">

@@ -126,7 +126,17 @@ class MovieController extends Controller
         $directors = Director::all();
         $categories = Category::all();
         $date =  $movie->release_date;
-       
+        $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
+        ->join('categories', 'categories.id', '=', 'category_movies.category_id')
+        ->get(['movies.id', 'category_movies.*', 'categories.*']);
+
+        $movie_actor = Movie::join('actor_movies', 'actor_movies.movie_id', '=', 'movies.id')
+        ->join('actors', 'actors.id', '=', 'actor_movies.actor_id')
+        ->get(['movies.id', 'actor_movies.*', 'actors.*']);
+
+        $movie_director = Movie::join('director_movies', 'director_movies.movie_id', '=', 'movies.id')
+        ->join('directors', 'directors.id', '=', 'director_movies.director_id')
+        ->get(['movies.id', 'director_movies.*', 'directors.*']);
 
         return view('Admin.Movie.edit',[
             'movie' => $movie,
@@ -134,7 +144,9 @@ class MovieController extends Controller
             'directors' => $directors,
             'categories' => $categories,
             'date' => $date,
-           
+            'movie_cate' => $movie_cate,
+            'movie_actor' => $movie_actor,
+            'movie_director' => $movie_director,
         ]);
     }
 
@@ -144,45 +156,80 @@ class MovieController extends Controller
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
         //
-        if($request->hasFile('logo_img')){
-            $logo_img = $request->file('logo_img')-> getClientOriginalName();
+        if($request->hasFile('movie_logo')){
+            $logo_img = $request->file('movie_logo')-> getClientOriginalName();
 
-            if(!Storage::exists('public/img/movie/'.$logo_img)){
-                Storage::putFileAs('public/img/movie/', $request->file('logo_img'), $logo_img);
+            if(!Storage::exists('public/img/movie_logo/'.$logo_img)){
+                Storage::putFileAs('public/img/movie_logo)/', $request->file('movie_poster'), $logo_img);
             }
         }else{
             $logo_img = $movie->logo_img;
         }
 
-        if($request->hasFile('actor_img')){
-            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+        if($request->hasFile('movie_poster')){
+            $poster_img = $request->file('movie_poster')-> getClientOriginalName();
 
-            if(!Storage::exists('public/img/actor/'.$actor_img)){
-                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            if(!Storage::exists('public/img/movie_poster/'.$poster_img)){
+                Storage::putFileAs('public/img/movie_poster/', $request->file('movie_poster'), $poster_img);
             }
         }else{
-            $actor_img = $movie->actor_img;
+            $poster_img = $movie->poster_img;
         }
 
-        if($request->hasFile('actor_img')){
-            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+        if($request->hasFile('movie_thumbnail')){
+            $thumbnail_img = $request->file('movie_thumbnail')-> getClientOriginalName();
 
-            if(!Storage::exists('public/img/actor/'.$actor_img)){
-                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            if(!Storage::exists('public/img/movie_thumbnail/'.$thumbnail_img)){
+                Storage::putFileAs('public/img/movie_thumbnail/', $request->file('movie_thumbnail'), $thumbnail_img);
             }
         }else{
-            $actor_img = $movie->actor_image;
+            $thumbnail_img = $movie->thumbnail_img;
         }
 
-        if($request->hasFile('actor_img')){
-            $actor_img = $request->file('actor_img')-> getClientOriginalName();
+        if($request->hasFile('movie_trailer')){
+            $movie_trailer = $request->file('movie_trailer')-> getClientOriginalName();
 
-            if(!Storage::exists('public/img/actor/'.$actor_img)){
-                Storage::putFileAs('public/img/actor/', $request->file('actor_img'), $actor_img);
+            if(!Storage::exists('public/movie_trailer/'.$movie_trailer)){
+                Storage::putFileAs('public/movie_trailer/', $request->file('movie_trailer'), $movie_trailer);
             }
         }else{
-            $actor_img = $movie->actor_image;
+            $movie_trailer = $movie->trailer;
         }
+        $array = [];
+        $array = Arr::add($array, 'movie_name', $request->movie_name);
+        $array = Arr::add($array, 'rating', $movie -> rating);
+        $array = Arr::add($array, 'length', $request->movie_length);
+        $array = Arr::add($array, 'release_date', $request->movie_release_date);
+        $array = Arr::add($array, 'age', $request->movie_age);
+        $array = Arr::add($array, 'language', $request->movie_language);
+        $array = Arr::add($array, 'description', $request->movie_description);
+        $array = Arr::add($array, 'logo_img', $logo_img);
+        $array = Arr::add($array, 'poster_img', $poster_img);
+        $array = Arr::add($array, 'thumbnail_img', $thumbnail_img);
+        $array = Arr::add($array, 'trailer', $movie_trailer);
+
+        $movie->update($array);
+
+        $cate_id = $request->movie_genre;
+        $actor_id = $request->movie_actor;
+        $director_id = $request->movie_director;
+
+        $cate_movie =[];
+        $cate_movie = Arr::add($cate_movie, 'category_id', $cate_id);
+        $cate_movie = Arr::add($cate_movie, 'movie_id',$movie -> id);
+        category_movie::update($cate_movie);
+
+        $actor_movie =[];
+        $actor_movie = Arr::add($actor_movie, 'actor_id', $actor_id);
+        $actor_movie = Arr::add($actor_movie, 'movie_id', $movie -> id);
+        actor_movie::update($actor_movie);
+
+        $director_movie =[];
+        $director_movie = Arr::add($director_movie, 'director_id', $director_id);
+        $director_movie = Arr::add($director_movie, 'movie_id', $movie -> id);
+        director_movie::update($director_movie);
+
+        return redirect()->route('admin.movies.index');
     }
 
     /**
