@@ -80,17 +80,17 @@
 
                                         <div class="mb-3">
                                             <label for="movie_name " class="form-label text-light">Movie name</label>
-                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" value="{{$movie -> movie_name}}" required>
+                                            <input type="text" class="form-control bg-dark border-0 shadow-none text-light" id="movie_name" name="movie_name" value="{{$movie -> movie_name}}" >
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="movie_length" class="form-label text-light">Length(m)</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" value="{{$movie -> length}}" required>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_length" name="movie_length" value="{{$movie -> length}}" >
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="movie_age" class="form-label text-light">Age</label>
-                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" value="{{$movie -> age}}" required>
+                                            <input type="number" class="form-control bg-dark border-0 shadow-none text-light" id="movie_age" name="movie_age" value="{{$movie -> age}}" >
                                         </div>
 
                                         <div class="mb-3">
@@ -170,7 +170,7 @@
 
                                         <div class="mb-3">
                                             <label for="movie_release_date" class="form-label text-light">Release date</label>
-                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" value="{{$date}}" name="movie_release_date"  required>
+                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="movie_release_date" value="{{$date}}" name="movie_release_date"  >
                                         </div>
 
                                         <div class="mb-3">
@@ -185,35 +185,36 @@
                                         <div class="col-12">
                                            <div class="row">
                                                 <label for="poster" class="form-label text-light">Logo</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_logo" accept="image/png, image/jpg, image/jpeg" onchange="show_logo()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_logo" accept="image/png, image/jpg, image/jpeg" onchange="show_logo()" >
                                                 <div class="row my-3">
                                                     <img id="logo_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_logo/'). $movie -> logo_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="poster" class="form-label text-light">Poster</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="poster" name="movie_poster" accept="image/png, image/jpg, image/jpeg" onchange="show_poster()" >
                                                 <div class="row my-3">
                                                     <img id="poster_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movie -> poster_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="thumbnail" class="form-label text-light">Thubnail</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="movie_thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()"  required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="thumbnail" name="movie_thumbnail" accept="image/png, image/jpg, image/jpeg" onchange="show_thumbnail()"  >
                                                 <div class="row  my-3">
                                                     <img id="thumbnail_img" class=" rounded-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" />
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <label for="trailer" class="form-label text-light">Trailer</label>
-                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="movie_trailer" onchange="loadFile(event)"  required>
+                                                <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="trailer" name="movie_trailer" onchange="loadFile(event)"  >
                                                 <div id="trailers_preview" class="my-3"></div>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Upload" name="submit_btn">
+                                
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Edit" name="submit_btn">
                             </form>
                         </div>
 

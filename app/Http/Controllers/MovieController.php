@@ -217,17 +217,23 @@ class MovieController extends Controller
         $cate_movie =[];
         $cate_movie = Arr::add($cate_movie, 'category_id', $cate_id);
         $cate_movie = Arr::add($cate_movie, 'movie_id',$movie -> id);
-        category_movie::update($cate_movie);
+
+        $category_movie = category_movie::where('movie_id','=',$movie -> id);
+        $category_movie->update($cate_movie);
 
         $actor_movie =[];
         $actor_movie = Arr::add($actor_movie, 'actor_id', $actor_id);
         $actor_movie = Arr::add($actor_movie, 'movie_id', $movie -> id);
-        actor_movie::update($actor_movie);
+
+        $movie_actor = actor_movie::where('movie_id','=',$movie -> id);
+        $movie_actor->update($actor_movie);
 
         $director_movie =[];
         $director_movie = Arr::add($director_movie, 'director_id', $director_id);
         $director_movie = Arr::add($director_movie, 'movie_id', $movie -> id);
-        director_movie::update($director_movie);
+
+        $movie_director = director_movie::where('movie_id','=',$movie -> id);
+        $movie_director->update($director_movie);
 
         return redirect()->route('admin.movies.index');
     }
