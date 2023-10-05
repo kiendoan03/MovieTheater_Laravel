@@ -244,5 +244,15 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
+        $cate_movie = category_movie::where('movie_id', '=', $movie -> id);
+        $actor_movie = actor_movie::where('movie_id', '=', $movie -> id);
+        $director_movie = director_movie::where('movie_id', '=', $movie -> id);
+
+        $cate_movie->delete();
+        $actor_movie->delete();
+        $director_movie->delete();
+        $movie->delete();
+
+        return redirect()->route('admin.movies.index');
     }
 }
