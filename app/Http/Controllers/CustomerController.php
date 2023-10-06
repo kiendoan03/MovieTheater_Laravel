@@ -36,8 +36,8 @@ class CustomerController extends Controller
 
     public function check_login(Request $request){
         $customers = Customer::all();
-
-        if(!empty($customers)){
+        $count = Customer::all() -> count();
+        if($count == 0){
             $error_login_null = 'tan dang nhap khong ton tai!!!';
             return view('login.login',[
                 'error_login_null' => $error_login_null,
@@ -81,7 +81,9 @@ class CustomerController extends Controller
         //
         $customers = Customer::all();
 
-        if(!empty($customers)){
+        $count = Customer::all() -> count();
+
+        if($count == 0){
             $password = $request->password;
             $re_password = $request->re_password;
 
