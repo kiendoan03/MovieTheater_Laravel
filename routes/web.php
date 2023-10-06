@@ -55,6 +55,7 @@ Route::prefix('Admin/Director')->name('admin.')->group(function () {
  
 Route::prefix('Login')->name('login.')->group(function(){
     Route::get('/', [\App\Http\Controllers\CustomerController::class, 'login'])->name('login');
+    Route::post('/check_login', [\App\Http\Controllers\CustomerController::class, 'check_login'])->name('login.check_login');
     Route::get('/register', [\App\Http\Controllers\CustomerController::class, 'create'])->name('register');
     Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'store'])->name('store');
 
