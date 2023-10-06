@@ -75,14 +75,29 @@
 
                                     <div class="row">
                                         <div class="col-8">
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Tên đăng nhập đã tồn tại!
-                                            </div>
+                                            @if(isset($error_username))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_username}}
+                                                </div>
+                                            @endif
 
+                                            @if(isset($error_email))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_email}}
+                                                </div>
+                                            @endif
 
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Mật khẩu nhập lại không trùng khớp!
-                                            </div>
+                                            @if(isset($error_phone))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_phone}}
+                                                </div>
+                                            @endif
+
+                                            @if(isset($error_re_pass))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_re_pass}}
+                                                </div>
+                                            @endif
 
                                             <div class="mb-3">
                                                 <label for="Staff_name" class="form-label text-light">User name</label>

@@ -74,14 +74,6 @@
                                 @method('PUT')
                                     <div class="row">
                                         <div class="col-8">
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Tên đăng nhập đã tồn tại!
-                                            </div>
-
-
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Mật khẩu nhập lại không trùng khớp!
-                                            </div>
 
                                             <div class="mb-3">
                                                 <label for="Staff_name" class="form-label text-light">User name</label>
@@ -113,7 +105,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="{{$staff -> staff_password}}" >
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="{{$staff -> staff_password}}" required>
                                             </div>
 
                                             <div class="mb-3">
@@ -145,7 +137,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-success my-2 col-2">Edit</button>
+                                    <button type="submit" class="btn btn-danger my-2 col-2">Edit</button>
                                 </form>
                             </div>
                         </div>

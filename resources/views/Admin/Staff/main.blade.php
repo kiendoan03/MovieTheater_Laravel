@@ -76,7 +76,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <a href="{{route('admin.staffs.create')}}" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New user
+                                    <i class="fa-solid fa-plus"></i> New staff
                                 </a>
                             </div>
                         </div>
