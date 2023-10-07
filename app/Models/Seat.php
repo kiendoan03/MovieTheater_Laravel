@@ -9,5 +9,5 @@ class Seat extends Model
 {
     use HasFactory;
     public $timestamps=false;
-    protected $fillable=['id','number','type_id','room_id'];
+    protected $fillable=['id','number','type_id','room_id','status'];
 }

@@ -17,7 +17,7 @@
         <div class="row">
             <!-- Header -->
 
-            <nav class="navbar navbar-expand-lg fixed-top ">
+            <nav class="navbar navbar-expand-lg fixed-top " style="background-color: black;">
                 <div class="container mx-auto p-0">
                     <a class="navbar-brand" href="#">
                         <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">

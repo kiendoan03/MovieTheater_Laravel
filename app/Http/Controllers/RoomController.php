@@ -55,6 +55,7 @@ class RoomController extends Controller
                     $seat = Arr::add($seat, 'number', $i);
                     $seat = Arr::add($seat, 'type_id', $type -> id); 
                     $seat = Arr::add($seat, 'room_id', $room_id);
+                    $seat = Arr::add($seat, 'status', '0');
                     Seat::create($seat);
                 }
             }elseif($type_seat == 1){
@@ -63,6 +64,7 @@ class RoomController extends Controller
                     $seat = Arr::add($seat, 'number', $i);
                     $seat = Arr::add($seat, 'type_id', $type -> id);    
                     $seat = Arr::add($seat, 'room_id', $room_id);
+                    $seat = Arr::add($seat, 'status', '0');
                     Seat::create($seat);
                 }
             }else{
@@ -71,6 +73,7 @@ class RoomController extends Controller
                     $seat = Arr::add($seat, 'number', $i);
                     $seat = Arr::add($seat, 'room_id', $room_id);
                     $seat = Arr::add($seat, 'type_id', $type -> id); 
+                    $seat = Arr::add($seat, 'status', '0');
                     Seat::create($seat);
                 }
             }
