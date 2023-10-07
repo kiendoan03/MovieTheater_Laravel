@@ -71,9 +71,14 @@
                     <div class="row col-12 ps-5">
                         <!-- Movie tags -->
                         <div class="">
-                            <span class="border me-2 text-light p-2 rounded-2">Animation</span>
-                            <span class="border me-2 text-light p-2 rounded-2">Action</span>
-                            <span class="border me-2 text-light p-2 rounded-2">Fantasy</span>
+
+                        @foreach($movie_cate as $movie_cate)
+
+                            <span class="border me-2 text-light p-2 rounded-2">{{$movie_cate -> category_name}}</span>
+                        
+                        @endforeach
+                            <!-- <span class="border me-2 text-light p-2 rounded-2">Action</span>
+                            <span class="border me-2 text-light p-2 rounded-2">Fantasy</span> -->
 
                         </div>
 
@@ -155,9 +160,11 @@
                         <div>
                             <span class="text-light" style="font-size: 1.7vmax;"> Directors </span>
                             <div class="d-flex my-4">
-                                <img class="d-block me-3" src="../../../public/img/Actor/92893960_10159265884387439_7111891102537351168_n.jpg" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
-
-                                <img class="d-block me-3" src="../../../public/img/Actor/92893960_10159265884387439_7111891102537351168_n.jpg" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                @foreach($movie_director as $movie_director)
+                                
+                                <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$movie_director -> director_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                            
+                                @endforeach
                             </div>
                         </div>
 
@@ -171,10 +178,9 @@
 
                         <div class="mt-4 d-flex col-12 border border-0 rounded-3 hide-scrollbar" style="overflow-x: scroll;">
 
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="../../../public/img/movieThumbnail/conan-movie-26-3_1688781415982.jpg" alt="">
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="../../../public/img/movieThumbnail/conan-movie-26-3_1688781415982.jpg" alt="">
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="../../../public/img/movieThumbnail/conan-movie-26-3_1688781415982.jpg" alt="">
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="../../../public/img/movieThumbnail/conan-movie-26-3_1688781415982.jpg" alt="">
+
+                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$movie -> thumbnail_img)}}" alt="">
+                        
 
                         </div>
 
@@ -184,7 +190,7 @@
 
                 <!-- Movie Img -->
                 <div class="col-5 d-flex justify-content-end">
-                    <img class="col-12 border rounded-3 border-0 " src="../../../public/img/poster_film/jjks_poster.jpg" alt="" style="object-fit: cover;height: 35vmax; width: 25vmax;">
+                    <img class="col-12 border rounded-3 border-0 " src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$movie -> poster_img)}}" alt="" style="object-fit: cover;height: 35vmax; width: 25vmax;">
                 </div>
 
             </section>
