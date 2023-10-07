@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThinkPro-Product Management</title>
+    <title>Netfnix - Movies Management</title>
+    <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <!-- <link rel="stylesheet" href="/admin/admin_resource/css/custom.css"> -->
 </head>
 
 <body style="background-color: black;">
@@ -20,7 +20,7 @@
             <nav class="navbar navbar-expand-lg fixed-top ">
                 <div class="container mx-auto p-0">
                     <a class="navbar-brand" href="#">
-                        <img src="../../../../public/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
+                        <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
                     <div class="dropdown d-flex">
                         <div class=" d-flex">
@@ -41,13 +41,14 @@
             <div class="col-10 mx-auto" style="margin-top:5em;">
                 <div class="row ">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">
-                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
+                        <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
                             <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="{{route('admin.staffs.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="{{route('admin.customers.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
                             <a href="{{route('admin.categories.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
                             <a href="{{route('admin.movies.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
+                            <a href="{{route('admin.rooms.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Room management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light  shadow-none" tabindex="-1" role="button" aria-disabled="true">Schedules management</a>
                             <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
                             <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
@@ -114,7 +115,11 @@
                                                 {{$movie -> release_date}}
                                             </td>
                                             <td class="col-2">
-                                                {{$movie -> language}}
+                                            @if ($movie -> language == 0)
+                                                English
+                                            @else 
+                                                Vietnamese
+                                            @endif
                                             </td>
                                             <td class="col-1">
                                                 {{$movie -> length}}

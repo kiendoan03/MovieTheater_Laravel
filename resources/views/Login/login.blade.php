@@ -19,18 +19,32 @@
             <div class="col-6">
                 <div class="col-7 float-end pe-4">
                     <h2 class="text-white">Login</h2>
-                    <form method="POST" class="" action="">
+                    <form method="post" class="" action="{{route('login.login.check_login')}}">
+                        @csrf
 
-                        <div class="fs-5 my-3 text-danger border-0 border-bottom pb-2 border-light d-none">
-                            Tên đăng nhập hoặc mật khẩu không đúng!
-                        </div>
+                        @if(isset($error_login))
+                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                    {{$error_login}}
+                            </div>
+                        @endif
 
+                        @if(isset($error_username))
+                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                    {{$error_username}}
+                            </div>
+                        @endif
+
+                        @if(isset($error_login_null))
+                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                    {{$error_login_null}}
+                            </div>
+                        @endif
 
                         <div class="mb-3">
-                            <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="user_name" style="outline: none;">
+                            <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="user_name" style="outline: none;" required>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="Password" name="password" style="outline: none;">
+                            <input type="password" class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="Password" name="password" style="outline: none;" required>
                         </div>
                         <button type="submit" name="submit_btn" class="text-dark py-3 mt-3 col-12 border-0 bg-transparent login__button position-relative">
                             <div class="text-white">Login</div>

@@ -38,7 +38,7 @@ class CategoryController extends Controller
         $array = [];
         $array = Arr::add($array, 'category_name', $request->category_name);
 
-        Category::create($array);
+        Category::create($array); 
 
         return redirect()->route('admin.categories.index');
     }

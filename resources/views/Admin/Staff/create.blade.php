@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Staff Management - Edit staff</title>
+    <title>Netfnix - Staff Management - Add staff</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -48,14 +48,15 @@
                 <div class="row">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100">
                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                            <a href="{{route('admin.staffs.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="{{route('admin.customers.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="{{route('admin.categories.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
+                            <a href="{{route('admin.movies.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="{{route('admin.rooms.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Room management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light  shadow-none" tabindex="-1" role="button" aria-disabled="true">Schedules management</a>
+                            <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -68,17 +69,35 @@
                         <!-- Main -->
                         <div class="row">
                             <div class="col-10">
-                                <form role="form" method="post" action="">
+                                <form role="form" method="post" action="{{route('admin.staffs.store')}}" enctype="multipart/form-data">
+
+                                @csrf
+
                                     <div class="row">
                                         <div class="col-8">
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Tên đăng nhập đã tồn tại!
-                                            </div>
+                                            @if(isset($error_username))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_username}}
+                                                </div>
+                                            @endif
 
+                                            @if(isset($error_email))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_email}}
+                                                </div>
+                                            @endif
 
-                                            <div class="alert alert-danger d-none" role="alert">
-                                                Mật khẩu nhập lại không trùng khớp!
-                                            </div>
+                                            @if(isset($error_phone))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_phone}}
+                                                </div>
+                                            @endif
+
+                                            @if(isset($error_re_pass))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_re_pass}}
+                                                </div>
+                                            @endif
 
                                             <div class="mb-3">
                                                 <label for="Staff_name" class="form-label text-light">User name</label>
@@ -106,19 +125,20 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_password" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_psw" required>
                                             </div>
 
                                             <div class="mb-3">
                                                 <label for="role_select" class="form-label text-light">Select role</label>
                                                 <select id="role_select" class="form-select bg-dark shadow-none border-0 text-light" name="staff_role">
-                                          <option value = "0" class="text-light">Management</option>
-                                          <option value = "1" selected class="text-light ">Staff</option>
-                                        </select>
+                                                    <option value = "1" class="text-light ">Staff</option>
+                                                    <option value = "0" class="text-light">Manager</option>
+
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -134,7 +154,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-success my-2 col-2">Edit</button>
+                                    <button type="submit" class="btn btn-danger my-2 col-2">Add</button>
                                 </form>
                             </div>
                         </div>

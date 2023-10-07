@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Staff Management</title>
+    <title>Netfnix - Room Management</title>
     <link rel="icon" href="../../../../public/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -43,21 +43,22 @@
                 <div class="row">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100">
                         <div class="btn-group-vertical col-12 " role="group" aria-label="Basic example">
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
-                            <a href="" class="btn border-0 rounded text-start text-dark bg-danger" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Seat management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
-                            <a href="" class="btn border-0 rounded text-start text-light" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Dashboard</a>
+                            <a href="{{route('admin.staffs.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Staffs management</a>
+                            <a href="{{route('admin.customers.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
+                            <a href="{{route('admin.categories.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
+                            <a href="{{route('admin.movies.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
+                            <a href="{{route('admin.rooms.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Room management</a>
+                            <a href="" class="btn border-0 rounded text-start text-light  shadow-none" tabindex="-1" role="button" aria-disabled="true">Schedules management</a>
+                            <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
+                            <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
                     </div>
                     <div class="col-9">
                         <!-- Title -->
                         <div class="row">
                             <div class="col">
-                                <h2 class="text-light">Staff management site</h2>
+                                <h2 class="text-light">Room management site</h2>
                             </div>
                         </div>
                         <!-- Main -->
@@ -72,45 +73,50 @@
                                 </form>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-12">
-                                <a href="" type="button" class="btn btn-outline-light my-4" tabindex="-1" role="button" aria-disabled="true">
-                                    <i class="fa-solid fa-plus"></i> New user
+                                <a href="{{route('admin.rooms.create')}}" type="button" class="btn btn-outline-danger my-4" tabindex="-1" role="button" aria-disabled="true">
+                                    <i class="fa-solid fa-plus"></i> Add new room
                                 </a>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col">
                                 <table class="table my-3 text-light">
                                     <thead>
                                         <tr>
                                             <th scope="col">No.</th>
-                                            <th scope="col">Full name</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Role</th>
-                                            <th scope="col">Image</th>
+                                            <th scope="col">Room</th>
+                                            <th scope="col">Seat</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
+                                    @foreach($rooms as $room)
+                                    
                                         <tr>
-                                            <th scope="row" class="col-1"> a</th>
-                                            <td class="col-3">a </td>
-                                            <td class="col-2">a </td>
-                                            <td class="col-2">a </td>
-                                            <td class="col-2">a </td>
-                                            <td class="col-2">
-                                                <a href="" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-pen-to-square"></i>
+                                            <th scope="row" class="col-3">{{$room -> id}}</th>
+                                            <td class="col-3">{{$room -> room_name}}</td>
+                                            <td class="col-3">{{$room -> room_capacity}}</td>
+                                            <td class="col-3">
+                                                <a href="{{route('admin.rooms.edit', $room)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
                                                 </a>
-                                                <a href=" " type="button" class="btn btn-outline-danger my-1" tabindex="-1" role="button" aria-disabled="true">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </a>
-
+                                                <form class="d-inline" method="post" action="{{route('admin.rooms.destroy', $room)}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-danger my-1">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
 
+                                        @endforeach
+                                    
                                     </tbody>
                                 </table>
 

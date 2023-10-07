@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\StaffController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +55,7 @@ Route::prefix('Admin/Director')->name('admin.')->group(function () {
  
 Route::prefix('Login')->name('login.')->group(function(){
     Route::get('/', [\App\Http\Controllers\CustomerController::class, 'login'])->name('login');
+    Route::post('/check_login', [\App\Http\Controllers\CustomerController::class, 'check_login'])->name('login.check_login');
     Route::get('/register', [\App\Http\Controllers\CustomerController::class, 'create'])->name('register');
     Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'store'])->name('store');
 
@@ -62,4 +66,22 @@ Route::prefix('Admin/Customer')->name('admin.')->group(function(){
     Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
     Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
     Route::get('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'showAdminSite'])->name('customers.show');
+});
+
+Route::prefix('Admin/Staff')->name('admin.')->group(function(){
+    Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('staffs.index');
+    Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.create');
+    Route::post('/create', [App\Http\Controllers\StaffController::class, 'store'])->name('staffs.store');
+    Route::get('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staffs.edit');
+    Route::put('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'update'])->name('staffs.update');
+    Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy');
+});
+
+Route::prefix('Admin/Room')->name('admin.')->group(function(){
+    Route::get('/', [App\Http\Controllers\RoomController::class, 'index'])->name('rooms.index');
+    Route::get('/create', [App\Http\Controllers\RoomController::class, 'create'])->name('rooms.create');
+    Route::post('/create', [App\Http\Controllers\RoomController::class, 'store'])->name('rooms.store');
+    Route::get('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'edit'])->name('rooms.edit');
+    Route::put('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'update'])->name('rooms.update');
+    Route::delete('/{room}/delete', [\App\Http\Controllers\RoomController::class, 'destroy'])->name('rooms.destroy');
 });
