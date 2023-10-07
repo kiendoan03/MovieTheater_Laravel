@@ -85,3 +85,14 @@ Route::prefix('Admin/Room')->name('admin.')->group(function(){
     Route::put('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'update'])->name('rooms.update');
     Route::delete('/{room}/delete', [\App\Http\Controllers\RoomController::class, 'destroy'])->name('rooms.destroy');
 });
+
+Route::prefix('Admin/Schedule') -> name('admin.') -> group(function(){
+    Route::get('/', [App\Http\Controllers\ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/create', [App\Http\Controllers\ScheduleController::class, 'create'])->name('schedules.create');
+    Route::post('/create', [App\Http\Controllers\ScheduleController::class, 'store'])->name('schedules.store');
+    Route::get('/{schedule}/edit', [\App\Http\Controllers\ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::put('/{schedule}/edit', [\App\Http\Controllers\ScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'destroy'])->name('schedules.destroy');
+});
+
+
