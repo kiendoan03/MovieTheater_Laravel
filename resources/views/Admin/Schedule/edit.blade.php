@@ -70,22 +70,23 @@
 
                         <!-- Main -->
                         <div class="row">
-                            <form role="form" method="post" action="{{route('admin.schedules.update')}}" enctype="multipart/form-data">
+                            @foreach($schedulesInfo as $schedule)
+                            <form role="form" method="post" action="{{route('admin.schedules.update', $schedule)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Date</label>
-                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
+                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" value="{{$schedule -> date}}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Start</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" value="{{$schedule -> start_time}}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">End</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" value="{{$schedule -> end_time}}" required>
                                         </div>
                                         
                                     </div>
@@ -95,9 +96,8 @@
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Room</label>
                                             <select name="room" id="room" class="form-select bg-dark border-0 shadow-none text-light">
-                                                @foreach($schedule_room as $schedule_room)
-                                                    <option value="{{$schedule_room -> room_id}}">{{$schedule_room -> room_name}}</option>
-                                                @endforeach
+
+                                                <option value="{{$schedule -> room_id}}" hidden>{{$schedule -> room_name}}</option>
 
                                                 @foreach($rooms as $room)
                                                     <option value="{{$room -> id}}">{{$room -> room_name}}</option>
@@ -108,9 +108,7 @@
                                             <label for="date" class="form-label text-light">Movie</label>
 
                                             <select name="movie" id="movie" class="form-select bg-dark border-0 shadow-none text-light">
-                                                @foreach($schedule_movie as $schedule_movie)
-                                                    <option value="{{$schedule_movie -> movie_id}}">{{$schedule_movie -> movie_name}}</option>
-                                                @endforeach
+                                                <option value="{{$schedule-> movie_id}}">{{$schedule-> movie_name}}</option>
 
                                                 @foreach($movies as $movie)
                                                     <option value="{{$movie -> id}}">{{$movie -> movie_name}}</option>
@@ -120,9 +118,11 @@
                                         
                                     </div>
                                 </div>
-                                <input type="submit" class="btn btn-danger my-2 col-2" value="Add" name="submit_btn">
+                                <input type="submit" class="btn btn-danger my-2 col-2" value="Edit" name="submit_btn">
 
                             </form>
+
+                            @endforeach
                         </div>
 
 

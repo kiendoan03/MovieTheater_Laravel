@@ -79,12 +79,12 @@
                                             <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="date" class="form-label text-light">Start</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
+                                            <label for="start_time" class="form-label text-light">Start</label>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="start_time" name="start_time" required>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="date" class="form-label text-light">End</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" required>
+                                            <label for="end_time" class="form-label text-light">End</label>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="end_time" name="end_time" required>
                                         </div>
                                         
                                     </div>
@@ -93,7 +93,7 @@
 
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Room</label>
-                                            <select name="room" id="room" class="form-select bg-dark border-0 shadow-none text-light">
+                                            <select name="room_id" id="room" class="form-select bg-dark border-0 shadow-none text-light">
                                                 @foreach($rooms as $room)
                                                     <option value="{{$room -> id}}">{{$room -> room_name}}</option>
                                                 @endforeach
@@ -101,7 +101,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Movie</label>
-                                            <select name="movie" id="movie" class="form-select bg-dark border-0 shadow-none text-light">
+                                            <select name="movie_id" id="movie" class="form-select bg-dark border-0 shadow-none text-light">
                                                 @foreach($movies as $movie)
                                                     <option value="{{$movie -> id}}">{{$movie -> movie_name}}</option>
                                                 @endforeach

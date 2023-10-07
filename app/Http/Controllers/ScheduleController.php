@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Schedule;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use App\Models\Movie;
+use App\Models\Room;
 
 class ScheduleController extends Controller
 {
@@ -14,9 +16,13 @@ class ScheduleController extends Controller
     public function index()
     {
         //
-        $schedules = Schedule::all();
+
+        $srm = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
+        ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
+        ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*']);
+
         return view('Admin.schedule.main',[
-            'schedules' => $schedules,
+            'schedulesInfo' => $srm,
         ]);
     }
 
@@ -27,8 +33,8 @@ class ScheduleController extends Controller
     {
         //
         $schedules = Schedule::all();
-        $movies = Schedule::all();  
-        $rooms = Schedule::all();
+        $movies = Movie::all();  
+        $rooms = Room::all();
         return view('Admin.schedule.create',[
             'schedules' => $schedules,
             'movies' => $movies,
@@ -41,8 +47,24 @@ class ScheduleController extends Controller
      */
     public function store(StoreScheduleRequest $request)
     {
-        //
+        $data = Schedule::all()
+        -> where('date', $request-> date)
+        -> where('room_id', $request->room_id);
+        
+        foreach($data as $srm){
+            if($request->start_time >= $srm->start_time && $request->start_time <= $srm->end_time){
+                return redirect()->route('admin.schedules.create') -> with('error', 'The time is not available');
+            }
+            else if($request->start_time <= $srm->start_time && $request->end_time >= $srm->end_time){
+                return redirect()->route('admin.schedules.create')-> with('error', 'The time is not available');
+            }
+            else if($request->end_time >= $srm->start_time && $request->end_time <= $srm->end_time){
+                return redirect()->route('admin.schedules.create')-> with('error', 'The time is not available');
+            }
+        }
 
+        Schedule::create($request->all());
+        return redirect()->route('admin.schedules.index');
     }
 
     /**
@@ -58,23 +80,19 @@ class ScheduleController extends Controller
      */
     public function edit(Schedule $schedule)
     {
-        //
-        $schedules = Schedule::all();
-        $movies = Schedule::all();  
-        $rooms = Schedule::all();
-
-        $schedule_movie = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
-        ->get(['movies.*', 'schedules.*']);
-
-        $schedule_room = Schedule::join('rooms', 'rooms.id', '=', 'schedules.room_id')
-        ->get(['movies.*', 'schedules.*']);
-
+        $movies = Movie::all();  
+        $rooms = Room::all();
+        $srm = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
+        ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
+        ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*'])
+        ->where('schedules_id', $schedule->schedule_id);
+        
         return view('Admin.schedule.edit',[
-            'schedules' => $schedules,
+            
             'movies' => $movies,
             'rooms' => $rooms,
-            'schedule_movie' => $schedule_movie,
-            'schedule_room' => $schedule_room,
+            'schedulesInfo' => $srm,
+
         ]);
     }
 

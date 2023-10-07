@@ -102,19 +102,20 @@
                                     </thead>
                                     <tbody>
 
+                                        @foreach($schedulesInfo as $schedule)
                                         <tr>
-                                            @foreach($schedules as $schedule)
-                                            <th scope="row" class="col-1">{{$schedule -> id}}</th>
-                                            <td class="col-2">{{$schedule -> date}}</td>
-                                            <td class="col-1"> {{$schedule -> start_time}}</td>
-                                            <td class="col-1">
+                                            
+                                            <th scope="row" class="col-1">{{$schedule -> schedule_id}}</th>
+                                            <td class="col-1">{{$schedule -> date}}</td>
+                                            <td class="col-2"> {{$schedule -> start_time}}</td>
+                                            <td class="col-2">
                                                {{$schedule -> end_time}}
                                             </td>
-                                            <td class="col-2">
-                                                sdf
+                                            <td class="col-1">
+                                                {{ $schedule -> room_name}}
                                             </td>
                                             <td class="col-3">
-                                                sdf
+                                                {{$schedule -> movie_name}}
                                             </td>
                                             <td class="col-2">
                                                 <a href="{{route('admin.schedules.edit',$schedule)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
@@ -129,9 +130,10 @@
                                                 </form>
 
                                             </td>
-                                            @endforeach
+                                           
                                         </tr>
 
+                                        @endforeach
 
                                     </tbody>
                                 </table>
