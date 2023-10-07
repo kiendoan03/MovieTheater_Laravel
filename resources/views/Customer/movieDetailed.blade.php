@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="..\..\..\public\bootstrapLib\bootstrap.min.css">
+    <link rel="stylesheet" href="\bootstrapLib\bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="../../../public/img/page_logo/download-removebg-preview.png">
-    <link rel="stylesheet" href="../../css/scroll/hideScrollBar.css">
+    <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
+    <link rel="stylesheet" href=" {{asset(\Illuminate\Support\Facades\Storage::url('css/scroll/hideScrollBar.css'))}}">
     <title>Netfnix</title>
 </head>
 
@@ -25,7 +25,7 @@
             <section class="p-0 top-0 start-0 bottom-0 end-0">
                 <div>
                     <video style="object-fit: cover; backdrop-filter: brightness(60%);" class="full-screen-element col-12" id="trailerVideo" oncontextmenu="return false;" autoplay muted loop disablePictureInPicture>
-                        <source src = "../../../public/video/JujutsuKaisen2 Trailer.mp4">
+                        <source src = "{{asset(\Illuminate\Support\Facades\Storage::url('/movie_trailer/').$movie -> trailer)}}">
                     </video>
                 </div>
             </section>
@@ -41,16 +41,22 @@
                     <div class="row mt-5">
                         <div class="col-12 d-flex justify-content-center">
                             <div class="col-1 text-center">
-                                <span class="border text-light p-2 rounded-2">16+</span>
+                                <span class="border text-light p-2 rounded-2">{{$movie -> age}}+</span>
                             </div>
                             <div class="col-1 text-center">
-                                <span class="text-light p-2">2023</span>
+                                <span class="text-light p-2">{{$movie -> release_date}}</span>
                             </div>
                             <div class="col-1 text-center">
-                                <span class="text-light p-2">180 Min</span>
+                                <span class="text-light p-2">{{$movie -> length}} Min</span>
                             </div>
                             <div class="col-1 text-center">
-                                <span class="text-light p-2">Eng-Vie</span>
+                                <span class="text-light p-2">
+                                    @if($movie -> language == 0)
+                                        English
+                                    @elseif($movie -> language == 1)
+                                        Vietnamese
+                                    @endif
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -58,7 +64,7 @@
                     <!-- Movie logo -->
                     <div class="row">
                         <div class="col-12 d-block">
-                            <img class="col-4 d-block my-5 mx-auto" src="../../../public/img/filmLogo/jujutsu-kaisen-0-the-movie-61a777b9626d2.png" alt="">
+                            <img class="col-4 d-block my-5 mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_logo/').$movie -> logo_img)}}" alt="">
                         </div>
                     </div>
 
@@ -75,8 +81,7 @@
                             <!-- Movie Detail -->
                             <div class="col-5 mt-4">
                                 <span class="text-light">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                                    {{$movie -> description}}
                                 </span>
                             </div>
 
@@ -119,17 +124,16 @@
                 <!-- Movie text in4 -->
                 <div class="col-7 hide-scrollbar" style="height: 35vmax; overflow-x: hidden; overflow-y: scroll;">
 
-                    <p class="text-light" style="font-size: 3vmax;">Jujutsu Kaisen 2</p>
+                    <p class="text-light" style="font-size: 3vmax;">{{$movie -> movie_name}}</p>
 
                     <span class="border me-2 text-light p-2 rounded-2">
                         <span class="pe-2 fw-bold">IMDb </span>
 
-                    <span class="border-start py-2 ps-2 text-light"> 8,5 / 10 </span>
+                    <span class="border-start py-2 ps-2 text-light"> {{$movie -> rating}} / 5 </span>
                     </span>
 
                     <p class="text-light mt-4">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                        survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        {{$movie -> description}}
                     </p>
 
                     <!-- Actor and Director -->
@@ -138,11 +142,13 @@
                         <!-- Actors -->
                         <div>
                             <span class="text-light" style="font-size: 1.7vmax;"> Actors </span>
+                            @foreach($movie_actor as $movie_actor)
+
                             <div class="d-flex my-4">
-                                <img class="d-block me-3" src="../../../public/img/Actor/92893960_10159265884387439_7111891102537351168_n.jpg" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
-                                <img class="d-block me-3" src="../../../public/img/Actor/92893960_10159265884387439_7111891102537351168_n.jpg" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
-                                <img class="d-block me-3" src="../../../public/img/Actor/92893960_10159265884387439_7111891102537351168_n.jpg" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/').$movie_actor -> actor_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
                             </div>
+
+                            @endforeach
                         </div>
 
                         <!-- Director -->
@@ -199,9 +205,10 @@
         }
     </script>
 
-    <script src="../../js/screenProps/setBrowserSize.js"></script>
-    <script src="../../js/screenProps/scrollHalf.js"></script>
-    <script src="../../js/screenProps/disableScroll.js"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/setBrowserSize.js'))}}"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/scrollHalf.js'))}}"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/disableScroll.js'))}}"></script>
+
 </body>
 
 </html>

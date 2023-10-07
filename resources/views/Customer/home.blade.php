@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="..\..\..\public\bootstrapLib\bootstrap.min.css">
-    <link rel="stylesheet" href="..\..\..\resources\css/home.css">
-    <link rel="stylesheet" href="../../css/intro.css">
+    <link rel="stylesheet" href="/bootstrapLib/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset(\Illuminate\Support\Facades\Storage::url('css/home.css'))}}">
+    <link rel="stylesheet" href="{{asset(\Illuminate\Support\Facades\Storage::url('css/intro.css'))}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="icon" href="../../../public/img/page_logo/download-removebg-preview.png">
+    <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/scroll/hideScrollBar.css">
+    <link rel="stylesheet" href="{{asset(\Illuminate\Support\Facades\Storage::url('css/scroll/hideScrollBar.css'))}}">
     <title>Netfnix</title>
 </head>
 
@@ -203,7 +203,7 @@
 
         <header class="row d-flex p-3  justify-content-between" style="background-color:none">
             <section class="col-3">
-                <img class="col-4" src="../../../public/img/page_logo/NetFnix Full logo.png" alt="">
+                <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
             </section>
 
             <section class="col-5">
@@ -226,7 +226,7 @@
                 </div>
 
                 <div class="dropdown" style="height: 3vmax; width: 3vmax;">
-                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="../../../public/img/User/avatar.jpg" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
                     <ul class="dropdown-menu" style="background-color: #ffffff48;" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">Action</a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -254,65 +254,20 @@
 
             <section class="p-0">
                 <div class="slider col-12">
+                    @foreach($movies as $movie)
+
                     <div class="mx-3">
                         <div class="card border-0 rounded-0 ">
                             <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public\img\movieThumbnail\conan-movie-26-3_1688781415982.jpg" alt="">
+                                <a href="{{route('detail',$movie)}}">
+                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" alt="">
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public/img/movieThumbnail/750x500_1691554140594.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
 
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public/img/movieThumbnail/750x500_1691142060996.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public/img/movieThumbnail/750x500_1691391493117.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public/img/movieThumbnail/750x500_1692332193688.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="movieDetailed.html">
-                                    <img src="..\..\..\public/img/movieThumbnail/750x500-bb_1689566756017.jpg" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
         </section>
@@ -328,112 +283,38 @@
                 </div>
             </div>
             <div class="row mt-3">
+                
+                @for((int)$i = 0; $i < 4; $i++)
+                    
                 <div class="col-6 col-lg-3 mb-5">
                     <div class="card image-container h-100">
                         <div class="background-image">
                             <div class="overlay-content">
-                                <h1>1</h1>
+                                <h1>{{$i + 1}}</h1>
                             </div>
                         </div>
-                        <a href="movieDetailed.html">
-                            <img src="../../../public/img/poster_film/11119_103_100005.jpg" alt="Overlay Image" class="overlay-image">
+                        <a href="">
+                            <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movies[$i] -> poster_img)}}" alt="Overlay Image" class="overlay-image">
                         </a>
                     </div>
                 </div>
 
-                <div class="col-6 col-lg-3 mb-5">
-                    <div class="card image-container h-100">
-                        <div class="background-image">
-                            <div class="overlay-content">
-                                <h1>2</h1>
-                            </div>
-                        </div>
-                        <a href="movieDetailed.html">
-                            <img src="../../../public/img/poster_film/11240_103_100001.jpg" alt="Overlay Image" class="overlay-image">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-6 col-lg-3 mb-5">
-                    <div class="card image-container h-100">
-                        <div class="background-image">
-                            <div class="overlay-content">
-                                <h1>3</h1>
-                            </div>
-                        </div>
-                        <a href="movieDetailed.html">
-                            <img src="../../../public/img/poster_film/11215_103_100001.jpg" alt="Overlay Image" class="overlay-image">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-6 col-lg-3 mb-5">
-                    <div class="card image-container h-100">
-                        <div class="background-image">
-                            <div class="overlay-content">
-                                <h1>4</h1>
-                            </div>
-                        </div>
-                        <a href="movieDetailed.html">
-                            <img src="../../../public/img/poster_film/11128_103_100003.jpg" alt="Overlay Image" class="overlay-image">
-                        </a>
-                    </div>
-                </div>
+                @endfor
 
             </div>
 
         </section>
 
-        <!-- Movie coming soon -->
 
-        <section class="Movie_coming_soon">
-
-            <div class=" my-2 py-4">
-                <div class="row justify-content-center mb-3">
-                    <div class="col-lg-7 col-md-8">
-                        <div class="text-center">
-                            <h1 class="text-light" style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Movie Comming Soon</h1>
-                        </div>
-                    </div>
-                </div>
-                <div id="carouselExampleIndicators" class="carousel slide carousel-fade px-3 py-4" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="..\..\..\public/img/banner_film/574b2d67b00f4b40b7aea28d6fa0fc17.jpg" class="d-block w-100 rounded-3" style="opacity: 0.95;" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..\..\..\public/img/banner_film/13390962dd2a435ca1221cf698cc6230.jpg" class="d-block w-100 rounded-3" style="opacity: 0.95;" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..\..\..\public/img/banner_film/f1df1de6717c48aaa201e2c7359d4a3b.jpg" class="d-block w-100 rounded-3" style="opacity: 0.95;" alt="...">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Previous</span>
-                </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Next</span>
-                </button>
-                </div>
-            </div>
-
-        </section>
-
+      
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
-    <script src="../../../public/bootstrapLib/bootstrap.bundle.min.js"></script>
-    <script src="../../js/home_slider.js"></script>
-    <script src="../../js/intro.js"></script>
-    <script src="../../js/screenProps/setBrowserSize.js"></script>
+    <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/home_slider.js'))}}"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/intro.js'))}}"></script>
+    <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/setBrowserSize.js'))}}"></script>
 </body>
 
 </html>
