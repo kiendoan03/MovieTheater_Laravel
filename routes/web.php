@@ -95,4 +95,9 @@ Route::prefix('Admin/Schedule') -> name('admin.') -> group(function(){
     Route::delete('/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'destroy'])->name('schedules.destroy');
 });
 
+Route::prefix('/')->group(function(){
+    Route::get('/', [App\Http\Controllers\MovieController::class, 'show'])->name('index');
+    Route::get('/{movie}/detail', [App\Http\Controllers\MovieController::class, 'detail'])->name('detail');
+    
+});
 
