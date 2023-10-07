@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->timestamp('start_time');
-            $table->timestamp('end_time') -> nullable();
+            $table->time('start_time');
+            $table->time('end_time') -> nullable();
             $table->foreignId('room_id')->constrained('rooms');
             $table->foreignId('movie_id')->constrained('movies');
         });
