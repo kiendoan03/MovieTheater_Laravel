@@ -314,7 +314,7 @@
                     <div class="col-3  mb-3">
                         <div class="card" >
                             <a href="{{route('detail',$movie)}}">
-                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 20vmax" class="rounded" alt="">
+                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 23.6vmax" class="rounded" alt="">
                             </a>
                         </div>  
                     </div>
