@@ -11,6 +11,7 @@ use App\Models\Director;
 use App\Models\category_movie;
 use App\Models\director_movie;
 use App\Models\actor_movie;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,8 +24,11 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::all();
+        $now = Carbon::today();
+        $now -> setTimezone('Asia/Ho_Chi_Minh');   
         return view('Admin.Movie.main',[
             'movies' => $movies,
+            'now' => $now,
         ]);
     }
 
@@ -74,6 +78,7 @@ class MovieController extends Controller
         $array = Arr::add($array, 'rating', 5);
         $array = Arr::add($array, 'length', $request->movie_length);
         $array = Arr::add($array, 'release_date', $request->movie_release_date);
+        $array = Arr::add($array, 'end_date', $request->movie_end_date);
         $array = Arr::add($array, 'age', $request->movie_age);
         $array = Arr::add($array, 'language', $request->movie_language);
         $array = Arr::add($array, 'description', $request->movie_description);
@@ -114,8 +119,17 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
         $movies = Movie::all();
+        $now = Carbon::today();
+        $now -> setTimezone('Asia/Ho_Chi_Minh');    
+
+        $movie_show = Movie::where('release_date', '<=', $now)
+        -> where('end_date', '>=', $now)
+        ->get();
+
         return view('Customer.home',[
             'movies' => $movies,
+            'now' => $now,
+            'movie_show' => $movie_show,
         ]);
     }
 
@@ -124,6 +138,7 @@ class MovieController extends Controller
         $directors = Director::all();
         $categories = Category::all();
         $date =  $movie->release_date;
+        $end =  $movie->end_date;
         $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
         ->join('categories', 'categories.id', '=', 'category_movies.category_id')
         ->where('movies.id', $movie -> id)
@@ -151,6 +166,7 @@ class MovieController extends Controller
             'directors' => $directors,
             'categories' => $categories,
             'date' => $date,
+            'end' => $end,
             'movie_cate' => $movie_cate,
             'movie_actor' => $movie_actor,
             'movie_director' => $movie_director,
@@ -167,6 +183,7 @@ class MovieController extends Controller
         $directors = Director::all();
         $categories = Category::all();
         $date =  $movie->release_date;
+        $end = $movie->end_date;
         $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
         ->join('categories', 'categories.id', '=', 'category_movies.category_id')
         ->get(['movies.id', 'category_movies.*', 'categories.*']);
@@ -185,6 +202,7 @@ class MovieController extends Controller
             'directors' => $directors,
             'categories' => $categories,
             'date' => $date,
+            'end' => $end,
             'movie_cate' => $movie_cate,
             'movie_actor' => $movie_actor,
             'movie_director' => $movie_director,
@@ -241,6 +259,7 @@ class MovieController extends Controller
         $array = Arr::add($array, 'rating', $movie -> rating);
         $array = Arr::add($array, 'length', $request->movie_length);
         $array = Arr::add($array, 'release_date', $request->movie_release_date);
+        $array = Arr::add($array, 'end_date', $request->movie_end_date);
         $array = Arr::add($array, 'age', $request->movie_age);
         $array = Arr::add($array, 'language', $request->movie_language);
         $array = Arr::add($array, 'description', $request->movie_description);

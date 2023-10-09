@@ -96,6 +96,8 @@
                                             <th scope="col">Rating</th>
                                             <th scope="col">Poster</th>
                                             <th scope="col">Release date</th>
+                                            <th scope="col">End date</th>
+                                            <th scope="col">Status</th>
                                             <th scope="col">Language</th>
                                             <th scope="col">Length</th>
                                             <th scope="col">Action</th>
@@ -113,6 +115,18 @@
                                             </td>
                                             <td class="col-2">
                                                 {{$movie -> release_date}}
+                                            </td>
+                                            <td class="col-2">
+                                                {{$movie -> end_date}}
+                                            </td>
+                                            <td class="col-2">
+                                            @if($movie -> release_date <= $now && $now <= $movie -> end_date)
+                                                dang chieu
+                                            @elseif($movie -> release_date > $now)
+                                                sap chieu
+                                            @else
+                                                da chieu
+                                            @endif
                                             </td>
                                             <td class="col-2">
                                             @if ($movie -> language == 0)

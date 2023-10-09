@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('language');
             $table->integer('length');
             $table->date('release_date');
+            $table->date('end_date');
             $table->text('trailer');
             $table->integer('age');
         });

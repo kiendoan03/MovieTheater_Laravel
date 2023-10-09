@@ -173,6 +173,11 @@
                                         </div>
 
                                         <div class="mb-3">
+                                            <label for="movie_release_date" class="form-label text-light">End date</label>
+                                            <input type="date" class="form-control bg-dark border-0 shadow-none text-light" id="movie_end_date" value="{{$end}}" name="movie_end_date" required>
+                                        </div>
+
+                                        <div class="mb-3">
                                             <label for="floatingTextarea" class="text-light form-label">Description</label>
                                             <textarea class="form-control bg-dark border-0 shadow-none text-light" id="movie_description" name="movie_description">{{$movie -> description}}</textarea>
                                         </div>

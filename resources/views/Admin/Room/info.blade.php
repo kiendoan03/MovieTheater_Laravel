@@ -58,7 +58,7 @@
                         <!-- Title -->
                         <div class="row">
                             <div class="col">
-                                <h2 class="text-light"> Room {{$room -> room_name}}</h2>
+                                <h2 class="text-light">{{$room -> room_name}}</h2>
                             </div>
                         </div>
                         <!-- Main -->

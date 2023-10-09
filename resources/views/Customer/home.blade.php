@@ -224,6 +224,7 @@
                     <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
                         <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
                         <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
                     </ul>
                 </div>
 
@@ -247,18 +248,16 @@
 
             <section class="p-0">
                 <div class="slider col-12">
-                    @foreach($movies as $movie)
-
-                    <div class="mx-3">
-                        <div class="card border-0 rounded-0 ">
-                            <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
-                                <a href="{{route('detail',$movie)}}">
-                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" alt="">
-                                </a>
+                    @foreach($movie_show as $movie)
+                            <div class="mx-3">
+                                <div class="card border-0 rounded-0 ">
+                                    <div class="d-flex bg-opacity-25 justify-content-center align-items-end">
+                                        <a href="{{route('detail',$movie)}}">
+                                            <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" alt="">
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
                     @endforeach
 
                 </div>
@@ -278,20 +277,18 @@
             <div class="row mt-3">
                 
                 @for((int)$i = 0; $i < 4; $i++)
-                    
-                <div class="col-6 col-lg-3 mb-5">
-                    <div class="card image-container h-100">
-                        <div class="background-image">
-                            <div class="overlay-content">
-                                <h1>{{$i + 1}}</h1>
+                        <div class="col-6 col-lg-3 mb-5">
+                            <div class="card image-container h-100">
+                                <div class="background-image">
+                                    <div class="overlay-content">
+                                        <h1>{{$i + 1}}</h1>
+                                    </div>
+                                </div>
+                                <a href="{{route('detail',$movies[$i])}}">
+                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movie_show[$i] -> poster_img)}}" alt="Overlay Image" class="overlay-image">
+                                </a>
                             </div>
                         </div>
-                        <a href="{{route('detail',$movies[$i])}}">
-                            <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movies[$i] -> poster_img)}}" alt="Overlay Image" class="overlay-image">
-                        </a>
-                    </div>
-                </div>
-
                 @endfor
 
             </div>
@@ -311,13 +308,15 @@
             
             <div class="row mt-3">
                 @foreach($movies as $movie)
-                    <div class="col-3  mb-3">
-                        <div class="card" >
-                            <a href="{{route('detail',$movie)}}">
-                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 23.6vmax" class="rounded" alt="">
-                            </a>
-                        </div>  
-                    </div>
+                    @if($movie -> release_date > $now)
+                        <div class="col-3  mb-3">
+                            <div class="card" >
+                                <a href="{{route('detail',$movie)}}">
+                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 23.6vmax" class="rounded" alt="">
+                                </a>
+                            </div>  
+                        </div>
+                    @endif
                 @endforeach
             </div>          
 
