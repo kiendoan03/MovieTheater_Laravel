@@ -203,16 +203,9 @@
 
         <header class="row d-flex p-3  justify-content-between" style="background-color:none">
             <section class="col-3">
-                <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
-            </section>
-
-            <section class="col-5">
-                <div class="d-flex col-12 justify-content-between pt-2">
-                    <a class="text-decoration-none text-light" style="font-size: 1.1vmax;" href="">Home</a></li>
-                    <a class="text-decoration-none text-light" style="font-size: 1.1vmax;" href="">Movies</a></li>
-                    <a class="text-decoration-none text-light" style="font-size: 1.1vmax;" href="">New & Popular</a></li>
-                    <a class="text-decoration-none text-light" style="font-size: 1.1vmax;" href="">Incomming</a></li>
-                </div>
+                <a href="{{route('index')}}">
+                    <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
+                </a>
             </section>
 
             <section class="col-3 d-flex justify-content-end pe-3">
