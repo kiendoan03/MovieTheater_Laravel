@@ -226,11 +226,11 @@
                 </div>
 
                 <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+               
                     <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
-                    <ul class="dropdown-menu" style="background-color: #ffffff48;" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
                     </ul>
                 </div>
 
@@ -293,7 +293,7 @@
                                 <h1>{{$i + 1}}</h1>
                             </div>
                         </div>
-                        <a href="">
+                        <a href="{{route('detail',$movies[$i])}}">
                             <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/'). $movies[$i] -> poster_img)}}" alt="Overlay Image" class="overlay-image">
                         </a>
                     </div>
@@ -302,6 +302,31 @@
                 @endfor
 
             </div>
+
+        </section>
+
+        <!-- incomming -->
+
+        <section class="incomming">
+            <div class="row justify-content-center ">
+                <div class="col-lg-7 col-md-8">
+                    <div class="text-center">
+                        <h1 class="text-light " style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Movie incomming</h1>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-3">
+                @foreach($movies as $movie)
+                    <div class="col-3  mb-3">
+                        <div class="card" >
+                            <a href="{{route('detail',$movie)}}">
+                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 20vmax" class="rounded" alt="">
+                            </a>
+                        </div>  
+                    </div>
+                @endforeach
+            </div>          
 
         </section>
 

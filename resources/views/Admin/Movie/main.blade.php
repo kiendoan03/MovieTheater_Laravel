@@ -116,7 +116,7 @@
                                             </td>
                                             <td class="col-2">
                                             @if ($movie -> language == 0)
-                                                English
+                                                English - VietSub
                                             @else 
                                                 Vietnamese
                                             @endif

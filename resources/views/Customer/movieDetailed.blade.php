@@ -52,7 +52,7 @@
                             <div class="col-1 text-center">
                                 <span class="text-light p-2">
                                     @if($movie -> language == 0)
-                                        English
+                                        English - VietSub
                                     @elseif($movie -> language == 1)
                                         Vietnamese
                                     @endif
@@ -150,7 +150,9 @@
                             @foreach($movie_actor as $movie_actor)
 
                             <div class="d-flex my-4">
-                                <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/').$movie_actor -> actor_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                <a href="{{route('actor',$movie_actor -> actor_id)}}">
+                                    <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/').$movie_actor -> actor_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                </a>
                             </div>
 
                             @endforeach
@@ -161,9 +163,9 @@
                             <span class="text-light" style="font-size: 1.7vmax;"> Directors </span>
                             <div class="d-flex my-4">
                                 @foreach($movie_director as $movie_director)
-                                
-                                <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$movie_director -> director_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
-                            
+                                <a href="{{route('director', $movie_director -> director_id)}}">
+                                    <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$movie_director -> director_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                </a>
                                 @endforeach
                             </div>
                         </div>
@@ -178,9 +180,11 @@
 
                         <div class="mt-4 d-flex col-12 border border-0 rounded-3 hide-scrollbar" style="overflow-x: scroll;">
 
-
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$movie -> thumbnail_img)}}" alt="">
-                        
+                        @foreach($related_movie as $related_movie)
+                        <a href="{{route('detail',$related_movie -> movie_id)}}">
+                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$related_movie -> thumbnail_img)}}" alt="">
+                        </a>
+                        @endforeach
 
                         </div>
 

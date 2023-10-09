@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actor;
+use App\Models\actor_movie;
+use App\Models\Movie;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
 use Illuminate\Support\Arr;
@@ -53,9 +55,19 @@ class ActorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Actor $actor)
+    public function show($movie_actor)
     {
         //
+        $actor = Actor::find($movie_actor);
+        $movie_actor = Movie::join('actor_movies', 'actor_movies.movie_id', '=', 'movies.id')
+        ->join('actors', 'actors.id', '=', 'actor_movies.actor_id')
+        ->where('actors.id', $actor -> id)
+        ->get(['movies.*', 'actor_movies.*', 'actors.*']);
+
+        return view('Customer.actor',[
+            'actor' => $actor,
+            'movie_actor' => $movie_actor,
+        ]);
     }
 
     /**

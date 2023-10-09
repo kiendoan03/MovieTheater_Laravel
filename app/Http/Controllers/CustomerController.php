@@ -158,7 +158,11 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        
+        $user = Customer::find(1);
+
+        return view('Customer.user',[
+            'user' => $user,
+        ]);
     }
 
     /**

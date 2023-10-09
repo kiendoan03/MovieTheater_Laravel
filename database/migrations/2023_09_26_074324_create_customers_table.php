@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('customer_password');
             $table->string('customer_avatar');
             $table->date('customer_date_of_birth');
+            $table->timestamp('created_at');
         });
     }
 

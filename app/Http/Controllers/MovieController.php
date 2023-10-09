@@ -111,7 +111,7 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Movie $movie)
     {
         $movies = Movie::all();
         return view('Customer.home',[
@@ -125,10 +125,15 @@ class MovieController extends Controller
         $categories = Category::all();
         $date =  $movie->release_date;
         $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
-        ->where('movies.id', $movie -> id)
         ->join('categories', 'categories.id', '=', 'category_movies.category_id')
         ->where('movies.id', $movie -> id)
         ->get(['movies.*', 'category_movies.*', 'categories.*']);
+
+        $related_movie = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
+        ->join('categories', 'categories.id', '=', 'category_movies.category_id')
+        ->where('categories.id',  $movie_cate[0] -> category_id)
+        ->get(['movies.*', 'category_movies.*', 'categories.*']);
+
 
         $movie_actor = Movie::join('actor_movies', 'actor_movies.movie_id', '=', 'movies.id')
         ->join('actors', 'actors.id', '=', 'actor_movies.actor_id')
@@ -149,6 +154,7 @@ class MovieController extends Controller
             'movie_cate' => $movie_cate,
             'movie_actor' => $movie_actor,
             'movie_director' => $movie_director,
+            'related_movie' => $related_movie,
         ]);
     }
 

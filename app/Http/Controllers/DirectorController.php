@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Director;
+use App\Models\Movie;
+use App\Models\director_movie;
 use App\Http\Requests\StoreDirectorRequest;
 use App\Http\Requests\UpdateDirectorRequest;
 use Illuminate\Support\Arr;
@@ -54,9 +56,19 @@ class DirectorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Director $director)
+    public function show($movie_director)
     {
         //
+        $director = Director::find($movie_director);
+        $movie_director = Movie::join('director_movies', 'director_movies.movie_id', '=', 'movies.id')
+        ->join('directors', 'directors.id', '=', 'director_movies.director_id')
+        ->where('directors.id', $director -> id)
+        ->get(['movies.*', 'director_movies.*', 'directors.*']);
+
+        return view('Customer.director',[
+            'director' => $director,
+            'movie_director' => $movie_director,
+        ]);
     }
 
     /**
