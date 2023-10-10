@@ -82,7 +82,7 @@ Route::prefix('Admin/Room')->name('admin.')->group(function(){
     Route::get('/create', [App\Http\Controllers\RoomController::class, 'create'])->name('rooms.create');
     Route::post('/create', [App\Http\Controllers\RoomController::class, 'store'])->name('rooms.store');
     Route::get('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'edit'])->name('rooms.edit');
-    Route::put('/{room}/edit', [\App\Http\Controllers\RoomController::class, 'update'])->name('rooms.update');
+    Route::put('/{seat_id}/{room_id}/edit', [\App\Http\Controllers\RoomController::class, 'update'])->name('rooms.update');
     Route::delete('/{room}/delete', [\App\Http\Controllers\RoomController::class, 'destroy'])->name('rooms.destroy');
 });
 

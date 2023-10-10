@@ -218,6 +218,7 @@
     <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/setBrowserSize.js'))}}"></script>
     <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/scrollHalf.js'))}}"></script>
     <script src="{{asset(\Illuminate\Support\Facades\Storage::url('js/screenProps/disableScroll.js'))}}"></script>
+    <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
 
 </body>
 

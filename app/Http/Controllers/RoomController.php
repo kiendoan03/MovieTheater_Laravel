@@ -97,10 +97,10 @@ class RoomController extends Controller
     {
         //
         $type = Seat_type::all();
-        $seat = Seat::all();
+        $seats = Seat::all();
         return view('admin.room.info',[
             'room' => $room,
-            'seat' => $seat,
+            'seats' => $seats,
             'type' => $type,
         ]);
     }
@@ -108,9 +108,29 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoomRequest $request, Room $room)
+    public function update(UpdateRoomRequest $request, Room $room, $seat_id , $room_id)
     {
         //
+        $type = Seat_type::all();
+        $seats = Seat::all();
+        $seat = Seat::find($seat_id);
+        $room = Room::find($room_id);
+
+            if($seat -> status == 0){
+                $array = [];
+                $array = Arr::add($array, 'status', 1);
+                $seat -> update($array);
+            }else{
+                $array = [];
+                $array = Arr::add($array, 'status', 0);
+                $seat -> update($array);
+            }
+
+            return redirect()->route('admin.rooms.edit',[
+                'room' => $room,
+                'seats' => $seats,
+                'type' => $type,
+            ]);
     }
 
     /**
