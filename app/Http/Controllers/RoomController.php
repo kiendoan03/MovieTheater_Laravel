@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\schedule_seat;
 use App\Models\Seat;
 use App\Models\Seat_type;
 use Illuminate\Support\Arr;
@@ -97,7 +98,7 @@ class RoomController extends Controller
     {
         //
         $type = Seat_type::all();
-        $seats = Seat::all();
+        $seats = Seat::where('room_id', '=', $room -> id)->get();
         return view('admin.room.info',[
             'room' => $room,
             'seats' => $seats,
@@ -115,8 +116,9 @@ class RoomController extends Controller
         $seats = Seat::all();
         $seat = Seat::find($seat_id);
         $room = Room::find($room_id);
+        $schedule_seat = schedule_seat::where('seat_id', '=', $seat_id) -> get();
 
-            if($seat -> status == 0){
+        if($seat -> status == 0){
                 $array = [];
                 $array = Arr::add($array, 'status', 1);
                 $seat -> update($array);
@@ -125,6 +127,18 @@ class RoomController extends Controller
                 $array = Arr::add($array, 'status', 0);
                 $seat -> update($array);
             }
+            foreach($schedule_seat as $schedule_seat){
+                if($schedule_seat -> status == 0){
+                    $arr = [];
+                    $arr = Arr::add($arr, 'status', 1);
+                    $schedule_seat -> save($arr);
+                }else{
+                    $arr = [];
+                    $arr = Arr::add($arr, 'status', 0);
+                    $schedule_seat -> save($arr);
+                }
+            }
+            
 
             return redirect()->route('admin.rooms.edit',[
                 'room' => $room,

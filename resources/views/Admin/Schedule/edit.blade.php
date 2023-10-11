@@ -71,7 +71,7 @@
                         <!-- Main -->
                         <div class="row">
                             @foreach($schedulesInfo as $schedule)
-                            <form role="form" method="post" action="{{route('admin.schedules.update', $schedule)}}" enctype="multipart/form-data">
+                            <form role="form" method="post" action="{{route('admin.schedules.update', $schedule -> schedule_id)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -82,11 +82,11 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Start</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" value="{{$schedule -> start_time}}" required>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="start_time" name="start_time" value="{{$schedule -> start_time}}" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">End</label>
-                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="date" name="date" value="{{$schedule -> end_time}}" required>
+                                            <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="end_time" name="end_time" value="{{$schedule -> end_time}}" required>
                                         </div>
                                         
                                     </div>
@@ -95,7 +95,7 @@
 
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Room</label>
-                                            <select name="room" id="room" class="form-select bg-dark border-0 shadow-none text-light">
+                                            <select name="room_id" id="room" class="form-select bg-dark border-0 shadow-none text-light">
 
                                                 <option value="{{$schedule -> room_id}}" hidden>{{$schedule -> room_name}}</option>
 
@@ -107,7 +107,7 @@
                                         <div class="mb-3">
                                             <label for="date" class="form-label text-light">Movie</label>
 
-                                            <select name="movie" id="movie" class="form-select bg-dark border-0 shadow-none text-light">
+                                            <select name="movie_id" id="movie" class="form-select bg-dark border-0 shadow-none text-light">
                                                 <option value="{{$schedule-> movie_id}}">{{$schedule-> movie_name}}</option>
 
                                                 @foreach($movies as $movie)

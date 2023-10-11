@@ -118,10 +118,13 @@
                                                 {{$schedule -> movie_name}}
                                             </td>
                                             <td class="col-2">
-                                                <a href="{{route('admin.schedules.edit',$schedule)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                <a href="{{route('admin.schedules.seat', $schedule -> schedule_id)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
+                                                    <i class="fa-sharp fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="{{route('admin.schedules.edit',$schedule -> schedule_id)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <form class="d-inline" method="post" action="{{route('admin.schedules.destroy',$schedule)}}">
+                                                <form class="d-inline" method="post" action="{{route('admin.schedules.destroy',$schedule -> schedule_id)}}">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-outline-danger my-1">

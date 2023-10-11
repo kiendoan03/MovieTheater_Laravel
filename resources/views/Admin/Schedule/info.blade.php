@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netfnix - Room Management</title>
+    <title>Netfnix - Schedule Management</title>
     <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
@@ -48,8 +48,8 @@
                             <a href="{{route('admin.customers.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Customers management</a>
                             <a href="{{route('admin.categories.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Film genre management</a>
                             <a href="{{route('admin.movies.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Movies management</a>
-                            <a href="{{route('admin.rooms.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Room management</a>
-                            <a href="{{route('admin.schedules.index')}}" class="btn border-0 rounded text-start text-light  shadow-none" tabindex="-1" role="button" aria-disabled="true">Schedules management</a>
+                            <a href="{{route('admin.rooms.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Room management</a>
+                            <a href="{{route('admin.schedules.index')}}" class="btn border-0 rounded text-start text-dark bg-danger shadow-none" tabindex="-1" role="button" aria-disabled="true">Schedules management</a>
                             <a href="{{route('admin.actors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Actors management</a>
                             <a href="{{route('admin.directors.index')}}" class="btn border-0 rounded text-start text-light shadow-none" tabindex="-1" role="button" aria-disabled="true">Directors management</a>
                         </div>
@@ -58,7 +58,11 @@
                         <!-- Title -->
                         <div class="row mx-auto">
                             <div class="col">
-                                <h2 class="text-light">{{$room -> room_name}}</h2>
+                                <h2 class="text-light">
+                                @foreach($room as $room)
+                                    {{$room -> room_name}}
+                                @endforeach
+                                </h2>
                             </div>
                         </div>
                         <!-- Main -->
@@ -91,8 +95,8 @@
 
                                                 @foreach($seats as $seat)
                                                 
-                                                        @if($seat -> room_id == $room -> id && $seat -> type_id == 1)
-                                                        <form role="form" method="post" action="{{route('admin.rooms.update',['seat_id' => $seat -> id, 'room_id' => $room -> id])}}" class="col-1">
+                                                        @if($seat -> type_id == 1)
+                                                        <form role="form" method="post" action="" class="col-1">
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-none shadow-none col-12">
@@ -104,8 +108,8 @@
                                                             </button>
                                                         </form>
                                                         
-                                                        @elseif($seat -> room_id == $room -> id && $seat -> type_id == 2)
-                                                        <form role="form" method="post" action="{{route('admin.rooms.update',['seat_id' => $seat -> id, 'room_id' => $room -> id])}}" class="col-1">
+                                                        @elseif( $seat -> type_id == 2)
+                                                        <form role="form" method="post" action="" class="col-1">
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-none shadow-none col-12">
@@ -118,7 +122,7 @@
                                                         </form>
 
                                                         @else
-                                                        <form role="form" method="post" action="{{route('admin.rooms.update',['seat_id' => $seat -> id, 'room_id' => $room -> id])}}" class="col-2">
+                                                        <form role="form" method="post" action="" class="col-2">
                                                             @csrf
                                                             @method('PUT')
                                                             <button type="submit" class="btn btn-none shadow-none col-12">

@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedule_seats', function (Blueprint $table) {
-            $table->foreignId('schedule_id')->constrained('schedules');
-            $table->foreignId('seat_id')->constrained('seats');
+            $table->foreignId('schedule_id')->constrained('schedules')
+            ->onUpdate('restrict')
+            ->onDelete('cascade');;
+            $table->foreignId('seat_id')->constrained('seats')
+            ->onUpdate('restrict')
+            ->onDelete('cascade');;
+            $table->primary(['schedule_id', 'seat_id']);
             $table->integer('status');
         });
     }
