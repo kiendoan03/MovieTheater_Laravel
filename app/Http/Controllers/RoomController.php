@@ -131,14 +131,13 @@ class RoomController extends Controller
                 if($schedule_seat -> status == 0){
                     $arr = [];
                     $arr = Arr::add($arr, 'status', 1);
-                    $schedule_seat -> save($arr);
+                    schedule_seat::where('seat_id', '=', $seat_id) -> update($arr);
                 }else{
                     $arr = [];
                     $arr = Arr::add($arr, 'status', 0);
-                    $schedule_seat -> save($arr);
+                    schedule_seat::where('seat_id', '=', $seat_id) -> update($arr);
                 }
             }
-            
 
             return redirect()->route('admin.rooms.edit',[
                 'room' => $room,

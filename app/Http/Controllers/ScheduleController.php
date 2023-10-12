@@ -9,6 +9,7 @@ use App\Models\Movie;
 use App\Models\Seat;
 use App\Models\seat_type;
 use App\Models\Room;
+use App\Models\Ticket;
 use App\Models\schedule_seat;
 use Illuminate\Support\Arr;
 
@@ -94,12 +95,16 @@ class ScheduleController extends Controller
         //
         $type = seat_type::all();
 
-        $seats = Seat::get()->where('room_id', $schedule->room_id);
-        
+        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+        ->join('schedules', 'schedules.id', '=', 'schedule_seats.schedule_id')
+        ->where('schedule_seats.schedule_id', '=', $schedule -> id)
+        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedules.*','schedule_seats.status as schedule_seat_status', 'seats.id as seat_id' ,'schedules.id as schedule_id']);
+
         $room = Room::join('schedules', 'schedules.room_id', '=', 'rooms.id')
         ->where('schedules.id','=', $schedule->id)
         ->get(['rooms.*', 'schedules.*']);
-       
+
         return view('admin.schedule.info',[
             'seats' => $seats,
             'type' => $type,
@@ -184,5 +189,75 @@ class ScheduleController extends Controller
         $seat -> delete();
 
         return redirect()->route('admin.schedules.index');
+    }
+
+    public function showSchedule($schedule){
+
+        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+        ->join('schedules', 'schedules.id', '=', 'schedule_seats.schedule_id')
+        ->where('schedule_seats.schedule_id', '=', $schedule)
+        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedules.*','schedule_seats.status as schedule_seat_status', 'seats.id as seat_id' ,'schedules.id as schedule_id']);
+
+        return view('Customer.orderTickets',[
+            'seats' => $seats,
+        ]);
+    }
+
+    public function orderTicket($seat_id, $schedule_id ){
+        $type = Seat_type::all();
+        $seats = Seat::all();
+        $seat = schedule_seat::where('seat_id','=',$seat_id)
+        ->where('schedule_id','=',$schedule_id)
+        ->get();
+
+        foreach($seat as $seat){
+            if($seat -> status == 0){
+                $array = [];
+                $array = Arr::add($array, 'status', 2);
+                schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+            }else{
+                $array = [];
+                $array = Arr::add($array, 'status', 0);
+                schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+            }
+        }
+
+            return redirect()->route('order',[
+                'schedule' => $schedule_id,
+                'seats' => $seats,
+                'type' => $type,
+            ]);
+    }
+
+    public function bookTicket($schedule_id){
+        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+        ->where('schedule_seats.schedule_id', '=', $schedule_id)
+        ->where('schedule_seats.status', '=', 2)
+        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedule_seats.status as schedule_seat_status', 'seats.id as seat_id']);
+
+        $final_price = 0;
+
+        foreach($seats as $seat){
+            $final_price = $seat -> price;
+            $count = Ticket::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->count();
+            if($count == 0){
+            $array = [];
+            $array = Arr::add($array, 'schedule_id', $schedule_id);
+            $array = Arr::add($array, 'seat_id', $seat -> seat_id);
+            $array = Arr::add($array, 'final_price', $final_price);
+            Ticket::create($array);
+            $arr = [];
+            $arr = Arr::add($arr, 'status', 3);
+            schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($arr);
+        }else{
+            // $error = 'This seat is already booked';
+        }
+        }
+        
+        return redirect()->route('order',[
+            'schedule' => $schedule_id,
+        ]);
     }
 }

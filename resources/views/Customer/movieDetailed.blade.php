@@ -103,6 +103,9 @@
                             <span class="border rounded-pill text-light text-center px-3 py-2" onclick="toDetailedPage()" style="cursor: pointer;">
                                 <i class="fa-solid fa-circle-info me-1"></i>  More 
                             </span>
+                            <span class="border rounded-pill text-light text-center mx-2 px-3 py-2" onclick="toBookTickerPage()" style="cursor: pointer;">
+                            <i class="fa-solid fa-ticket" style="color: #ffffff;"></i>  Book Tickets 
+                            </span>
                         </div>
 
                     </div>
@@ -132,11 +135,15 @@
                     <p class="text-light" style="font-size: 3vmax;">{{$movie -> movie_name}}</p>
 
                     <span class="border me-2 text-light p-2 rounded-2">
+                        
                         <span class="pe-2 fw-bold">IMDb </span>
 
                     <span class="border-start py-2 ps-2 text-light"> {{$movie -> rating}} / 5 </span>
                     </span>
 
+                    <span class="border rounded-pill text-light text-center mx-2 px-3 py-2" onclick="toBookTickerPage()" style="cursor: pointer;">
+                            <i class="fa-solid fa-ticket" style="color: #ffffff;"></i>  Book Tickets 
+                    </span>
                     <p class="text-light mt-4">
                         {{$movie -> description}}
                     </p>
@@ -198,6 +205,39 @@
                 </div>
 
             </section>
+
+        </section>
+
+
+        <!-- Ticket -->
+
+        <section id="book__ticket" class="row full-height-ticket px-5" >
+
+                <section class="mt-5 " >
+                    <span onclick="toDetailedPage()" class="border rounded-pill text-light text-center px-3 py-2 " style="cursor: pointer;">
+                        <i class="fa-solid fa-backward"></i>  Back 
+                    </span> 
+                    <div class="col-10 d-flex flex-wrap mx-auto hide-scrollbar mt-5" style="height: 40vmax; overflow-x: hidden; overflow-y: scroll;">
+                        @foreach($schedules as $schedule)
+                            <div class="card mt-5 bg-dark text-light col-5 me-5 mx-5 py-3 px-5 " style="border-radius: 1vmax;">
+                                <div class="card-header text-danger">
+                                    <h2 class="mb-0 fw-bolder">
+                                        {{$schedule -> room_name}}
+                                    </h2>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title mb-3">{{$schedule -> date}}</h4>
+                                    <p class="card-text fs-5"><b>Start time:</b> {{$schedule -> start_time}}</p>
+                                    <p class="card-text fs-5"><b>End time:</b> {{$schedule -> end_time}}</p>
+                                    <a href="{{route('order',$schedule -> schedule_id)}}" class="btn btn-danger mt-3 py-3 px-5 border border-0 rounded-pill">Book ticket</a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                   
+                </section>
+                
+
 
         </section>
 

@@ -11,6 +11,7 @@ use App\Models\Director;
 use App\Models\category_movie;
 use App\Models\director_movie;
 use App\Models\actor_movie;
+use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -160,6 +161,12 @@ class MovieController extends Controller
         ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'director_movies.*', 'directors.*']);
 
+        $schedules = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
+        ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
+        ->where('movies.id', $movie -> id)
+        ->orderBy('schedules.date', 'ASC')
+        ->get(['movies.*','schedules.*','rooms.*','schedules.id as schedule_id']);
+
         return view('Customer.movieDetailed',[
             'movie' => $movie,
             'actors' => $actors,
@@ -171,6 +178,7 @@ class MovieController extends Controller
             'movie_actor' => $movie_actor,
             'movie_director' => $movie_director,
             'related_movie' => $related_movie,
+            'schedules' => $schedules,
         ]);
     }
 
