@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('movie_name');
             $table->float('rating',2,1);
-            $table->string('description');
+            $table->text('description');
             $table->text('logo_img');
             $table->text('poster_img');
             $table->text('thumbnail_img');

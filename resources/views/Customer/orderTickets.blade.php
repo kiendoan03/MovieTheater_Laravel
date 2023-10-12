@@ -119,6 +119,7 @@
                         @method('PUT')
                         <button type="submit" class="btn btn-danger shadow-none">Booking</button>
                     </form>
+                    <a href="{{route('index')}}" class="btn btn-danger mt-3">Home</a>
                 </div>
     
     </div>

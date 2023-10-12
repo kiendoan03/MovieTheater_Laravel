@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="\bootstrapLib\bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href=" {{asset(\Illuminate\Support\Facades\Storage::url('css/scroll/hideScrollBar.css'))}}">
     <title>Netfnix</title>
 </head>
@@ -64,7 +67,7 @@
                     <!-- Movie logo -->
                     <div class="row">
                         <div class="col-12 d-block">
-                            <img class="col-4 d-block my-5 mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_logo/').$movie -> logo_img)}}" alt="">
+                            <img class="col-4 d-block my-5 mx-auto" style="width: 30vmax" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_logo/').$movie -> logo_img)}}" alt="">
                         </div>
                     </div>
 
@@ -85,8 +88,8 @@
                         <div class="d-flex justify-content-between">
                             <!-- Movie Detail -->
                             <div class="col-5 mt-4">
-                                <span class="text-light">
-                                    {{$movie -> description}}
+                                <span class="text-light  fs-4 " style="font-family: 'Poppins', sans-serif;">
+                                    {{$movie -> movie_name}}
                                 </span>
                             </div>
 
@@ -201,7 +204,7 @@
 
                 <!-- Movie Img -->
                 <div class="col-5 d-flex justify-content-end">
-                    <img class="col-12 border rounded-3 border-0 " src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$movie -> poster_img)}}" alt="" style="object-fit: cover;height: 35vmax; width: 25vmax;">
+                    <img class="col-12 border rounded-3 border-0 " src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/').$movie -> poster_img)}}" alt="" style="object-fit: cover;height: 35vmax; width: 25vmax;">
                 </div>
 
             </section>
