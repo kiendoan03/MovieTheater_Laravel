@@ -114,12 +114,44 @@
 
                 </div>
                 <div class="col-5">
+                   
+                    <div class="row content mt-3 mb-3 ">
+                         @foreach($schedule as $schedule)
+                            <div class="row col-2 mb-3">
+                                <a href="{{route('detail',$schedule -> movie_id)}}" class="btn btn-danger mt-3">Back</a>
+                            </div>
+                        <div class="row">
+                             <div class="col-6">
+                                <div class="text-light fs-2 mb-3 fw-bolder">
+                                    {{$schedule -> movie_name}}
+                                </div>
+                                <div class="text-light fs-4 mb-5 fw-bolder">
+                                    {{$schedule -> room_name}}
+                                </div>
+                                <div class="text-light fs-4 mb-3 fw-bolder">
+                                    <span class="text-danger">Date: </span>{{$schedule -> date}}
+                                </div>
+                                <div class="text-light fs-5 mb-2 fw-bolder">
+                                    <span class="text-danger">Start time: </span>{{$schedule -> start_time}}
+                                </div>
+                                <div class="text-light fs-5 fw-bolder">
+                                    <span class="text-danger">End time: </span>{{$schedule -> end_time}}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <img class="col-12 border rounded-3 border-0 "  src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/').$schedule -> poster_img)}}" alt="" style="object-fit: cover;height: 30vmax; width: 20vmax;">
+                            </div>
+                        </div>
+                        
+                           
+                         @endforeach
+                    </div>
                     <form role="form" method="post" action="{{route('bookTicket',['schedule_id' => $seat -> schedule_id])}}">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="btn btn-danger shadow-none">Booking</button>
                     </form>
-                    <a href="{{route('index')}}" class="btn btn-danger mt-3">Home</a>
+                    
                 </div>
     
     </div>

@@ -198,9 +198,15 @@ class ScheduleController extends Controller
         ->join('schedules', 'schedules.id', '=', 'schedule_seats.schedule_id')
         ->where('schedule_seats.schedule_id', '=', $schedule)
         ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedules.*','schedule_seats.status as schedule_seat_status', 'seats.id as seat_id' ,'schedules.id as schedule_id']);
+        
+        $schedule = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
+        ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
+        ->where('schedules.id','=', $schedule)
+        ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*', 'movies.id as movie_id']);
 
         return view('Customer.orderTickets',[
             'seats' => $seats,
+            'schedule' => $schedule,
         ]);
     }
 
@@ -222,6 +228,7 @@ class ScheduleController extends Controller
                 schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
             }
         }
+
 
             return redirect()->route('order',[
                 'schedule' => $schedule_id,

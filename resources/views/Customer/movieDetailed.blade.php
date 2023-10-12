@@ -18,7 +18,6 @@
 
     <div class="container-fluid p-0">
 
-
         <!-- Overview -->
 
         <section id="movie__overview" class="row position:relative">
