@@ -227,7 +227,7 @@ class MovieController extends Controller
             $logo_img = $request->file('movie_logo')-> getClientOriginalName();
 
             if(!Storage::exists('public/img/movie_logo/'.$logo_img)){
-                Storage::putFileAs('public/img/movie_logo)/', $request->file('movie_poster'), $logo_img);
+                Storage::putFileAs('public/img/movie_logo/', $request->file('movie_logo'), $logo_img);
             }
         }else{
             $logo_img = $movie->logo_img;

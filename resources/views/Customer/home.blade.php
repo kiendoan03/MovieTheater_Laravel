@@ -306,15 +306,15 @@
                 </div>
             </div>
             
-            <div class="row mt-3">
+            <div class="row mt-3 mb-5">
                 @foreach($movies as $movie)
                     @if($movie -> release_date > $now)
-                        <div class="col-3  mb-3">
-                            <div class="card" >
-                                <a href="{{route('detail',$movie)}}">
-                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" style="width: 23.6vmax" class="rounded" alt="">
-                                </a>
-                            </div>  
+                        <div class="col-3 mb-3">
+                            <div class="card" style="width: 23vmax;">
+                                    <a href="{{route('detail',$movie)}}">
+                                        <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" class="card-img-top object-fit-cover " alt="...">
+                                    </a>
+                            </div>
                         </div>
                     @endif
                 @endforeach

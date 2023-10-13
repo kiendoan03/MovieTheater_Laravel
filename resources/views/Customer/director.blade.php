@@ -33,7 +33,7 @@
                 <div class="position-relative top-50 start-50 translate-middle col-12">
                     <div class="row mt-lg-5">
                         <div class="col-12 d-block">
-                            <img class="col-4 d-block my-2 mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$director -> director_image)}}" style="border-radius: 50%; overflow: hidden; height: 8vmax; width: 8vmax;" alt="">
+                            <img class="col-4 d-block my-2 mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$director -> director_image)}}" style="border-radius: 50%; object-fit: cover;overflow: hidden; height: 8vmax; width: 8vmax;" alt="">
                             <p class="text-center text-light fw-bold mb-1" style="font-size: 2vmax;">{{$director -> director_name}}</p>
                         </div>
                     </div>

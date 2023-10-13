@@ -122,7 +122,7 @@
         <section id="movie__full--detail" class="row full-height px-5">
 
             <!-- Back Button -->
-            <div class="" style="margin-top: 4vmax;">
+            <div class="" style="margin-top: 5vmax;">
                 <span onclick="toOverviewPage()" class="border rounded-pill text-light text-center px-3 py-2" style="cursor: pointer;">
                     <i class="fa-solid fa-backward"></i>  Back 
                 </span>
