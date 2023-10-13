@@ -312,7 +312,7 @@
                         <div class="col-3 mb-3">
                             <div class="card" style="width: 23vmax;">
                                     <a href="{{route('detail',$movie)}}">
-                                        <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" class="card-img-top object-fit-cover " alt="...">
+                                        <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" class="card-img-top object-fit-cover " style ="opacity:0.9; border-radius :1vmax" alt="...">
                                     </a>
                             </div>
                         </div>
