@@ -18,8 +18,51 @@
                     <div class="row screen mb-5">
                         <img src="/img/seat/bg-screen.png" style="object-fit: cover; width: 100%;" alt="">
                     </div>
-                    <div class="row seat d-flex col-12 " style="margin-top: 5vmax;">
-                                            @foreach($seats as $seat)
+                    <div class="row seat d-flex col-12 " style="margin-top: 1vmax;">
+                        <div class="col-1">
+                                        <div class="row">
+                                                <div class="col-12 text-center  fw-bolder fs-5" style="height: 2.4vmax;">
+                                                </div>
+                                             @for($i = 0; $i < 6; $i++)
+                                                @if($i == 0)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            A
+                                                        </div>
+                                                @elseif($i == 1)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            B
+                                                        </div>
+                                                @elseif($i == 2)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            C
+                                                        </div>
+                                                @elseif($i == 3)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            D
+                                                        </div>
+                                                @elseif($i == 4)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            E
+                                                        </div>
+                                                @elseif($i == 5)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            F
+                                                        </div>
+                                                @endif
+                                            @endfor
+                                        </div>
+                        </div>
+                            <div class="col-11">
+                                <div class="row mb-3">
+                                    @for($i = 0; $i < 12; $i++)
+                                        <div class="col-1 text-center text-muted fw-bolder fs-5" >
+                                            {{$i + 1}}
+                                        </div>
+                                    @endfor
+                                </div>
+                                <div class="row">
+                                
+                                         @foreach($seats as $seat)
                                                 
                                                 @if($seat -> type_id == 1)
                                                     <form role="form" method="post" action="{{route('orderTicket',['seat_id' => $seat -> seat_id, 'schedule_id' => $seat -> schedule_id])}}" class="col-1">
@@ -95,6 +138,10 @@
                                                 @endif
 
                                         @endforeach
+                            </div>
+                            
+                        </div>
+                                            
                     </div>
                 
                             <div class="row mt-3 mx-5 d-inline">
@@ -133,10 +180,49 @@
                                 </div>
                                 <div class="text-light fs-5 mb-2 fw-bolder">
                                     <span class="text-danger">Start time: </span>{{$schedule -> start_time}}
-                                </div>
-                                <div class="text-light fs-5 fw-bolder">
+                                </div> 
+                                <div class="text-light fs-5 fw-bolder mb-5">
                                     <span class="text-danger">End time: </span>{{$schedule -> end_time}}
                                 </div>
+                                @foreach($seats as $seat)
+                                    @if($seat -> schedule_seat_status == 2)
+                                        @if($seat -> number <= 12)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>A{{$seat -> number}}
+                                        </div>
+                                        @elseif($seat -> number > 12 && $seat -> number <= 24)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>B{{$seat -> number - 12}}
+                                        </div>
+                                        @elseif($seat -> number > 24 && $seat -> number <= 36)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>C{{$seat -> number - 24}}
+                                        </div>
+                                        @elseif($seat -> number > 36 && $seat -> number <= 48)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>D{{$seat -> number - 36}}
+                                        </div>
+                                        @elseif($seat -> number > 48 && $seat -> number <= 60)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>E{{$seat -> number - 48}}
+                                        </div>
+                                        @elseif($seat -> number > 60 && $seat -> number <= 66)
+                                        <div class="text-light fs-5 fw-bolder mb-2">
+                                            <span class="text-danger">Seat: </span>F{{$seat -> number - 60}}
+                                        </div>
+                                        @endif
+                                        <div class="text-light fs-5 fw-bolder mb-3">
+                                            <span class="text-danger">Price: </span>{{number_format($seat -> price)}} VND
+                                        </div>
+                                    @endif
+                                @endforeach
+
+                                @if($total_price != 0)
+                                        <div class="text-light fs-5 fw-bolder mb-3">
+                                            <span class="text-danger">Total price: </span>{{number_format($total_price)}} VND
+                                        </div> 
+                                @endif
+
                             </div>
                             <div class="col-6">
                                 <img class="col-12 border rounded-3 border-0 "  src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_poster/').$schedule -> poster_img)}}" alt="" style="object-fit: cover;height: 30vmax; width: 20vmax;">

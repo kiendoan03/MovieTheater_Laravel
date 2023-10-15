@@ -75,23 +75,45 @@
                                         <div class="row">
                                                 <div class="col-12 text-center text-light fw-bolder fs-5" style="height: 2.4vmax;">
                                                 </div>
-                                             @for($i = 0; $i < 6; $i++)
-                                                        <div class="col-12 text-center text-light fw-bolder fs-5" style="height: 4.8vmax;">
-                                                            {{$i +1}}
+                                                @for($i = 0; $i < 6; $i++)
+                                                @if($i == 0)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            A
                                                         </div>
+                                                @elseif($i == 1)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            B
+                                                        </div>
+                                                @elseif($i == 2)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            C
+                                                        </div>
+                                                @elseif($i == 3)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            D
+                                                        </div>
+                                                @elseif($i == 4)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            E
+                                                        </div>
+                                                @elseif($i == 5)
+                                                        <div class="col-12 text-center text-muted fw-bolder fs-5" style="height: 4.8vmax;">
+                                                            F
+                                                        </div>
+                                                @endif
                                             @endfor
                                         </div>
                                     </div>
                                     <div class="col-11">
                                         <div class="row">
                                             @for($i = 0; $i < 12; $i++)
-                                                        <div class="col-1 text-center text-light fw-bolder fs-5" style="width: 4.5vmax;">
+                                                        <div class="col-1 text-center text-muted fw-bolder fs-5" >
                                                             {{$i + 1}}
                                                         </div>
                                             @endfor
                                         </div>
 
-                                        <div class="row seat d-flex col-12 mt-3">
+                                        <div class="row seat d-flex  mt-3">
 
                                         @foreach($seats as $seat)
                                                 
