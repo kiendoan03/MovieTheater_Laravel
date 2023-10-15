@@ -218,8 +218,8 @@
                                 @endforeach
 
                                 @if($total_price != 0)
-                                        <div class="text-light fs-5 fw-bolder mb-3">
-                                            <span class="text-danger">Total price: </span>{{number_format($total_price)}} VND
+                                        <div class="text-light fs-5 fw-bolder mt-5 mb-3">
+                                            <span class="text-danger fs-4">Total price: </span>{{number_format($total_price)}} VND
                                         </div> 
                                 @endif
 
