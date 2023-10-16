@@ -14,6 +14,38 @@
 
 <body>
     <div class="container-fluid" style="background-color: black;">
+
+    <header class="row d-flex  p-3  justify-content-between" style="background-color:none; position:fixed ; width: 100% ; z-index:99">
+            <section class="col-3">
+                <a href="{{route('index')}}">
+                    <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
+                </a>
+            </section>
+
+            <section class="col-3 d-flex justify-content-end pe-3">
+
+                <div class=" position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-regular fa-bell position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+               
+                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                    </ul>
+                </div>
+
+            </section>
+
+        </header>
+
         <section id="movie__overview" class="row position:relative">
 
             <!-- Background Image -->

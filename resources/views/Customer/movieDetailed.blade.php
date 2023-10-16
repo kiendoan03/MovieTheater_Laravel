@@ -18,6 +18,37 @@
 
     <div class="container-fluid p-0">
 
+    <header class="row d-flex  p-3  justify-content-between" style="background-color:none; position:fixed ; width: 100% ; z-index:99">
+            <section class="col-3">
+                <a href="{{route('index')}}">
+                    <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
+                </a>
+            </section>
+
+            <section class="col-3 d-flex justify-content-end pe-3">
+
+                <div class=" position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-regular fa-bell position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+               
+                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                    </ul>
+                </div>
+
+            </section>
+
+        </header>
+
         <!-- Overview -->
 
         <section id="movie__overview" class="row position:relative">
@@ -213,13 +244,13 @@
 
         <!-- Ticket -->
 
-        <section id="book__ticket" class="row full-height-ticket px-5" >
+        <section id="book__ticket" class="row full-height-ticket px-5 " >
 
-                <section class="mt-5 " >
+                <section class="mt-5 py-5" >
                     <span onclick="toDetailedPage()" class="border rounded-pill text-light text-center px-3 py-2 " style="cursor: pointer;">
                         <i class="fa-solid fa-backward"></i>  Back 
                     </span> 
-                    <div class="col-10 d-flex flex-wrap mx-auto hide-scrollbar mt-5" style="height: 40vmax; overflow-x: hidden; overflow-y: scroll;">
+                    <div class="col-10 d-flex flex-wrap mx-auto hide-scrollbar mt-3" style="height: 40vmax; overflow-x: hidden; overflow-y: scroll;">
                         @foreach($schedules as $schedule)
                             <div class="card mt-5 bg-dark text-light col-5 me-5 mx-5 py-3 px-5 " style="border-radius: 1vmax;">
                                 <div class="card-header text-danger">

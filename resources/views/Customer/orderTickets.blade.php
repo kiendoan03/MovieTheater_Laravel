@@ -12,8 +12,39 @@
 </head>
 
 <body style="background-color: black">
+    <div class="container-fluid p-0">
+             <header class="row d-flex  p-3  justify-content-between" style="background-color:none">
+            <section class="col-3">
+                <a href="{{route('index')}}">
+                    <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
+                </a>
+            </section>
 
-    <div class="row p-3 mt-5 ">
+            <section class="col-3 d-flex justify-content-end pe-3">
+
+                <div class=" position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-regular fa-bell position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="position-relative border border-0 me-2 rounded-circle text-center" style="height: 3vmax; width: 3vmax; background-color: #ffffff48;">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
+                </div>
+
+                <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+               
+                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                    </ul>
+                </div>
+
+            </section>
+
+        </header>
+
+    <div class="row p-3  ">
                 <div class="col-7">
                     <div class="row screen mb-5">
                         <img src="/img/seat/bg-screen.png" style="object-fit: cover; width: 100%;" alt="">
@@ -159,10 +190,10 @@
                             </div>
                         </div>
                             
-                            <div class="row d-block mt-5">
+                            <div class="row d-block mt-3">
                                 <div class="row mt-3 mx-5 d-inline">
                                     <div class="d-inline text-center mb-5"><img style="width: 1.5vmax;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAr0lEQVR4nO2QQQrCMBBFc4EWdO+6Z5FuCsVLSsE72Eu4rt0q6AWeBFIRaWxnmkKlecsh89/kGxNZLcAOqIAncuzOCcg00hvTudssidj+NBRHiVhTr4+HRByUKP5VdQIUwGVCww1Q2qzRVX8csHEBGulWIsqBFrgCezc7KMSlL68X9+B9tZulCnHiy+vle9s3H2Iob/liLf8nDo2J4o71Vm0CM0ZcA+cZxPUcuZFl8wJRIS97SX64DQAAAABJRU5ErkJggg=="></div>
-                                    <div class="d-inline text-light">Seat</div>
+                                    <div class="d-inline text-light">Normal seat</div>
                                 </div>
 
                                 <div class="row mt-3 mx-5 d-inline">
@@ -256,6 +287,8 @@
                     </form>
                 </div>
     </div>
+    </div>
+   
     
     <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
 
