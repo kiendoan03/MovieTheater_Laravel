@@ -107,18 +107,16 @@
 
                         @foreach($movie_cate as $movie_cate)
 
-                            <span class="border me-2 text-light p-2 rounded-2">{{$movie_cate -> category_name}}</span>
+                            <span class="border me-2 text-light px-3 py-2 fs-5 rounded-2">{{$movie_cate -> category_name}}</span>
                         
                         @endforeach
-                            <!-- <span class="border me-2 text-light p-2 rounded-2">Action</span>
-                            <span class="border me-2 text-light p-2 rounded-2">Fantasy</span> -->
 
                         </div>
 
                         <div class="d-flex justify-content-between">
                             <!-- Movie Detail -->
                             <div class="col-5 mt-4">
-                                <span class="text-light  fs-4 " style="font-family: 'Poppins', sans-serif;">
+                                <span class="text-light fs-3" style="font-family: 'Poppins', sans-serif;">
                                     {{$movie -> movie_name}}
                                 </span>
                             </div>
@@ -133,11 +131,11 @@
 
                         <!-- Option -->
                         <div class="mt-4">
-                            <span class="border rounded-pill text-light text-center px-3 py-2" onclick="toDetailedPage()" style="cursor: pointer;">
+                            <span class="border rounded-pill text-light text-center px-3 py-2 fs-5" onclick="toDetailedPage()" style="cursor: pointer;">
                                 <i class="fa-solid fa-circle-info me-1"></i>  More 
                             </span>
-                            <span class="border rounded-pill text-light text-center mx-2 px-3 py-2" onclick="toBookTickerPage()" style="cursor: pointer;">
-                            <i class="fa-solid fa-ticket" style="color: #ffffff;"></i>  Book Tickets 
+                            <span class="border rounded-pill text-light text-center mx-3 px-3 py-2 fs-5" onclick="toBookTickerPage()" style="cursor: pointer;">
+                                <i class="fa-solid fa-ticket" style="color: #ffffff;"></i>  Book Tickets 
                             </span>
                         </div>
 
@@ -154,7 +152,7 @@
 
             <!-- Back Button -->
             <div class="" style="margin-top: 5vmax;">
-                <span onclick="toOverviewPage()" class="border rounded-pill text-light text-center px-3 py-2" style="cursor: pointer;">
+                <span onclick="toOverviewPage()" class="border rounded-pill text-light text-center px-3 py-2 fs-5" style="cursor: pointer;">
                     <i class="fa-solid fa-backward"></i>  Back 
                 </span>
             </div>
@@ -165,16 +163,16 @@
                 <!-- Movie text in4 -->
                 <div class="col-7 hide-scrollbar" style="height: 35vmax; overflow-x: hidden; overflow-y: scroll;">
 
-                    <p class="text-light" style="font-size: 3vmax;">{{$movie -> movie_name}}</p>
+                    <p class="text-light" style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">{{$movie -> movie_name}}</p>
 
-                    <span class="border me-2 text-light p-2 rounded-2">
+                    <span class="border me-2 text-light px-3 py-2 fs-5 rounded-2">
                         
                         <span class="pe-2 fw-bold">IMDb </span>
 
                     <span class="border-start py-2 ps-2 text-light"> {{$movie -> rating}} / 5 </span>
                     </span>
 
-                    <span class="border rounded-pill text-light text-center mx-2 px-3 py-2" onclick="toBookTickerPage()" style="cursor: pointer;">
+                    <span class="border rounded-pill text-light text-center mx-2 px-3 py-2 fs-5" onclick="toBookTickerPage()" style="cursor: pointer;">
                             <i class="fa-solid fa-ticket" style="color: #ffffff;"></i>  Book Tickets 
                     </span>
                     <p class="text-light mt-4">
@@ -247,7 +245,7 @@
         <section id="book__ticket" class="row full-height-ticket px-5 " >
 
                 <section class="mt-5 py-5" >
-                    <span onclick="toDetailedPage()" class="border rounded-pill text-light text-center px-3 py-2 " style="cursor: pointer;">
+                    <span onclick="toDetailedPage()" class="border rounded-pill text-light text-center px-3 py-2 fs-5 " style="cursor: pointer;">
                         <i class="fa-solid fa-backward"></i>  Back 
                     </span> 
                     <div class="col-10 d-flex flex-wrap mx-auto hide-scrollbar mt-3" style="height: 40vmax; overflow-x: hidden; overflow-y: scroll;">
