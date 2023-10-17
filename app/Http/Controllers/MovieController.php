@@ -194,14 +194,17 @@ class MovieController extends Controller
         $end = $movie->end_date;
         $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
         ->join('categories', 'categories.id', '=', 'category_movies.category_id')
+        ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'category_movies.*', 'categories.*']);
 
         $movie_actor = Movie::join('actor_movies', 'actor_movies.movie_id', '=', 'movies.id')
         ->join('actors', 'actors.id', '=', 'actor_movies.actor_id')
+        ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'actor_movies.*', 'actors.*']);
 
         $movie_director = Movie::join('director_movies', 'director_movies.movie_id', '=', 'movies.id')
         ->join('directors', 'directors.id', '=', 'director_movies.director_id')
+        ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'director_movies.*', 'directors.*']);
 
         return view('Admin.Movie.edit',[

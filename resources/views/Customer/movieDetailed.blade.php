@@ -260,7 +260,7 @@
                                     <h4 class="card-title mb-3">{{$schedule -> date}}</h4>
                                     <p class="card-text fs-5"><b>Start time:</b> {{$schedule -> start_time}}</p>
                                     <p class="card-text fs-5"><b>End time:</b> {{$schedule -> end_time}}</p>
-                                    <a href="{{route('order',$schedule -> schedule_id)}}" class="btn btn-danger mt-3 py-3 px-5 border border-0 rounded-pill">Book ticket</a>
+                                    <a href="{{route('order',$schedule -> schedule_id)}}" class="btn btn-danger mt-3 py-3 px-5 border border-0 rounded-pill">Booking ticket</a>
                                 </div>
                             </div>
                         @endforeach
