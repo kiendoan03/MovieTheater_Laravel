@@ -267,7 +267,7 @@
         <!-- Top Movie -->
 
         <section class="top_movie">
-            <div class="row justify-content-center ">
+            <div class="row justify-content-center mt-5">
                 <div class="col-lg-7 col-md-8">
                     <div class="text-center">
                         <h1 class="text-light " style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Top Movie</h1>
@@ -296,9 +296,9 @@
         </section>
 
         <!-- incomming -->
-
-        <section class="incomming">
-            <div class="row justify-content-center ">
+   
+        <section class="incomming px-5">
+            <div class="row justify-content-center mt-5">
                 <div class="col-lg-7 col-md-8">
                     <div class="text-center">
                         <h1 class="text-light " style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Movie incomming</h1>
@@ -309,7 +309,7 @@
             <div class="row mt-3 mb-5">
                 @foreach($movies as $movie)
                     @if($movie -> release_date > $now)
-                        <div class="col-3 mb-3">
+                        <div class="col-3 mb-5">
                             <div class="card" style="width: 23vmax;">
                                     <a href="{{route('detail',$movie)}}">
                                         <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" class="card-img-top object-fit-cover " style ="opacity:0.9; border-radius :1vmax" alt="...">
