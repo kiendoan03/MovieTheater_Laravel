@@ -14,7 +14,7 @@
 <body style="background-color: black;">
     <div class="container-fluid">
 
-    <header class="row d-flex  p-3  justify-content-between" style="background-color:none; position:fixed ; width: 100% ; z-index:99">
+    <header class="row d-flex  p-3  justify-content-between" style="background-color:none">
             <section class="col-3">
                 <a href="{{route('index')}}">
                     <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">

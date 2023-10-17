@@ -46,7 +46,7 @@ class CustomerController extends Controller
             foreach($customers as $customer){
             if($customer -> customer_username == $request -> user_name){
                 if($customer -> customer_username == $request -> user_name && $customer -> customer_password == $request -> password){
-                    return view('Login.register');
+                    return redirect()->route('index'); 
                 }else{
                     $error_login = 'tan dang nhap hoac mat khau khong dung!!!';
                     return view('login.login',[
