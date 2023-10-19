@@ -220,7 +220,7 @@
 
                         @foreach($related_movie as $related_movie)
                         <a href="{{route('detail',$related_movie -> movie_id)}}">
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 20vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$related_movie -> thumbnail_img)}}" alt="">
+                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 23vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$related_movie -> thumbnail_img)}}" alt="">
                         </a>
                         @endforeach
 
