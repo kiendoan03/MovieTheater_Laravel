@@ -113,11 +113,11 @@
                                             </td>
                                             <td class="col-2">
                                             @if($movie -> release_date <= $now && $now <= $movie -> end_date)
-                                                dang chieu
+                                                Showing
                                             @elseif($movie -> release_date > $now)
-                                                sap chieu
+                                                Upcomming
                                             @else
-                                                da chieu
+                                                Ended
                                             @endif
                                             </td>
                                             <td class="col-2">

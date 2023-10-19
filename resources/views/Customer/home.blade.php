@@ -301,7 +301,7 @@
             <div class="row justify-content-center mt-5">
                 <div class="col-lg-7 col-md-8">
                     <div class="text-center">
-                        <h1 class="text-light " style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Movie incomming</h1>
+                        <h1 class="text-light " style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Upcomming Movie</h1>
                     </div>
                 </div>
             </div>

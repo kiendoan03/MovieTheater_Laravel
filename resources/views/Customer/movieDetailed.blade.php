@@ -216,11 +216,11 @@
                         <span class="text-light" style="font-size: 1.7vmax;"> Related Movies </span>
 
 
-                        <div class="mt-4 d-flex col-12 border border-0 rounded-3 hide-scrollbar" style="overflow-x: scroll;">
+                        <div class="mt-4 d-flex col-12 border border-0  hide-scrollbar" style="overflow-x: scroll;">
 
                         @foreach($related_movie as $related_movie)
                         <a href="{{route('detail',$related_movie -> movie_id)}}">
-                            <img class="border border-0 rounded-3 me-4" style="height: 13vmax; width: 23vmax; object-fit: cover;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$related_movie -> thumbnail_img)}}" alt="">
+                            <img class="border border-0  me-4" style="height: 13vmax; width: 23vmax; object-fit: cover;opacity:0.9; border-radius :1vmax" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/').$related_movie -> thumbnail_img)}}" alt="">
                         </a>
                         @endforeach
 
