@@ -78,6 +78,11 @@
                                                 <label for="Staff_name" class="form-label text-light">User name</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="staff" name="staff_username" value="{{$staff -> staff_username}}" required>
                                             </div>
+                                            @if($errors -> has('staff_username'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_username')}}
+                                                </div> 
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="fn" class="form-label text-light">Full name</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="fn" name="staff_full_name" value="{{$staff -> staff_name}}" required>
@@ -90,10 +95,20 @@
                                                 <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
                                                 <input type="email" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputEmail1" aria-describedby="emailHelp" name="staff_email" value="{{$staff -> staff_email}}" required>
                                             </div>
+                                            @if($errors -> has('staff_email'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_email')}}
+                                                </div> 
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="pn" class="form-label text-light">Phonenumber</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="pn" name="staff_phonenumber" value="{{$staff -> staff_phonenumber}}" required>
                                             </div>
+                                            @if($errors -> has('staff_phonenumber'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_phonenumber')}}
+                                                </div>
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="address" class="form-label text-light">Address</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="a" name="staff_address" value="{{$staff -> staff_address}}" required>
@@ -102,6 +117,11 @@
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" value="{{$staff -> staff_password}}" required>
                                             </div>
+                                            @if($errors -> has('staff_pssw'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_pssw')}}
+                                                </div>
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="{{$staff -> staff_password}}" required>

@@ -11,6 +11,7 @@ use App\Models\seat_type;
 use App\Models\Room;
 use App\Models\Ticket;
 use App\Models\schedule_seat;
+use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
 
@@ -57,19 +58,43 @@ class ScheduleController extends Controller
         -> where('date', $request-> date)
         -> where('room_id', $request->room_id);
         
+        $length_movie = Movie::where('id', $request->movie_id)->get(['length']);
+
+        $start_time_h = Carbon::parse($request->start_time)->format('H');
+        $start_time_m = Carbon::parse($request->start_time)->format('i');
+
+        $start_time = $start_time_h * 60 + $start_time_m;
+        
+        $end_times = $start_time + $length_movie[0]->length + 30;
+
+        $end_time_h = (int)($end_times / 60);
+
+        $end_time_m = (int)$end_times % 60;
+
+        $end_time = $end_time_h . ':' . $end_time_m;
+        
         foreach($data as $srm){
             if($request->start_time >= $srm->start_time && $request->start_time <= $srm->end_time){
                 return redirect()->route('admin.schedules.create') -> with('error', 'The time is not available');
             }
-            else if($request->start_time <= $srm->start_time && $request->end_time >= $srm->end_time){
+            else if($request->start_time <= $srm->start_time && $end_time >= $srm->end_time){
                 return redirect()->route('admin.schedules.create')-> with('error', 'The time is not available');
             }
-            else if($request->end_time >= $srm->start_time && $request->end_time <= $srm->end_time){
+            else if($end_time >= $srm->start_time && $end_time <= $srm->end_time){
                 return redirect()->route('admin.schedules.create')-> with('error', 'The time is not available');
-            }
+            }   
         }
 
-        Schedule::create($request->all());
+
+        $array = [];
+        $array = Arr::add($array, 'date', $request->date);
+        $array = Arr::add($array, 'start_time', $request->start_time);
+        $array = Arr::add($array, 'end_time', $end_time);
+        $array = Arr::add($array, 'movie_id', $request->movie_id);
+        $array = Arr::add($array, 'room_id', $request->room_id);
+
+        Schedule::create($array);
+       
         $schedule = Schedule::latest('id')->first();
         $schedule_id = $schedule -> id;
 
@@ -143,34 +168,45 @@ class ScheduleController extends Controller
     {
         //
         $data = Schedule::all()
+        -> where('id', '!=', $schedule -> id)
         -> where('date', $request-> date)
         -> where('room_id', $request->room_id);
+
+        $length_movie = Movie::where('id', $request->movie_id)->get(['length']);
+
+        $start_time_h = Carbon::parse($request->start_time)->format('H');
+        $start_time_m = Carbon::parse($request->start_time)->format('i');
+
+        $start_time = $start_time_h * 60 + $start_time_m;
+        
+        $end_times = $start_time + $length_movie[0]->length + 30;
+
+        $end_time_h = (int)($end_times / 60);
+
+        $end_time_m = (int)$end_times % 60;
+
+        $end_time = $end_time_h . ':' . $end_time_m;
         
         foreach($data as $srm){
             if($request->start_time >= $srm->start_time && $request->start_time <= $srm->end_time){
                 return redirect()->route('admin.schedules.edit',$schedule -> id) -> with('error', 'The time is not available');
             }
-            else if($request->start_time <= $srm->start_time && $request->end_time >= $srm->end_time){
+            else if($request->start_time <= $srm->start_time && $end_time >= $srm->end_time){
                 return redirect()->route('admin.schedules.edit',$schedule -> id)-> with('error', 'The time is not available');
             }
-            else if($request->end_time >= $srm->start_time && $request->end_time <= $srm->end_time){
+            else if($end_time >= $srm->start_time && $end_time <= $srm->end_time){
                 return redirect()->route('admin.schedules.edit',$schedule -> id)-> with('error', 'The time is not available');
             }
         }
 
-        
-        $schedule -> update($request->all());
+        $array = [];
+        $array = Arr::add($array, 'date', $request->date);
+        $array = Arr::add($array, 'start_time', $request->start_time);
+        $array = Arr::add($array, 'end_time', $end_time);
+        $array = Arr::add($array, 'movie_id', $request->movie_id);
+        $array = Arr::add($array, 'room_id', $request->room_id);
 
-        $seat = Seat::where('room_id', $request->room_id)->get();
-        $schedule_seat = schedule_seat::where('schedule_id', '=', $schedule -> id);
-        foreach($seat as $s){
-            $seat_schedule = [];
-            $seat_schedule = Arr::add($seat_schedule, 'schedule_id', $schedule -> id);
-            $seat_schedule = Arr::add($seat_schedule, 'seat_id', $s->id);
-            $seat_schedule = Arr::add($seat_schedule, 'status', $s -> status);
-
-            $schedule_seat -> update($seat_schedule);
-        }
+        $schedule -> update($array);
 
         return redirect()->route('admin.schedules.index');
 

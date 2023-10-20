@@ -74,34 +74,17 @@
 
                                     <div class="row">
                                         <div class="col-8">
-                                            @if(isset($error_username))
-                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                                        {{$error_username}}
-                                                </div>
-                                            @endif
-
-                                            @if(isset($error_email))
-                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                                        {{$error_email}}
-                                                </div>
-                                            @endif
-
-                                            @if(isset($error_phone))
-                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                                        {{$error_phone}}
-                                                </div>
-                                            @endif
-
-                                            @if(isset($error_re_pass))
-                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                                        {{$error_re_pass}}
-                                                </div>
-                                            @endif
+                                          
 
                                             <div class="mb-3">
                                                 <label for="Staff_name" class="form-label text-light">User name</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="staff" name="staff_username" required>
                                             </div>
+                                            @if($errors -> has('staff_username'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_username')}}
+                                                </div>
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="fn" class="form-label text-light">Full name</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="fn" name="staff_full_name" required>
@@ -114,10 +97,20 @@
                                                 <label for="exampleInputEmail1" class="form-label text-light">Email address</label>
                                                 <input type="email" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputEmail1" aria-describedby="emailHelp" name="staff_email" required>
                                             </div>
+                                            @if($errors -> has('staff_email'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_email')}}
+                                                </div> 
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="pn" class="form-label text-light">Phonenumber</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="pn" name="staff_phonenumber" required>
                                             </div>
+                                            @if($errors -> has('staff_phonenumber'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_phonenumber')}}
+                                                </div> 
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="address" class="form-label text-light">Address</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="a" name="staff_address" required>
@@ -126,11 +119,20 @@
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_password" required>
                                             </div>
+                                            @if($errors -> has('staff_password'))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                    {{$errors -> first('staff_password')}}
+                                                </div>    
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_psw" required>
                                             </div>
-
+                                            @if(isset($error_re_pass))
+                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$error_re_pass}}
+                                                </div>
+                                            @endif
                                             <div class="mb-3">
                                                 <label for="role_select" class="form-label text-light">Select role</label>
                                                 <select id="role_select" class="form-select bg-dark shadow-none border-0 text-light" name="staff_role">

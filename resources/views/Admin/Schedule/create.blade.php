@@ -82,11 +82,11 @@
                                             <label for="start_time" class="form-label text-light">Start</label>
                                             <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="start_time" name="start_time" required>
                                         </div>
-                                        <div class="mb-3">
+                                        <!-- <div class="mb-3">
                                             <label for="end_time" class="form-label text-light">End</label>
                                             <input type="time" class="form-control bg-dark border-0 shadow-none text-light" id="end_time" name="end_time" required>
                                         </div>
-                                        
+                                         -->
                                     </div>
 
                                     <div class="col-4">

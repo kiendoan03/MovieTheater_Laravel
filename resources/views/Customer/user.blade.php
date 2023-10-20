@@ -51,18 +51,41 @@
                     <div class="card border-0 rounded-3 p-2" style="background-color:rgb(63, 63, 63);">
                         <div class="text-center my-3 rounded-3">
                             <div class=" position-relative mx-auto" style="width: 9vmax; ">
-                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" style="border-radius: 50%;object-fit: cover; width: 9vmax; " alt=" ">
+                                <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 8vmax; width: 8vmax;" alt=" ">
                                 <div class="edit position-absolute top-100 start-100 translate-middle ">
-                                    <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; "></i>
+                                    <button type="button" class="btn btn-none shadow-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; "></i>
+                                    </button>
+                                   
                                 </div>
                             </div>
-
                         </div>
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
+                                            <div class="modal-content text-light" style="background-color: black;">
+                                                <form role="form" method="post" action="{{route('user.changeAvt')}}" enctype="multipart/form-data">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="staticBackdropLabel">Change avatar</h5>
+                                                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark fa-xl" style="color: #f00000;"></i></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input class="form-control bg-dark border-0 shadow-none text-light" type="file" id="image" name="cus_img" accept="image/png, image/jpg, image/jpeg"  onchange="show_img()" >
+                                                        <div class="row my-3">
+                                                            <img id="cus_img" class=" rounded-3 object-fit-cover mx-auto" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" style="border-radius: 50%;object-fit: cover; overflow: hidden; width: 20vmax;" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-danger">Changer</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                         <div class="card-body ">
                             <p class="text-light fw-bold mb-1 d-inline " style="font-size: 1.5vmax; ">{{$user -> customer_name}}</p>
-                            <div class="edit-name d-inline mt-1 " style="float: right ">
-                                <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; "></i>
-                            </div>
+
                             <p class="text-muted mb-3 " style="font-size: 0.8vmax; ">Member since {{$user -> created_at}}</p>
                             <div class="mt-5 ">
                                 <p class="text-muted mb-3 " style="font-size: 1vmax; ">Viewing activity</p>
@@ -87,17 +110,36 @@
                             <div class="col-5 ">
                                 <div class="text-muted d-inline " style="font-size: 1.5vmax; ">Account</div>
                                 <div class="d-inline ">
-                                    <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; float: right; "></i>
+                                    <button type="button" class="btn btn-none shadow-none d-inline" data-bs-toggle="modal" style="float: right; " data-bs-target="#exampleModal">
+                                        <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; "></i>
+                                    </button>
                                 </div>
                                 <p class="text-muted mt-3 ">Here you can edit public information about yourself. The changes will be display within 5 minutes.</p>
                             </div>
+
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content text-light" style="background-color: black;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark fa-xl" style="color: #f00000;"></i></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger">Save changes</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
                             <div class="col-7 ">
                                 <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
                                     <div class="mx-2 my-2 ">
                                         <div class="mb-3 row ">
                                             <label class="col-sm-2 col-form-label text-light ">Display name</label>
                                             <div class="col-sm-10 ">
-                                                <input type="text " readosnly class="form-control-plaintext text-light " value="{{$user -> customer_name}}">
+                                                <input type="text " readonly class="form-control-plaintext text-light " value="{{$user -> customer_name}}">
                                             </div>
                                         </div>
                                         <div class="mb-3 row ">
@@ -195,7 +237,11 @@
         </section>
 
     </div>
-
+    <script>
+        function show_img() {
+            cus_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
     <script src="/bootstrapLib/bootstrap.bundle.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js "></script>
 

@@ -39,10 +39,7 @@ class StaffController extends Controller
     public function store(StoreStaffRequest $request)
     {
         //
-        $staffs = Staff::all();
-        $count = Staff::all() -> count();
-
-        if($count == 0){
+        if($request -> validated()){
             $password = $request->staff_password;
             $re_password = $request->staff_re_psw;
 
@@ -65,7 +62,6 @@ class StaffController extends Controller
                     return view('admin.staff.create',[
                         'error_re_pass' => $error_re_pass,
                     ]);
-                // return redirect()->route('admin.staffs.create');
             }
             $array = Arr::add($array, 'staff_avatar', $staff_img);
             $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
@@ -74,61 +70,10 @@ class StaffController extends Controller
             Staff::create($array);
 
             return redirect()->route('admin.staffs.index'); 
-         
         }else{
-            foreach($staffs as $staff){
-                if($staff -> staff_username == $request -> staff_username){
-                    $error_username = 'ten dang nhap da ton tai!!!';
-                return view('admin.staff.create',[
-                   'error_username' => $error_username,
-                ]);
-                }elseif($staff -> staff_email == $request -> staff_email){
-                    $error_email = 'email da ton tai!!!';
-                    return view('admin.staff.create',[
-                       'error_email' => $error_email,
-                    ]);
-                }elseif($staff -> staff_phonenumber == $request -> staff_phonenumber){
-                    $error_phone = 'so dien thoai da ton tai!!!';
-                    return view('admin.staff.create',[
-                       'error_phone' => $error_phone,
-                    ]);
-                }else{
-                    $password = $request->staff_password;
-                    $re_password = $request->staff_re_psw;
-        
-                    $staff_img = $request->file('staff_img')-> getClientOriginalName();
-        
-                    if(!Storage::exists('public/img/staff/'.$staff_img)){
-                        Storage::putFileAs('public/img/staff/', $request->file('staff_img'), $staff_img);
-                    }
-        
-                    $array = [];
-                    $array = Arr::add($array, 'staff_name', $request->staff_full_name);
-                    $array = Arr::add($array, 'staff_email', $request->staff_email);
-                    $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
-                    $array = Arr::add($array, 'staff_address', $request->staff_address);
-                    $array = Arr::add($array, 'staff_username', $request->staff_username);
-                    if($password == $re_password){
-                        $array = Arr::add($array, 'staff_password', $password);
-                    }else{
-                        $error_re_pass = 'Mat khau khong trung khop!!!';
-                            return view('admin.staff.create',[
-                                'error_re_pass' => $error_re_pass,
-                            ]);
-                        // return redirect()->route('admin.staffs.create');
-                    }
-                    $array = Arr::add($array, 'staff_avatar', $staff_img);
-                    $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
-                    $array = Arr::add($array, 'staff_role', $request->staff_role);
-        
-                    Staff::create($array);
-        
-                    return redirect()->route('admin.staffs.index'); 
-                }
-            }
+            return redirect()->back();
         }
-
-       
+            
     }
 
     /**
