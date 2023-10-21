@@ -12,6 +12,7 @@ use App\Models\category_movie;
 use App\Models\director_movie;
 use App\Models\actor_movie;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -127,11 +128,22 @@ class MovieController extends Controller
         -> where('end_date', '>=', $now)
         ->get();
 
-        return view('Customer.home',[
-            'movies' => $movies,
-            'now' => $now,
-            'movie_show' => $movie_show,
-        ]);
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.home',[
+                'movies' => $movies,
+                'now' => $now,
+                'movie_show' => $movie_show,
+                'user' => $user,
+            ]);
+        }else{
+             return view('Customer.home',[
+                'movies' => $movies,
+                'now' => $now,
+                'movie_show' => $movie_show,
+            ]);
+        }
+       
     }
 
     public function detail(Movie $movie){

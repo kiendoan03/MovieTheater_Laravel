@@ -31,15 +31,24 @@
                     <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
                 </div>
 
-                <div class="dropdown" style="height: 3vmax; width: 3vmax;">
-               
-                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
-                    </ul>
-                </div>
+                @if(isset($user))
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('user',$user -> id)}}">Profile</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                                <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                            </ul>
+                    </div>  
+                @endif
 
             </section>
 
@@ -63,7 +72,7 @@
                                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                             <div class="modal-content text-light" style="background-color: black;">
-                                                <form role="form" method="post" action="{{route('user.update')}}" enctype="multipart/form-data">
+                                                <form role="form" method="post" action="{{route('user.update',$user -> id)}}" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-header">
@@ -117,7 +126,7 @@
                             <div class="col-7 ">
                                 <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
                                     <div class="mx-2 my-2 ">
-                                         <form role="form" method="post" action="{{route('user.update')}}">
+                                         <form role="form" method="post" action="{{route('user.update',$user -> id)}}">
                                                 @csrf
                                                 @method('PUT')
                                              <div class="mb-3 row ">
@@ -156,16 +165,16 @@
                                                     <input type="text " readonly name="cus_phone" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_phonenumber}}">
                                                 </div>
                                             </div>
-                                            <div class="mb-3 row ">
+                                            <div class="mb-3 row " id="input-pass" style="display: none;">
                                                 <label class="col-sm-2 col-form-label text-light ">Password</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="password " readonly name="cus_password" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_password}}">
+                                                    <input type="password "  name="cus_password" class="form-control-plaintext  text-light "  value="">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row " id="input-repass" style="display: none;">
                                                 <label class="col-sm-2 col-form-label text-light ">Re-Password</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="password "  name="cus_repass" class="form-control-plaintext  text-light "  value="{{$user -> customer_password}}">
+                                                    <input type="password "  name="cus_repass" class="form-control-plaintext  text-light "  value="">
                                                 </div>
                                             </div>
 
@@ -249,6 +258,7 @@
             var okButton = document.getElementById("okButton");
             var repass = document.getElementById("input-repass");
             var cancelButton = document.getElementById("CancelButton");
+            var inputPass = document.getElementById("input-pass");
             
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].readOnly = !inputs[i].readOnly;
@@ -257,6 +267,7 @@
             okButton.style.display = "inline";
             cancelButton.style.display = "inline";
             repass.style.display = "";
+            inputPass.style.display = "";
 
         }
 
@@ -272,6 +283,8 @@
             okButton.style.display = "none";
             var repass = document.getElementById("input-repass");
             repass.style.display = "none";
+            var inputPass = document.getElementById("input-pass");
+            inputPass.style.display = "none";
             var cancelButton = document.getElementById("CancelButton");
             cancelButton.style.display = "none";
         }
@@ -287,6 +300,8 @@
             okButton.style.display = "none";
             var repass = document.getElementById("input-repass");
             repass.style.display = "none";
+            var inputPass = document.getElementById("input-pass");
+            inputPass.style.display = "none";
             var cancelButton = document.getElementById("CancelButton");
             cancelButton.style.display = "none";
         }

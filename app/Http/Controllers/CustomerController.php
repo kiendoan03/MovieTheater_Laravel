@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
@@ -36,56 +36,17 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function login(Request $request){
-
+    public function login(Request $request)
+    {
         $credentials = $request->only('username_or_email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            if ($user) {
-                // Đăng nhập thành công
-                return redirect()->intended('/');
-            } else {
-                // Người dùng không tồn tại
-                Auth::logout();
-                return redirect()->back()->withErrors(['login' => 'Người dùng không tồn tại.'])->withInput();
-            }
+        
+        if (Auth::guard('customers')->attempt(['customer_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
+            Auth::guard('customers')->attempt(['customer_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
+            return redirect()->route('index');
         } else {
-            // Đăng nhập thất bại
+            
             return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
         }
-    }
-
-    public function check_login(Request $request){
-        $customers = Customer::all();
-        $count = Customer::all() -> count();
-        if($count == 0){
-            $error_login_null = 'tan dang nhap khong ton tai!!!';
-            return view('login.login',[
-                'error_login_null' => $error_login_null,
-            ]);
-        }else{
-            foreach($customers as $customer){
-            if($customer -> customer_username == $request -> user_name){
-                if($customer -> customer_username == $request -> user_name && $customer -> customer_password == $request -> password){
-                    return redirect()->route('index'); 
-                }else{
-                    $error_login = 'tan dang nhap hoac mat khau khong dung!!!';
-                    return view('login.login',[
-                        'error_login' => $error_login,
-                    ]);
-                } 
-            }else{
-                $error_username = 'tan dang nhap khong ton tai!!!';
-                    return view('login.login',[
-                        'error_username' => $error_username,
-                    ]);
-            }
-        }
-        }
-
-        
     }
 
     /**
@@ -102,29 +63,6 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         //
-            $password = $request->password;
-            $re_password = $request->re_password;
-
-            $array = [];
-            $array = Arr::add($array, 'customer_name', $request->full_name);
-            $array = Arr::add($array, 'customer_email', $request->cus_email);
-            $array = Arr::add($array, 'customer_phonenumber', $request->cus_phonenumber);
-            $array = Arr::add($array, 'customer_address', $request->cus_address);
-            $array = Arr::add($array, 'customer_username', $request->user_name);
-            if($password == $re_password){
-                $array = Arr::add($array, 'customer_password', $password);
-            }else{
-                $error_re_pass = 'Mat khau khong trung khop!!!';
-                return view('login.register',[
-                    'error_re_pass' => $error_re_pass,
-                ]);
-            }
-            $array = Arr::add($array, 'customer_avatar', 'avatar_default.jpg');
-            $array = Arr::add($array, 'customer_date_of_birth', $request->date_of_birth);
-
-            Customer::create($array);
-
-            return redirect()->route('login.login'); 
     }
 
     public function register(Request $request){
@@ -135,7 +73,7 @@ class CustomerController extends Controller
             'customer_name' => $request->full_name,
             'customer_username' => $request->user_name,
             'customer_email' => $request->cus_email,
-            'customer_password' => Hash::make($request->password),
+            'password' => Hash::make($request->password),
             'customer_address' => $request->cus_address,
             'customer_date_of_birth' => $request->date_of_birth,
             'customer_phonenumber' => $request->cus_phonenumber,
@@ -150,9 +88,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(Customer $customer ,$user)
     {
-        $user = Customer::find(1);
+        $user = Customer::find($user);
 
         return view('Customer.user',[
             'user' => $user,
@@ -170,47 +108,50 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer, $user)
     {
-        //
-        $user = Customer::find(1);
-
-        if($request->hasFile('cus_img')){
-            $cus_img = $request->file('cus_img')-> getClientOriginalName();
-
-            if(!Storage::exists('public/img/user/'.$cus_img)){
-                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
-            }
-        }else{
-            $cus_img = $user->customer_avatar;
-        }
-        $user -> customer_avatar = $cus_img;
-        $user -> save();
+        //'
+        $user = Customer::find($user);
 
         if($request->has('cus_name')){
-            $password = $request->cus_password;
-            $re_password = $request->cus_repass;
             $cus_img = $user->customer_avatar;
-
+            
             $array = [];
             $array = Arr::add($array, 'customer_name', $request->cus_name);
             $array = Arr::add($array, 'customer_email', $request->cus_email);
             $array = Arr::add($array, 'customer_phonenumber', $request->cus_phone);
             $array = Arr::add($array, 'customer_address', $request->cus_address);
             $array = Arr::add($array, 'customer_username', $request->cus_username);
-            if($password == $re_password){
-                $array = Arr::add($array, 'customer_password', $password);
+            if($request-> cus_password != null){
+                $password = $request->cus_password;
+                $re_password = $request->cus_repass;
+                if($password == $re_password){
+                    $array = Arr::add($array, 'password', Hash::make($password));
+                }else{
+                    return redirect()->route('users');
+                }
             }else{
-                return redirect()->route('users');
+                $array = Arr::add($array, 'password', $user->password);
             }
+           
             $array = Arr::add($array, 'customer_date_of_birth', $request->cus_dateOfBirth);
             $array = Arr::add($array, 'customer_avatar', $cus_img);
-
             $user->update($array);
+        }else{
+            if($request->hasFile('cus_img')){
+                $cus_img = $request->file('cus_img')-> getClientOriginalName();
+    
+                if(!Storage::exists('public/img/user/'.$cus_img)){
+                    Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
+                }
+            }else{
+                $cus_img = $user->customer_avatar;
+            }
+            $user -> customer_avatar = $cus_img;
+            $user -> save();
         }
-        
 
-        return redirect()->route('user');
+        return redirect()->route('user', $user);
     }
 
     /**

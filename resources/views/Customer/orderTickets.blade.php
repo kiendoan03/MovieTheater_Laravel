@@ -30,16 +30,24 @@
                     <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
                 </div>
 
-                <div class="dropdown" style="height: 3v
-                max; width: 3vmax;">
-               
-                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
-                    </ul>
-                </div>
+                @if(isset($user))
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('user',$user -> id)}}">Profile</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                                <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                            </ul>
+                    </div>  
+                @endif
 
             </section>
 

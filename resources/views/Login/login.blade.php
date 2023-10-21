@@ -53,7 +53,7 @@
                         @csrf
 
                         @if($errors->has('login'))
-                            <div class="alert alert-danger" role="alert">
+                            <div class="text-danger" role="alert">
                                 {{ $errors->first('login') }}
                             </div>
                         @endif
