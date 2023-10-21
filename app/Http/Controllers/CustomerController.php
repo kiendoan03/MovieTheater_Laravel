@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateCustomerRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 class CustomerController extends Controller
 {
     /**
@@ -23,7 +25,7 @@ class CustomerController extends Controller
         
     }
 
-    public function login()
+    public function showLoginForm()
     {
         return view('Login.login');
     }
@@ -32,6 +34,27 @@ class CustomerController extends Controller
         return view('admin.customer.info',[
             'customer' => $customer,
         ]);
+    }
+
+    public function login(Request $request){
+
+        $credentials = $request->only('username_or_email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if ($user) {
+                // Đăng nhập thành công
+                return redirect()->intended('/');
+            } else {
+                // Người dùng không tồn tại
+                Auth::logout();
+                return redirect()->back()->withErrors(['login' => 'Người dùng không tồn tại.'])->withInput();
+            }
+        } else {
+            // Đăng nhập thất bại
+            return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
+        }
     }
 
     public function check_login(Request $request){
@@ -103,6 +126,26 @@ class CustomerController extends Controller
 
             return redirect()->route('login.login'); 
     }
+
+    public function register(Request $request){
+        if ($request->password !== $request->re_password) {
+            return redirect()->back()->withErrors(['password' => 'Mật khẩu không khớp.'])->withInput();
+        }
+        $customer = Customer::create([
+            'customer_name' => $request->full_name,
+            'customer_username' => $request->user_name,
+            'customer_email' => $request->cus_email,
+            'customer_password' => Hash::make($request->password),
+            'customer_address' => $request->cus_address,
+            'customer_date_of_birth' => $request->date_of_birth,
+            'customer_phonenumber' => $request->cus_phonenumber,
+            'customer_avatar' => 'avatar_default.jpg',
+        ]);
+        return redirect()->route('login.login'); 
+    
+    }
+
+ 
 
     /**
      * Display the specified resource.

@@ -92,10 +92,8 @@
                     <div class="mb-3">
                         <input type="password" class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="Re-password" name="re_password" style="outline: none;" required>
                     </div>
-                    @if(isset($error_re_pass))
-                        <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                {{$error_re_pass}}
-                        </div>
+                    @if ($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
                     @endif
 
                     <button type="submit" name="register_btn" class="mb-2 text-dark py-3 mt-3 col-12 border-0 bg-transparent login__button position-relative">

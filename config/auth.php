@@ -71,6 +71,13 @@ return [
         // ],
     ],
 
+    'providers' => [
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Customer::class,
+        ],
+    ],
+    
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
