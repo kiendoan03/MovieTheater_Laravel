@@ -101,50 +101,45 @@
                                                 </select>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="category_select" class="form-label text-light">Film genre</label>
-                                            
-                                            <select id="category_select" class="form-select bg-dark border-0 shadow-none text-light" name="movie_genre">
-                                                        <!-- Get all category -->
-                                                    @foreach($categories as $cate)
+                                        <p class="form-label text-light">Film genre</p>
+                                        <div class="mb-3 d-flex flex-wrap col-12">
+                                            @foreach($categories as $cate)
 
-                                                        <option value= "{{$cate -> id}}">{{$cate -> category_name}}</option>
+                                                <div class="border col-4 mb-3 me-3 p-2 rounded-3">
+                                                    <input type="checkbox" name="movie_genre[]" value="{{$cate -> id}}"/>
+                                                    <label class="text-light">{{$cate -> category_name}}</label>
+                                                </div>
 
-                                                     @endforeach
-
-                                            </select>
+                                             @endforeach
 
                                         </div>
 
-
-                                        <div class="mb-3">
-                                            <label for="actor" class="form-label text-light">Actors</label>
-                                            <select id="actor" class="form-select bg-dark border-0 shadow-none text-light" name="movie_actor">
-                                                        <!-- Get all category -->
+                                        <p class="text-light">Actors</p>
+                                        <div class="mb-3 col-12">
+                                            <!-- Get all category -->
                                                     
-                                                        @foreach($actors as $actor)
+                                            @foreach($actors as $actor)
 
-                                                            <option value= "{{$actor -> id}}">{{$actor -> actor_name}}</option>
+                                                <div class="border mb-4 me-4 p-2 rounded-3">
+                                                    <input type="checkbox" name="movie_actor[]" value= "{{$actor -> id}}"/>
+                                                    <label class="text-light mx-3">{{$actor -> actor_name}}</label>
+                                                    <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
+                                                </div>
 
-                                                        @endforeach
+                                             @endforeach              
 
-                                                </select>
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="directors" class="form-label text-light">Directors</label>
-                                            <select id="directors" class="form-select bg-dark border-0 shadow-none text-light" name="movie_director">
-                                                        <!-- Get all category -->
-                                                    
+                                        <p class="text-light">Directors</p>
+                                        <div class="mb-3 col-12">
+                                            @foreach($directors as $director)
+                                                <div class="border mb-4 me-4 p-2 rounded-3">
+                                                    <input type="checkbox" name="movie_director[]" value= "{{$director -> id}}"/>
+                                                    <label class="text-light mx-3">{{$director -> director_name}}</label>
+                                                    <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/'). $director -> director_image)}}">
+                                                </div>
 
-                                                        @foreach($directors as $director)
-
-                                                            <option value= "{{$director -> id}}">{{$director -> director_name}}</option>
-
-                                                        @endforeach
-                                                    
-
-                                                </select>
+                                            @endforeach
                                         </div>
 
                                         <div class="mb-3">

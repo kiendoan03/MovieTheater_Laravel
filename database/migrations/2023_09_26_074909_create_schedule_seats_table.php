@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('schedule_seats', function (Blueprint $table) {
             $table->foreignId('schedule_id')->constrained('schedules')
             ->onUpdate('restrict')
-            ->onDelete('cascade');;
+            ->onDelete('cascade');
             $table->foreignId('seat_id')->constrained('seats')
             ->onUpdate('restrict')
-            ->onDelete('cascade');;
+            ->onDelete('cascade');
             $table->primary(['schedule_id', 'seat_id']);
             $table->integer('status');
         });
