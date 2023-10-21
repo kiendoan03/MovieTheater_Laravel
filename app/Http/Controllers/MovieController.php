@@ -176,9 +176,12 @@ class MovieController extends Controller
         ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'director_movies.*', 'directors.*']);
 
+        $now = Carbon::today();
+
         $schedules = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
         ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
         ->where('movies.id', $movie -> id)
+        ->where('schedules.date', '>=', $now)
         ->orderBy('schedules.date', 'ASC')
         ->get(['movies.*','schedules.*','rooms.*','schedules.id as schedule_id']);
 
