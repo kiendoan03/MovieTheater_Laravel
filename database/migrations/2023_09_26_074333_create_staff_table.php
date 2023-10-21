@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('staff_avatar');
             $table->string('staff_date_of_birth');
             $table->string('staff_role');
+            $table->timestamps();
         });
     }
 
