@@ -63,7 +63,7 @@
                                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                             <div class="modal-content text-light" style="background-color: black;">
-                                                <form role="form" method="post" action="{{route('user.changeAvt')}}" enctype="multipart/form-data">
+                                                <form role="form" method="post" action="{{route('user.update')}}" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-header">
@@ -77,7 +77,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger">Changer</button>
+                                                        <button type="submit" class="btn btn-danger">Change</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -109,69 +109,70 @@
                         <div class="row ">
                             <div class="col-5 ">
                                 <div class="text-muted d-inline " style="font-size: 1.5vmax; ">Account</div>
-                                <div class="d-inline ">
-                                    <button type="button" class="btn btn-none shadow-none d-inline" data-bs-toggle="modal" style="float: right; " data-bs-target="#exampleModal">
-                                        <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; "></i>
-                                    </button>
+                                <div class="d-inline " onclick="toggleEditMode()">
+                                    <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax;float: right; cursor: pointer; "></i>
                                 </div>
                                 <p class="text-muted mt-3 ">Here you can edit public information about yourself. The changes will be display within 5 minutes.</p>
                             </div>
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content text-light" style="background-color: black;">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark fa-xl" style="color: #f00000;"></i></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            ...
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger">Save changes</button>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
                             <div class="col-7 ">
                                 <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
                                     <div class="mx-2 my-2 ">
-                                        <div class="mb-3 row ">
-                                            <label class="col-sm-2 col-form-label text-light ">Display name</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " value="{{$user -> customer_name}}">
+                                         <form role="form" method="post" action="{{route('user.update')}}">
+                                                @csrf
+                                                @method('PUT')
+                                             <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Display name</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="text " readonly name="cus_name" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_name}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3 row ">
-                                            <label class="col-sm-2 col-form-label text-light ">Username</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " value="{{$user -> customer_username}}">
+                                            <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Username</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="text " readonly name="cus_username" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_username}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="{{$user -> customer_email}}">
+                                            <div class="mb-3 row ">
+                                                <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="text " readonly name="cus_email" class="form-control-plaintext readonly-input text-light " id="staticEmail " value="{{$user -> customer_email}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3 row ">
-                                            <label class="col-sm-2 col-form-label text-light ">Date of birth</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " value="{{$user -> customer_date_of_birth}}">
+                                            <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Date of birth</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="date" readonly name="cus_dateOfBirth" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_date_of_birth}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3 row ">
-                                            <label class="col-sm-2 col-form-label text-light ">Phone</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " value="{{$user -> customer_phonenumber}}">
+                                            <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Address</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="text " readonly name="cus_address" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_address}}">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mb-3 row ">
-                                            <label class="col-sm-2 col-form-label text-light ">Password</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="password " readonly class="form-control-plaintext text-light " value="{{$user -> customer_password}}">
+                                            <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Phone</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="text " readonly name="cus_phone" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_phonenumber}}">
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="mb-3 row ">
+                                                <label class="col-sm-2 col-form-label text-light ">Password</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="password " readonly name="cus_password" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_password}}">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row " id="input-repass" style="display: none;">
+                                                <label class="col-sm-2 col-form-label text-light ">Re-Password</label>
+                                                <div class="col-sm-10 ">
+                                                    <input type="password "  name="cus_repass" class="form-control-plaintext  text-light "  value="{{$user -> customer_password}}">
+                                                </div>
+                                            </div>
+
+                                            <button id="okButton" type="submit" class="btn btn-danger mb-3" onclick="saveChanges()" style="display: none; font-size: 0.8vmax; width: 6vmax; border-radius: 50vmax">OK</button>
+                                            <button id="CancelButton" class="btn btn-danger mb-3 mx-3" onclick="cancel()" style="display: none; font-size: 0.8vmax; width: 6vmax; border-radius: 50vmax">Cancel</button>
+                                         </form>
+                                       
                                     </div>
 
                                 </div>
@@ -241,6 +242,55 @@
         function show_img() {
             cus_img.src = URL.createObjectURL(event.target.files[0]);
         }
+    </script>
+    <script>
+        function toggleEditMode() {
+            var inputs = document.getElementsByClassName("readonly-input");
+            var okButton = document.getElementById("okButton");
+            var repass = document.getElementById("input-repass");
+            var cancelButton = document.getElementById("CancelButton");
+            
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].readOnly = !inputs[i].readOnly;
+            }
+            
+            okButton.style.display = "inline";
+            cancelButton.style.display = "inline";
+            repass.style.display = "";
+
+        }
+
+        function saveChanges() {
+            
+            var inputs = document.getElementsByClassName("readonly-input");
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].readOnly = true;
+            }
+            
+            var okButton = document.getElementById("okButton");
+            okButton.style.display = "none";
+            var repass = document.getElementById("input-repass");
+            repass.style.display = "none";
+            var cancelButton = document.getElementById("CancelButton");
+            cancelButton.style.display = "none";
+        }
+
+        function cancel() {
+            var inputs = document.getElementsByClassName("readonly-input");
+
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].readOnly = true;
+            }
+            
+            var okButton = document.getElementById("okButton");
+            okButton.style.display = "none";
+            var repass = document.getElementById("input-repass");
+            repass.style.display = "none";
+            var cancelButton = document.getElementById("CancelButton");
+            cancelButton.style.display = "none";
+        }
+
     </script>
     <script src="/bootstrapLib/bootstrap.bundle.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js "></script>

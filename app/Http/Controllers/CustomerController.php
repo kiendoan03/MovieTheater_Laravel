@@ -147,6 +147,44 @@ class CustomerController extends Controller
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
         //
+        $user = Customer::find(1);
+
+        if($request->hasFile('cus_img')){
+            $cus_img = $request->file('cus_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/user/'.$cus_img)){
+                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
+            }
+        }else{
+            $cus_img = $user->customer_avatar;
+        }
+        $user -> customer_avatar = $cus_img;
+        $user -> save();
+
+        if($request->has('cus_name')){
+            $password = $request->cus_password;
+            $re_password = $request->cus_repass;
+            $cus_img = $user->customer_avatar;
+
+            $array = [];
+            $array = Arr::add($array, 'customer_name', $request->cus_name);
+            $array = Arr::add($array, 'customer_email', $request->cus_email);
+            $array = Arr::add($array, 'customer_phonenumber', $request->cus_phone);
+            $array = Arr::add($array, 'customer_address', $request->cus_address);
+            $array = Arr::add($array, 'customer_username', $request->cus_username);
+            if($password == $re_password){
+                $array = Arr::add($array, 'customer_password', $password);
+            }else{
+                return redirect()->route('users');
+            }
+            $array = Arr::add($array, 'customer_date_of_birth', $request->cus_dateOfBirth);
+            $array = Arr::add($array, 'customer_avatar', $cus_img);
+
+            $user->update($array);
+        }
+        
+
+        return redirect()->route('user');
     }
 
     /**
