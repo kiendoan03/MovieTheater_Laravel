@@ -8,6 +8,7 @@ use App\Models\Movie;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ActorController extends Controller
@@ -64,10 +65,21 @@ class ActorController extends Controller
         ->where('actors.id', $actor -> id)
         ->get(['movies.*', 'actor_movies.*', 'actors.*']);
 
-        return view('Customer.actor',[
-            'actor' => $actor,
-            'movie_actor' => $movie_actor,
-        ]);
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.actor',[
+                'actor' => $actor,
+                'movie_actor' => $movie_actor,
+                'user' => $user,
+            ]); 
+        }else{
+            return view('Customer.actor',[
+                'actor' => $actor,
+                'movie_actor' => $movie_actor,
+            ]); 
+        }
+
+        
     }
 
     /**

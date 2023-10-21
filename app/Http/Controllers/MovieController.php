@@ -12,6 +12,7 @@ use App\Models\category_movie;
 use App\Models\director_movie;
 use App\Models\actor_movie;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -130,11 +131,22 @@ class MovieController extends Controller
         -> where('end_date', '>=', $now)
         ->get();
 
-        return view('Customer.home',[
-            'movies' => $movies,
-            'now' => $now,
-            'movie_show' => $movie_show,
-        ]);
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.home',[
+                'movies' => $movies,
+                'now' => $now,
+                'movie_show' => $movie_show,
+                'user' => $user,
+            ]);
+        }else{
+             return view('Customer.home',[
+                'movies' => $movies,
+                'now' => $now,
+                'movie_show' => $movie_show,
+            ]);
+        }
+       
     }
 
     public function detail(Movie $movie){
@@ -170,7 +182,24 @@ class MovieController extends Controller
         ->orderBy('schedules.date', 'ASC')
         ->get(['movies.*','schedules.*','rooms.*','schedules.id as schedule_id']);
 
-        return view('Customer.movieDetailed',[
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.movieDetailed',[
+                'movie' => $movie,
+                'actors' => $actors,
+                'directors' => $directors,
+                'categories' => $categories,
+                'date' => $date,
+                'end' => $end,
+                'movie_cate' => $movie_cate,
+                'movie_actor' => $movie_actor,
+                'movie_director' => $movie_director,
+                'related_movie' => $related_movie,
+                'schedules' => $schedules,
+                'user' => $user,
+            ]);
+        }else{
+           return view('Customer.movieDetailed',[
             'movie' => $movie,
             'actors' => $actors,
             'directors' => $directors,
@@ -183,6 +212,9 @@ class MovieController extends Controller
             'related_movie' => $related_movie,
             'schedules' => $schedules,
         ]);
+        }
+        
+        
     }
 
     /**

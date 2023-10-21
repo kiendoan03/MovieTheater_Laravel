@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
@@ -23,7 +25,7 @@ class CustomerController extends Controller
         
     }
 
-    public function login()
+    public function showLoginForm()
     {
         return view('Login.login');
     }
@@ -34,35 +36,17 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function check_login(Request $request){
-        $customers = Customer::all();
-        $count = Customer::all() -> count();
-        if($count == 0){
-            $error_login_null = 'tan dang nhap khong ton tai!!!';
-            return view('login.login',[
-                'error_login_null' => $error_login_null,
-            ]);
-        }else{
-            foreach($customers as $customer){
-            if($customer -> customer_username == $request -> user_name){
-                if($customer -> customer_username == $request -> user_name && $customer -> customer_password == $request -> password){
-                    return redirect()->route('index'); 
-                }else{
-                    $error_login = 'tan dang nhap hoac mat khau khong dung!!!';
-                    return view('login.login',[
-                        'error_login' => $error_login,
-                    ]);
-                } 
-            }else{
-                $error_username = 'tan dang nhap khong ton tai!!!';
-                    return view('login.login',[
-                        'error_username' => $error_username,
-                    ]);
-            }
-        }
-        }
-
+    public function login(Request $request)
+    {
+        $credentials = $request->only('username_or_email', 'password');
         
+        if (Auth::guard('customers')->attempt(['customer_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
+            Auth::guard('customers')->attempt(['customer_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
+            return redirect()->route('index');
+        } else {
+            
+            return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
+        }
     }
 
     /**
@@ -79,58 +63,38 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         //
-            $password = $request->password;
-            $re_password = $request->re_password;
-
-            $array = [];
-            $array = Arr::add($array, 'customer_name', $request->full_name);
-            $array = Arr::add($array, 'customer_email', $request->cus_email);
-            $array = Arr::add($array, 'customer_phonenumber', $request->cus_phonenumber);
-            $array = Arr::add($array, 'customer_address', $request->cus_address);
-            $array = Arr::add($array, 'customer_username', $request->user_name);
-            if($password == $re_password){
-                $array = Arr::add($array, 'customer_password', $password);
-            }else{
-                $error_re_pass = 'Mat khau khong trung khop!!!';
-                return view('login.register',[
-                    'error_re_pass' => $error_re_pass,
-                ]);
-            }
-            $array = Arr::add($array, 'customer_avatar', 'avatar_default.jpg');
-            $array = Arr::add($array, 'customer_date_of_birth', $request->date_of_birth);
-
-            Customer::create($array);
-
-            return redirect()->route('login.login'); 
     }
+
+    public function register(Request $request){
+        if ($request->password !== $request->re_password) {
+            return redirect()->back()->withErrors(['password' => 'Mật khẩu không khớp.'])->withInput();
+        }
+        $customer = Customer::create([
+            'customer_name' => $request->full_name,
+            'customer_username' => $request->user_name,
+            'customer_email' => $request->cus_email,
+            'password' => Hash::make($request->password),
+            'customer_address' => $request->cus_address,
+            'customer_date_of_birth' => $request->date_of_birth,
+            'customer_phonenumber' => $request->cus_phonenumber,
+            'customer_avatar' => 'avatar_default.jpg',
+        ]);
+        return redirect()->route('login.login'); 
+    
+    }
+
+ 
 
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(Customer $customer ,$user)
     {
-        $user = Customer::find(1);
+        $user = Customer::find($user);
 
         return view('Customer.user',[
             'user' => $user,
         ]);
-    }
-
-    public function changeAvt(Request $request){
-        
-        $user = Customer::find(1);
-        if($request->hasFile('cus_img')){
-            $cus_img = $request->file('cus_img')-> getClientOriginalName();
-
-            if(!Storage::exists('public/img/user/'.$cus_img)){
-                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
-            }
-        }else{
-            $cus_img = $user->customer_avatar;
-        }
-        $user -> customer_avatar = $cus_img;
-        $user -> save();
-        return redirect()->route('user');
     }
 
     /**
@@ -141,12 +105,57 @@ class CustomerController extends Controller
         //
     }
 
+
+    public function changeAvt(Request $request, $user){
+        $users = Customer::find($user);
+
+        if($request->hasFile('cus_img')){
+            $cus_img = $request->file('cus_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/user/'.$cus_img)){
+                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
+            }
+        }else{
+            $cus_img = $users->customer_avatar;
+        }
+        $users -> customer_avatar = $cus_img;
+        $users -> save();
+        return redirect()->route('user', $user);
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, $user)
     {
-        //
+        //'
+        $users = Customer::find($user);
+            $cus_img = $users->customer_avatar;
+            
+            if($request-> cus_password != null){
+                $password = $request->cus_password;
+                $re_password = $request->cus_repass;
+                if($password == $re_password){
+                    $password = $request->cus_password;
+                }else{
+                    return redirect()->route('user', $user);
+                }
+            }else{
+                $password = $users->password;
+            }
+            $users->update([
+                'customer_email' => $request -> cus_email,
+                'customer_phonenumber' => $request -> cus_phone,
+                'customer_address' => $request -> cus_address,
+                'customer_username' => $request -> cus_username,
+                'password' => Hash::make($password),
+                'customer_date_of_birth' => $request -> cus_dateOfBirth,
+                'customer_avatar' => $cus_img,
+            ]);
+            $users -> customer_name = $request -> cus_name;
+            $users -> save();
+           
+        return redirect()->route('user', $user);
     }
 
     /**
@@ -156,5 +165,11 @@ class CustomerController extends Controller
     {
         $customer->delete(); 
         return redirect()->route('admin.customers.index');
+    }
+
+    public function logout()
+    {
+        Auth::guard('customers')->logout();
+        return redirect()->route('index');
     }
 }

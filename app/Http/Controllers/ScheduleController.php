@@ -11,6 +11,7 @@ use App\Models\seat_type;
 use App\Models\Room;
 use App\Models\Ticket;
 use App\Models\schedule_seat;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
@@ -228,58 +229,71 @@ class ScheduleController extends Controller
     }
 
     public function showSchedule($schedule){
-
-        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
-        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
-        ->join('schedules', 'schedules.id', '=', 'schedule_seats.schedule_id')
-        ->where('schedule_seats.schedule_id', '=', $schedule)
-        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedules.*','schedule_seats.status as schedule_seat_status', 'seats.id as seat_id' ,'schedules.id as schedule_id']);
-      
+             $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+            ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+            ->join('schedules', 'schedules.id', '=', 'schedule_seats.schedule_id')
+            ->where('schedule_seats.schedule_id', '=', $schedule)
+            ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedules.*','schedule_seats.status as schedule_seat_status', 'seats.id as seat_id' ,'schedules.id as schedule_id']);
         
-        $schedule = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
-        ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
-        ->where('schedules.id','=', $schedule)
-        ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*', 'movies.id as movie_id']);
+            
+            $schedule = Schedule::join('movies', 'movies.id', '=', 'schedules.movie_id')
+            ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
+            ->where('schedules.id','=', $schedule)
+            ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*', 'movies.id as movie_id']);
 
-        $total_price = 0;
-        foreach($seats as $price){
-            if($price -> schedule_seat_status == 2){
-            $total_price += $price -> price;
+            $total_price = 0;
+            foreach($seats as $price){
+                if($price -> schedule_seat_status == 2){
+                $total_price += $price -> price;
+                }
             }
-        }
-           
-        
-        return view('Customer.orderTickets',[
-            'seats' => $seats,
-            'schedule' => $schedule,
-            'total_price' => $total_price,
-        ]);
+            if(Auth::guard('customers')->check()){
+                $user = Auth::guard('customers')->user();
+                return view('Customer.orderTickets',[
+                    'seats' => $seats,
+                    'schedule' => $schedule,
+                    'total_price' => $total_price,
+                    'user' => $user,
+                ]);
+            }else{
+                return view('Customer.orderTickets',[
+                    'seats' => $seats,
+                    'schedule' => $schedule,
+                    'total_price' => $total_price,
+                ]);
+            }
+            
+            
+       
+       
     }
 
     public function orderTicket($seat_id, $schedule_id ){
-        $type = Seat_type::all();
-        $seats = Seat::all();
-        $seat = schedule_seat::where('seat_id','=',$seat_id)
-        ->where('schedule_id','=',$schedule_id)
-        ->get();
+            $type = Seat_type::all();
+            $seats = Seat::all();
+            $seat = schedule_seat::where('seat_id','=',$seat_id)
+            ->where('schedule_id','=',$schedule_id)
+            ->get();
 
-        foreach($seat as $seat){
-            if($seat -> status == 0){
-                $array = [];
-                $array = Arr::add($array, 'status', 2);
-                schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
-            }else{
-                $array = [];
-                $array = Arr::add($array, 'status', 0);
-                schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+            foreach($seat as $seat){
+                if($seat -> status == 0){
+                    $array = [];
+                    $array = Arr::add($array, 'status', 2);
+                    schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                }else{
+                    $array = [];
+                    $array = Arr::add($array, 'status', 0);
+                    schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                }
             }
-        }
 
+            
             return redirect()->route('order',[
                 'schedule' => $schedule_id,
                 'seats' => $seats,
                 'type' => $type,
             ]);
+       
     }
 
     public function bookTicket($schedule_id){
@@ -291,6 +305,8 @@ class ScheduleController extends Controller
 
         $final_price = 0;
 
+       
+
         foreach($seats as $seat){
             $final_price = $seat -> price;
             $count = Ticket::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->count();
@@ -299,6 +315,12 @@ class ScheduleController extends Controller
             $array = Arr::add($array, 'schedule_id', $schedule_id);
             $array = Arr::add($array, 'seat_id', $seat -> seat_id);
             $array = Arr::add($array, 'final_price', $final_price);
+            if(Auth::guard('customers')->check()){
+                $user = Auth::guard('customers')->user(); 
+                $array = Arr::add($array, 'customer_id', $user -> id);
+            }else{
+                $user = null;
+            }
             Ticket::create($array);
             $arr = [];
             $arr = Arr::add($arr, 'status', 3);

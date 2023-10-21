@@ -54,10 +54,11 @@ Route::prefix('Admin/Director')->name('admin.')->group(function () {
 });
  
 Route::prefix('Login')->name('login.')->group(function(){
-    Route::get('/', [\App\Http\Controllers\CustomerController::class, 'login'])->name('login');
-    Route::post('/check_login', [\App\Http\Controllers\CustomerController::class, 'check_login'])->name('login.check_login');
+    Route::get('/', [\App\Http\Controllers\CustomerController::class, 'showLoginForm'])->name('login');
+    Route::post('/check_login', [\App\Http\Controllers\CustomerController::class, 'login'])->name('login.check_login');
     Route::get('/register', [\App\Http\Controllers\CustomerController::class, 'create'])->name('register');
-    Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'store'])->name('store');
+    Route::post('/register', [\App\Http\Controllers\CustomerController::class, 'register'])->name('store');
+    Route::get('/logout', [\App\Http\Controllers\CustomerController::class, 'logout'])->name('logout');
 
 });
 
@@ -101,9 +102,10 @@ Route::prefix('/')->group(function(){
     Route::get('/{movie}/detail', [App\Http\Controllers\MovieController::class, 'detail'])->name('detail');
     Route::get('/{movie_actor}/actor', [App\Http\Controllers\ActorController::class, 'show'])->name('actor');
     Route::get('/{movie_director}/director', [App\Http\Controllers\DirectorController::class, 'show'])->name('director');
-    Route::get('/user', [App\Http\Controllers\CustomerController::class, 'show'])->name('user');
-    Route::put('/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt');
-    Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order');
+    Route::get('/{user}/user', [App\Http\Controllers\CustomerController::class, 'show'])->name('user');
+    Route::put('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'update'])->name('user.update');
+    Route::post('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt');
+    Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order')->middleware('auth:customers');
     Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket');
     Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket');
 });

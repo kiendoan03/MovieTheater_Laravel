@@ -32,15 +32,24 @@
                     <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-50 translate-middle" style="font-size: 1.2vmax;color: #ffffff"></i>
                 </div>
 
-                <div class="dropdown" style="height: 3vmax; width: 3vmax;">
-               
-                    <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
-                    <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('user')}}">Profile</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
-                        <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
-                    </ul>
-                </div>
+                @if(isset($user))
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('user',$user -> id)}}">Profile</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('login.logout')}}">Logout</a></li>
+                        </ul>
+                    </div>
+                @else
+                    <div class="dropdown" style="height: 3vmax; width: 3vmax;">
+                        <img class="col-12 border rounded-circle " style="object-fit: cover; overflow: hidden;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/avatar_default.jpg'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                                <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
+                            </ul>
+                    </div>  
+                @endif
 
             </section>
 
@@ -52,26 +61,14 @@
                     <form method="post" class="" action="{{route('login.login.check_login')}}">
                         @csrf
 
-                        @if(isset($error_login))
-                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                    {{$error_login}}
+                        @if($errors->has('login'))
+                            <div class="text-danger" role="alert">
+                                {{ $errors->first('login') }}
                             </div>
                         @endif
-
-                        @if(isset($error_username))
-                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                    {{$error_username}}
-                            </div>
-                        @endif
-
-                        @if(isset($error_login_null))
-                            <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                    {{$error_login_null}}
-                            </div>
-                        @endif
-
+                       
                         <div class="mb-3">
-                            <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="user_name" style="outline: none;" required>
+                            <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="username_or_email" style="outline: none;" required>
                         </div>
                         <div class="mb-3">
                             <input type="password" class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="Password" name="password" style="outline: none;" required>

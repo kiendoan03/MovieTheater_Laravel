@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'customers',
     ],
 
     /*
@@ -38,10 +38,14 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'customers',
+        ],
+        'customers' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+            
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -60,17 +64,16 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'customers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Customer::class,
+            'username' => 'customer_username',
+            'password' => 'customer_password',
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
-
+    
+    
+    
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
@@ -91,8 +94,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'customers' => [
+            'provider' => 'customers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

@@ -56,7 +56,7 @@ class StaffController extends Controller
             $array = Arr::add($array, 'staff_address', $request->staff_address);
             $array = Arr::add($array, 'staff_username', $request->staff_username);
             if($password == $re_password){
-                $array = Arr::add($array, 'staff_password', $password);
+                $array = Arr::add($array, 'password', $password);
             }else{
                 $error_re_pass = 'Mat khau khong trung khop!!!';
                     return view('admin.staff.create',[
@@ -121,7 +121,7 @@ class StaffController extends Controller
         $array = Arr::add($array, 'staff_address', $request->staff_address);
         $array = Arr::add($array, 'staff_username', $request->staff_username);
          if($password == $re_password){
-            $array = Arr::add($array, 'staff_password', $password);
+            $array = Arr::add($array, 'password', $password);
         }else{
             return redirect()->route('admin.staffs.update', $staff);
         }
