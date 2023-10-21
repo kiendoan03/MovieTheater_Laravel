@@ -120,7 +120,7 @@ class CustomerController extends Controller
         }
         $users -> customer_avatar = $cus_img;
         $users -> save();
-    return redirect()->route('user', $user);
+        return redirect()->route('user', $user);
     }
 
     /**
