@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('staff_phonenumber',10);
             $table->string('staff_address');
             $table->string('staff_username');
-            $table->string('staff_password');
+            $table->string('password');
             $table->string('staff_avatar');
             $table->string('staff_date_of_birth');
             $table->string('staff_role');
