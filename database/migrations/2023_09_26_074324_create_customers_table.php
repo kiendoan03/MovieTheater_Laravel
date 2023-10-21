@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('customer_phonenumber',10);
             $table->string('customer_address');
             $table->string('customer_username');
-            $table->string('customer_password');
+            $table->string('password');
             $table->string('customer_avatar');
             $table->date('customer_date_of_birth');
             $table->timestamp('created_at');
