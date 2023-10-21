@@ -116,23 +116,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function changeAvt(Request $request){
-        
-        $user = Customer::find(1);
-        if($request->hasFile('cus_img')){
-            $cus_img = $request->file('cus_img')-> getClientOriginalName();
-
-            if(!Storage::exists('public/img/user/'.$cus_img)){
-                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
-            }
-        }else{
-            $cus_img = $user->customer_avatar;
-        }
-        $user -> customer_avatar = $cus_img;
-        $user -> save();
-        return redirect()->route('user');
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
