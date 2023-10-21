@@ -105,16 +105,32 @@ class CustomerController extends Controller
         //
     }
 
+
+    public function changeAvt(Request $request, $user){
+        $users = Customer::find($user);
+
+        if($request->hasFile('cus_img')){
+            $cus_img = $request->file('cus_img')-> getClientOriginalName();
+
+            if(!Storage::exists('public/img/user/'.$cus_img)){
+                Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
+            }
+        }else{
+            $cus_img = $users->customer_avatar;
+        }
+        $users -> customer_avatar = $cus_img;
+        $users -> save();
+    return redirect()->route('user', $user);
+    }
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, Customer $customer, $user)
+    public function update(UpdateCustomerRequest $request, $user)
     {
         //'
-        $user = Customer::find($user);
-
-        if($request->has('cus_name')){
-            $cus_img = $user->customer_avatar;
+        $users = Customer::find($user);
+            $cus_img = $users->customer_avatar;
             
             if($request-> cus_password != null){
                 $password = $request->cus_password;
@@ -122,35 +138,23 @@ class CustomerController extends Controller
                 if($password == $re_password){
                     $password = $request->cus_password;
                 }else{
-                    return redirect()->route('users');
+                    return redirect()->route('user', $user);
                 }
             }else{
-                $password = $user->password;
+                $password = $users->password;
             }
-            $user->update([
-                'customer_name' => $request->cus_name,
-                'customer_email' => $request->cus_email,
-                'customer_phonenumber' => $request->cus_phone,
-                'customer_address' => $request->cus_address,
-                'customer_username' => $request->cus_username,
+            $users->update([
+                'customer_email' => $request -> cus_email,
+                'customer_phonenumber' => $request -> cus_phone,
+                'customer_address' => $request -> cus_address,
+                'customer_username' => $request -> cus_username,
                 'password' => Hash::make($password),
-                'customer_date_of_birth' => $request->cus_dateOfBirth,
+                'customer_date_of_birth' => $request -> cus_dateOfBirth,
                 'customer_avatar' => $cus_img,
             ]);
-        }else{
-            if($request->hasFile('cus_img')){
-                $cus_img = $request->file('cus_img')-> getClientOriginalName();
-    
-                if(!Storage::exists('public/img/user/'.$cus_img)){
-                    Storage::putFileAs('public/img/user/', $request->file('cus_img'), $cus_img);
-                }
-            }else{
-                $cus_img = $user->customer_avatar;
-            }
-            $user -> customer_avatar = $cus_img;
-            $user -> save();
-        }
-
+            $users -> customer_name = $request -> cus_name;
+            $users -> save();
+           
         return redirect()->route('user', $user);
     }
 

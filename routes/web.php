@@ -104,6 +104,7 @@ Route::prefix('/')->group(function(){
     Route::get('/{movie_director}/director', [App\Http\Controllers\DirectorController::class, 'show'])->name('director');
     Route::get('/{user}/user', [App\Http\Controllers\CustomerController::class, 'show'])->name('user');
     Route::put('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'update'])->name('user.update');
+    Route::post('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt');
     Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order')->middleware('auth:customers');
     Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket');
     Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket');

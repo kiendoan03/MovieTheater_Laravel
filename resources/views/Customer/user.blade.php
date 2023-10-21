@@ -72,9 +72,8 @@
                                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" >
                                             <div class="modal-content text-light" style="background-color: black;">
-                                                <form role="form" method="post" action="{{route('user.update',$user -> id)}}" enctype="multipart/form-data">
+                                                <form role="form" method="post" action="{{route('user.changeAvt',$user -> id)}}" enctype="multipart/form-data">
                                                     @csrf
-                                                    @method('PUT')
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="staticBackdropLabel">Change avatar</h5>
                                                         <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"><i class="fa-solid fa-xmark fa-xl" style="color: #f00000;"></i></button>
@@ -98,7 +97,7 @@
                             <p class="text-muted mb-3 " style="font-size: 0.8vmax; ">Member since {{$user -> created_at}}</p>
                             <div class="mt-5 ">
                                 <p class="text-muted mb-3 " style="font-size: 1vmax; ">Viewing activity</p>
-                                <div class="mb-3 ">
+                                <div class="mb-3 "> 
                                     <span class="text-light " style="font-size: 0.8vmax; ">Watched movies</span>
                                     <span class="text-light " style="float: right; font-size: 0.8vmax; ">10</span>
                                 </div>
@@ -125,14 +124,14 @@
                             </div>
                             <div class="col-7 ">
                                 <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
-                                    <div class="mx-2 my-2 ">
-                                         <form role="form" method="post" action="{{route('user.update',$user -> id)}}">
+                                    <div class="mx-2 my-2 p-3">
+                                        <form role="form" method="post" action="{{route('user.update',$user -> id)}}">
                                                 @csrf
                                                 @method('PUT')
                                              <div class="mb-3 row ">
                                                 <label class="col-sm-2 col-form-label text-light ">Display name</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="text " readonly name="cus_name" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_name}}">
+                                                    <input type="text" readonly name="cus_name" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_name}}">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row ">
@@ -168,13 +167,13 @@
                                             <div class="mb-3 row " id="input-pass" style="display: none;">
                                                 <label class="col-sm-2 col-form-label text-light ">Password</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="password "  name="cus_password" class="form-control-plaintext  text-light "  value="">
+                                                    <input type="password "  name="cus_password" class="form-control-plaintext border-0 border-bottom text-light"  value="">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row " id="input-repass" style="display: none;">
                                                 <label class="col-sm-2 col-form-label text-light ">Re-Password</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="password "  name="cus_repass" class="form-control-plaintext  text-light "  value="">
+                                                    <input type="password "  name="cus_repass" class="form-control-plaintext border-0 border-bottom  text-light "  value="">
                                                 </div>
                                             </div>
 
