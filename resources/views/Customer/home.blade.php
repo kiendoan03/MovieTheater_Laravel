@@ -224,7 +224,7 @@
                         <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
                             <li><a class="dropdown-item bg-dark text-light" href="{{route('user',$user -> id)}}">Profile</a></li>
                             <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
-                            <li><a class="dropdown-item bg-dark text-light" href="">Logout</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('login.logout')}}">Logout</a></li>
                         </ul>
                     </div>
                 @else

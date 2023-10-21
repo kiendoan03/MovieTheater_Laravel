@@ -179,7 +179,24 @@ class MovieController extends Controller
         ->orderBy('schedules.date', 'ASC')
         ->get(['movies.*','schedules.*','rooms.*','schedules.id as schedule_id']);
 
-        return view('Customer.movieDetailed',[
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.movieDetailed',[
+                'movie' => $movie,
+                'actors' => $actors,
+                'directors' => $directors,
+                'categories' => $categories,
+                'date' => $date,
+                'end' => $end,
+                'movie_cate' => $movie_cate,
+                'movie_actor' => $movie_actor,
+                'movie_director' => $movie_director,
+                'related_movie' => $related_movie,
+                'schedules' => $schedules,
+                'user' => $user,
+            ]);
+        }else{
+           return view('Customer.movieDetailed',[
             'movie' => $movie,
             'actors' => $actors,
             'directors' => $directors,
@@ -192,6 +209,9 @@ class MovieController extends Controller
             'related_movie' => $related_movie,
             'schedules' => $schedules,
         ]);
+        }
+        
+        
     }
 
     /**

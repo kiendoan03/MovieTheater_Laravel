@@ -115,7 +115,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" value="{{$staff -> staff_password}}" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" value="" >
                                             </div>
                                             @if($errors -> has('staff_pssw'))
                                                 <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
@@ -124,7 +124,7 @@
                                             @endif
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
-                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="{{$staff -> staff_password}}" required>
+                                                <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="" >
                                             </div>
 
                                             <div class="mb-3">

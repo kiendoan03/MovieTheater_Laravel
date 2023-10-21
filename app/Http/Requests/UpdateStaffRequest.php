@@ -25,7 +25,7 @@ class UpdateStaffRequest extends FormRequest
             'staff_username' => 'required|unique:staff,staff_username,' . $this->staff->id. ',id',    
             'staff_email' => 'required|email|unique:staff,staff_email,' . $this->staff->id. ',id',
             'staff_phonenumber' => 'required|numeric|digits:10|unique:staff,staff_phonenumber,' . $this->staff->id. ',id',
-            'staff_pssw' => 'required|min:6|max:20',
+            // 'staff_pssw' => 'min:6|max:20',
         ];
     }
 
@@ -41,8 +41,8 @@ class UpdateStaffRequest extends FormRequest
             'staff_phonenumber.numeric' => 'Số điện thoại phải là số',
             'staff_phonenumber.digits' => 'Số điện thoại phải có 10 số',
             'staff_phonenumber.unique' => 'Số điện thoại đã tồn tại',
-            'staff_pssw.required' => 'Mật khẩu không được để trống',
-            'staff_pssw.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
+            // 'staff_pssw.required' => 'Mật khẩu không được để trống',
+            // 'staff_pssw.min' => 'Mật khẩu phải có ít nhất 6 ký tự',
         ];
     }
 }

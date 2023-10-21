@@ -116,27 +116,27 @@ class CustomerController extends Controller
         if($request->has('cus_name')){
             $cus_img = $user->customer_avatar;
             
-            $array = [];
-            $array = Arr::add($array, 'customer_name', $request->cus_name);
-            $array = Arr::add($array, 'customer_email', $request->cus_email);
-            $array = Arr::add($array, 'customer_phonenumber', $request->cus_phone);
-            $array = Arr::add($array, 'customer_address', $request->cus_address);
-            $array = Arr::add($array, 'customer_username', $request->cus_username);
             if($request-> cus_password != null){
                 $password = $request->cus_password;
                 $re_password = $request->cus_repass;
                 if($password == $re_password){
-                    $array = Arr::add($array, 'password', Hash::make($password));
+                    $password = $request->cus_password;
                 }else{
                     return redirect()->route('users');
                 }
             }else{
-                $array = Arr::add($array, 'password', $user->password);
+                $password = $user->password;
             }
-           
-            $array = Arr::add($array, 'customer_date_of_birth', $request->cus_dateOfBirth);
-            $array = Arr::add($array, 'customer_avatar', $cus_img);
-            $user->update($array);
+            $user->update([
+                'customer_name' => $request->cus_name,
+                'customer_email' => $request->cus_email,
+                'customer_phonenumber' => $request->cus_phone,
+                'customer_address' => $request->cus_address,
+                'customer_username' => $request->cus_username,
+                'password' => Hash::make($password),
+                'customer_date_of_birth' => $request->cus_dateOfBirth,
+                'customer_avatar' => $cus_img,
+            ]);
         }else{
             if($request->hasFile('cus_img')){
                 $cus_img = $request->file('cus_img')-> getClientOriginalName();
@@ -161,5 +161,11 @@ class CustomerController extends Controller
     {
         $customer->delete(); 
         return redirect()->route('admin.customers.index');
+    }
+
+    public function logout()
+    {
+        Auth::guard('customers')->logout();
+        return redirect()->route('index');
     }
 }

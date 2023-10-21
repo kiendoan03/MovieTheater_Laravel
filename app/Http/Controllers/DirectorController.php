@@ -9,6 +9,7 @@ use App\Http\Requests\StoreDirectorRequest;
 use App\Http\Requests\UpdateDirectorRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class DirectorController extends Controller
 {
@@ -65,10 +66,21 @@ class DirectorController extends Controller
         ->where('directors.id', $director -> id)
         ->get(['movies.*', 'director_movies.*', 'directors.*']);
 
-        return view('Customer.director',[
-            'director' => $director,
-            'movie_director' => $movie_director,
-        ]);
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.director',[
+                'director' => $director,
+                'movie_director' => $movie_director,
+                'user' => $user,
+            ]);
+        }else{
+            return view('Customer.director',[
+                'director' => $director,
+                'movie_director' => $movie_director,
+            ]);
+        }
+
+       
     }
 
     /**
