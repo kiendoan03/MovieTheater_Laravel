@@ -9,6 +9,7 @@
     <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href=" {{asset(\Illuminate\Support\Facades\Storage::url('css/scroll/hideScrollBar.css'))}}">
 
     <style>
         input::file-selector-button {
@@ -102,10 +103,10 @@
                                         </div>
 
                                         <p class="form-label text-light">Film genre</p>
-                                        <div class="mb-3 d-flex flex-wrap col-12">
+                                        <div class="mb-3 d-flex flex-wrap row hide-scrollbar p-3" style="height: 8vmax; overflow-x: hidden; overflow-y: scroll;">
                                             @foreach($categories as $cate)
 
-                                                <div class="border col-4 mb-3 me-3 p-2 rounded-3">
+                                                <div class="border col-4 mb-3 mx-2 p-2 rounded-3">
                                                     <input type="checkbox" name="movie_genre[]" value="{{$cate -> id}}"/>
                                                     <label class="text-light">{{$cate -> category_name}}</label>
                                                 </div>
@@ -115,15 +116,16 @@
                                         </div>
 
                                         <p class="text-light">Actors</p>
-                                        <div class="mb-3 col-12">
-                                            <!-- Get all category -->
+                                        <div class="mb-3 row hide-scrollbar p-3" style="height: 15vmax; overflow-x: hidden; overflow-y: scroll;">
                                                     
                                             @foreach($actors as $actor)
 
-                                                <div class="border mb-4 me-4 p-2 rounded-3">
-                                                    <input type="checkbox" name="movie_actor[]" value= "{{$actor -> id}}"/>
-                                                    <label class="text-light mx-3">{{$actor -> actor_name}}</label>
-                                                    <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
+                                                <div class="border mb-3 rounded-3 col-5 p-3 mx-2 text-center">
+                                                    <div class="mb-2">
+                                                         <input type="checkbox" name="movie_actor[]" value= "{{$actor -> id}}"/>
+                                                        <label class="text-light mx-3">{{$actor -> actor_name}}</label>
+                                                    </div>
+                                                    <img style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 8vmax; width: 8vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/'). $actor -> actor_image)}}">
                                                 </div>
 
                                              @endforeach              
@@ -131,12 +133,14 @@
                                         </div>
 
                                         <p class="text-light">Directors</p>
-                                        <div class="mb-3 col-12">
+                                        <div class="mb-3  row hide-scrollbar p-3" style="height: 15vmax; overflow-x: hidden; overflow-y: scroll;">
                                             @foreach($directors as $director)
-                                                <div class="border mb-4 me-4 p-2 rounded-3">
-                                                    <input type="checkbox" name="movie_director[]" value= "{{$director -> id}}"/>
-                                                    <label class="text-light mx-3">{{$director -> director_name}}</label>
-                                                    <img class="col-4" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/'). $director -> director_image)}}">
+                                                <div class="border mb-3 mx-2 col-5 p-3 text-center rounded-3">
+                                                    <div class="mb-2">
+                                                        <input type="checkbox" name="movie_director[]" value= "{{$director -> id}}"/>
+                                                        <label class="text-light mx-3">{{$director -> director_name}}</label>  
+                                                    </div>
+                                                    <img style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 8vmax; width: 8vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/'). $director -> director_image)}}">
                                                 </div>
 
                                             @endforeach
@@ -234,6 +238,8 @@
 
         };
     </script>
+  
+
 </body>
 
 </html>

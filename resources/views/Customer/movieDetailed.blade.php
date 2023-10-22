@@ -193,24 +193,26 @@
                         <!-- Actors -->
                         <div>
                             <span class="text-light" style="font-size: 1.7vmax;"> Actors </span>
-                            @foreach($movie_actor as $movie_actor)
+                            
 
-                            <div class="d-flex my-4">
-                                <a href="{{route('actor',$movie_actor -> actor_id)}}">
-                                    <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/').$movie_actor -> actor_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
-                                </a>
-                            </div>
+                                <div class="d-flex my-4">
+                                    @foreach($movie_actor as $movie_actor)
+                                        <a href="{{route('actor',$movie_actor -> actor_id)}}">
+                                            <img class="d-block  me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/actor/').$movie_actor -> actor_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                        </a>
+                                    @endforeach
+                                </div>
 
-                            @endforeach
+                            
                         </div>
 
                         <!-- Director -->
                         <div>
                             <span class="text-light" style="font-size: 1.7vmax;"> Directors </span>
-                            <div class="d-flex my-4">
+                            <div class="d-flex my-4 ">
                                 @foreach($movie_director as $movie_director)
                                 <a href="{{route('director', $movie_director -> director_id)}}">
-                                    <img class="d-block me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$movie_director -> director_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
+                                    <img class="d-block  me-3" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/director/').$movie_director -> director_image)}}" style="object-fit: cover; border-radius: 50%; overflow: hidden; height: 6vmax; width: 6vmax;" alt="">
                                 </a>
                                 @endforeach
                             </div>
