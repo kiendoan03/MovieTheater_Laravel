@@ -65,20 +65,22 @@ class CustomerController extends Controller
         //
     }
 
-    public function register(Request $request){
+    public function register(StoreCustomerRequest $request){
         if ($request->password !== $request->re_password) {
             return redirect()->back()->withErrors(['password' => 'Mật khẩu không khớp.'])->withInput();
         }
-        $customer = Customer::create([
-            'customer_name' => $request->full_name,
-            'customer_username' => $request->user_name,
+            $customer = Customer::create([
+            'name' => $request->full_name,    
+            'customer_username' => $request->username,
             'customer_email' => $request->cus_email,
             'password' => Hash::make($request->password),
             'customer_address' => $request->cus_address,
             'customer_date_of_birth' => $request->date_of_birth,
             'customer_phonenumber' => $request->cus_phonenumber,
             'customer_avatar' => 'avatar_default.jpg',
+            'customer_name' => $request->full_name,
         ]);
+            
         return redirect()->route('login.login'); 
     
     }
@@ -144,6 +146,7 @@ class CustomerController extends Controller
                 $password = $users->password;
             }
             $users->update([
+                'name' => $request -> cus_name,
                 'customer_email' => $request -> cus_email,
                 'customer_phonenumber' => $request -> cus_phone,
                 'customer_address' => $request -> cus_address,
@@ -152,8 +155,8 @@ class CustomerController extends Controller
                 'customer_date_of_birth' => $request -> cus_dateOfBirth,
                 'customer_avatar' => $cus_img,
             ]);
-            $users -> customer_name = $request -> cus_name;
-            $users -> save();
+            // $users -> name = $request -> cus_name;
+            // $users -> save();
            
         return redirect()->route('user', $user);
     }

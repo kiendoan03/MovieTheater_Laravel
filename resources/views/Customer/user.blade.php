@@ -92,7 +92,7 @@
                                         </div>
                                     </div>
                         <div class="card-body ">
-                            <p class="text-light fw-bold mb-1 d-inline " style="font-size: 1.5vmax; ">{{$user -> customer_name}}</p>
+                            <p class="text-light fw-bold mb-1 d-inline " style="font-size: 1.5vmax; ">{{$user -> name}}</p>
 
                             <p class="text-muted mb-3 " style="font-size: 0.8vmax; ">Member since {{$user -> created_at}}</p>
                             <div class="mt-5 ">
@@ -131,7 +131,7 @@
                                              <div class="mb-3 row ">
                                                 <label class="col-sm-2 col-form-label text-light ">Display name</label>
                                                 <div class="col-sm-10 ">
-                                                    <input type="text" readonly name="cus_name" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_name}}">
+                                                    <input type="text" readonly name="cus_name" class="form-control-plaintext readonly-input text-light " value="{{$user -> name}}">
                                                 </div>
                                             </div>
                                             <div class="mb-3 row ">

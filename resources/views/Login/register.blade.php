@@ -62,7 +62,7 @@
 
                    
                     <div class="mb-3">
-                        <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="user_name" style="outline: none;" required>
+                        <input class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="User name" name="username" style="outline: none;" required>
                     </div>
                     @if($errors -> has('username'))
                         <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
