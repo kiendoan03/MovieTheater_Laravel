@@ -201,7 +201,7 @@
 
     <div class="container-fluid home">
 
-        <header class="row d-flex p-3  justify-content-between" style="background-color:none">
+        <header class="row d-flex fixed-top p-3 justify-content-between" style="background-color:none">
             <section class="col-3">
                 <a href="{{route('index')}}">
                     <img class="col-4" src="/img/page_logo/NetFnix Full logo.png" alt="">
@@ -243,9 +243,9 @@
 
         <!-- movie selection-->
 
-        <section class="movie_selection row ">
+        <section class="movie_selection row mt-5">
 
-            <div class="row justify-content-center mt-3">
+            <div class="row justify-content-center mt-5">
                 <div class="col-lg-7 col-md-8">
                     <div class="text-center">
                         <h1 class="text-light" style="font-size: 2.5vmax; font-family: 'Poppins', sans-serif;">Movie Selection</h1>

@@ -93,7 +93,7 @@ class CustomerController extends Controller
     public function show(Customer $customer ,$user)
     {
         $user = Customer::find($user);
-
+      
         return view('Customer.user',[
             'user' => $user,
         ]);
@@ -143,10 +143,7 @@ class CustomerController extends Controller
                 }else{
                     return redirect()->route('user', $user);
                 }
-            }else{
-                $password = $users->password;
-            }
-            $users->update([
+                 $users->update([
                 'name' => $request -> cus_name,
                 'customer_email' => $request -> cus_email,
                 'customer_phonenumber' => $request -> cus_phone,
@@ -155,7 +152,21 @@ class CustomerController extends Controller
                 'password' => Hash::make($password),
                 'customer_date_of_birth' => $request -> cus_dateOfBirth,
                 'customer_avatar' => $cus_img,
-            ]);
+                ]);
+            }else{
+                $password = $users->password;
+                $users->update([
+                    'name' => $request -> cus_name,
+                    'customer_email' => $request -> cus_email,
+                    'customer_phonenumber' => $request -> cus_phone,
+                    'customer_address' => $request -> cus_address,
+                    'customer_username' => $request -> cus_username,
+                    'password' => $password,
+                    'customer_date_of_birth' => $request -> cus_dateOfBirth,
+                    'customer_avatar' => $cus_img,
+                ]);
+            }
+           
             // $users -> name = $request -> cus_name;
             // $users -> save();
            
