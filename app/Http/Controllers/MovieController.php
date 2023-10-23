@@ -40,9 +40,9 @@ class MovieController extends Controller
     public function create()
     {   
         $movies = Movie::all();
-        $actors = Actor::all();
-        $directors = Director::all();
-        $categories = Category::all();
+        $actors = Actor::all()->sortBy('actor_name');
+        $directors = Director::all()->sortBy('director_name');
+        $categories = Category::all()->sortBy('category_name');
         return view('Admin.Movie.create',[
             'movies' => $movies,
             'actors' => $actors,
@@ -160,11 +160,12 @@ class MovieController extends Controller
         ->where('movies.id', $movie -> id)
         ->get(['movies.*', 'category_movies.*', 'categories.*']);
 
-        $related_movie = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
-        ->join('categories', 'categories.id', '=', 'category_movies.category_id')
-        ->where('categories.id',  $movie_cate[0] -> category_id)
-        ->get(['movies.*', 'category_movies.*', 'categories.*']);
-
+        foreach($movie_cate as $cate){
+            $related_movie = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
+            ->join('categories', 'categories.id', '=', 'category_movies.category_id')
+            ->where('categories.id',  $cate -> category_id)
+            ->get(['movies.*', 'category_movies.*', 'categories.*']);
+        }
 
         $movie_actor = Movie::join('actor_movies', 'actor_movies.movie_id', '=', 'movies.id')
         ->join('actors', 'actors.id', '=', 'actor_movies.actor_id')
@@ -225,9 +226,9 @@ class MovieController extends Controller
      */
     public function edit(Movie $movie)
     {
-        $actors = Actor::all();
-        $directors = Director::all();
-        $categories = Category::all();
+        $actors = Actor::all()->sortBy('actor_name');
+        $directors = Director::all()->sortBy('director_name');
+        $categories = Category::all()->sortBy('category_name');
         $date =  $movie->release_date;
         $end = $movie->end_date;
         $movie_cate = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
@@ -362,10 +363,15 @@ class MovieController extends Controller
         $cate_movie = category_movie::where('movie_id', '=', $movie -> id);
         $actor_movie = actor_movie::where('movie_id', '=', $movie -> id);
         $director_movie = director_movie::where('movie_id', '=', $movie -> id);
-
-        $cate_movie->delete();
-        $actor_movie->delete();
-        $director_movie->delete();
+        foreach($cate_movie as $cate){
+            $cate->delete();
+        }
+        foreach($actor_movie as $actor){
+            $actor->delete();
+        }
+        foreach($director_movie as $director){
+            $director->delete();
+        }
         $movie->delete();
 
         return redirect()->route('admin.movies.index');

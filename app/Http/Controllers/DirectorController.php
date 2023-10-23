@@ -122,6 +122,10 @@ class DirectorController extends Controller
      */
     public function destroy(Director $director)
     {
+        $director_movie = director_movie::where('director_id', $director->id);
+        foreach($director_movie as $item){
+            $item->delete();
+        }
         $director->delete();
 
         return redirect()->route('admin.directors.index');

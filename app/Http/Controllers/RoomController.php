@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Models\Schedule;
 use App\Models\schedule_seat;
 use App\Models\Seat;
 use App\Models\Seat_type;
 use Illuminate\Support\Arr;
-
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 class RoomController extends Controller
 {
@@ -152,12 +153,18 @@ class RoomController extends Controller
     public function destroy(Room $room)
     {
         //
-        $seat = Seat::where('room_id', '=', $room -> id);
+        $schedule_room = Schedule::where('room_id', '=', $room -> id)->count();
+        if($schedule_room > 0){
+            return redirect()->route('admin.rooms.index');
+        }else{
+            $seat = Seat::where('room_id', '=', $room -> id);
 
-        $seat->delete();
+            $seat->delete();
 
-        $room->delete();
+            $room->delete();
 
-        return redirect()->route('admin.rooms.index');
+            return redirect()->route('admin.rooms.index');     
+        }
+       
     }
 }

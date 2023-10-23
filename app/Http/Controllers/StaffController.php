@@ -50,7 +50,7 @@ class StaffController extends Controller
             }
 
             $array = [];
-            $array = Arr::add($array, 'staff_name', $request->staff_full_name);
+            $array = Arr::add($array, 'name', $request->staff_full_name);
             $array = Arr::add($array, 'staff_email', $request->staff_email);
             $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
             $array = Arr::add($array, 'staff_address', $request->staff_address);
@@ -115,7 +115,7 @@ class StaffController extends Controller
         $re_password = $request->staff_re_pssw;
 
         $array = [];
-        $array = Arr::add($array, 'staff_name', $request->staff_full_name);
+        $array = Arr::add($array, 'name', $request->staff_full_name);
         $array = Arr::add($array, 'staff_email', $request->staff_email);
         $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
         $array = Arr::add($array, 'staff_address', $request->staff_address);

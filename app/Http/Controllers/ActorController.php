@@ -121,6 +121,10 @@ class ActorController extends Controller
      */
     public function destroy(Actor $actor)
     {
+        $actor_movie = actor_movie::where('actor_id', $actor->id);
+        foreach($actor_movie as $item){
+            $item->delete();
+        }
         $actor->delete();
 
         return redirect()->route('admin.actors.index'); 

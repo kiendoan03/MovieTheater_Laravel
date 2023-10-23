@@ -131,7 +131,8 @@ class CustomerController extends Controller
     public function update(UpdateCustomerRequest $request, $user)
     {
         //'
-        $users = Customer::find($user);
+        // dd($request->all());
+            $users = Customer::find($user);
             $cus_img = $users->customer_avatar;
             
             if($request-> cus_password != null){

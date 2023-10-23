@@ -139,12 +139,22 @@
                                                 <div class="col-sm-10 ">
                                                     <input type="text " readonly name="cus_username" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_username}}">
                                                 </div>
+                                                @if($errors -> has('cus_username'))
+                                                    <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$errors -> first('cus_username')}}
+                                                    </div> 
+                                                @endif
                                             </div>
                                             <div class="mb-3 row ">
                                                 <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
                                                 <div class="col-sm-10 ">
                                                     <input type="text " readonly name="cus_email" class="form-control-plaintext readonly-input text-light " id="staticEmail " value="{{$user -> customer_email}}">
                                                 </div>
+                                                @if($errors -> has('cus_email'))
+                                                    <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$errors -> first('cus_email')}}
+                                                    </div> 
+                                                @endif
                                             </div>
                                             <div class="mb-3 row ">
                                                 <label class="col-sm-2 col-form-label text-light ">Date of birth</label>
@@ -163,6 +173,11 @@
                                                 <div class="col-sm-10 ">
                                                     <input type="text " readonly name="cus_phone" class="form-control-plaintext readonly-input text-light " value="{{$user -> customer_phonenumber}}">
                                                 </div>
+                                                @if($errors -> has('cus_phone'))
+                                                    <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
+                                                        {{$errors -> first('cus_phone')}}
+                                                    </div> 
+                                                @endif
                                             </div>
                                             <div class="mb-3 row " id="input-pass" style="display: none;">
                                                 <label class="col-sm-2 col-form-label text-light ">Password</label>

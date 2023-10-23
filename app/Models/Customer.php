@@ -10,7 +10,7 @@ class Customer extends Model implements Authenticatable
 {
     use \Illuminate\Auth\Authenticatable;
     use HasFactory;
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $fillable = ['name','customer_email','customer_phonenumber','customer_address','customer_username','password','customer_avatar','customer_date_of_birth'];
 
 }

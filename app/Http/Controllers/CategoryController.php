@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Models\category_movie;
 use Illuminate\Support\Arr;
 
 class CategoryController extends Controller
@@ -77,6 +78,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $cate_movie = category_movie::where('category_id', $category->id);
+        foreach($cate_movie as $item){
+            $item->delete();
+        }
         $category->delete();
         return redirect()->route('admin.categories.index');
     }
