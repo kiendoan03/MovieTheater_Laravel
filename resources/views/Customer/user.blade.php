@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="action my-5 text-center ">
-                                <button class="border-0 p-3 text-center text-light " style="background-color: rgb(94, 94, 94) ;border-radius: 50vmax; font-size: 0.8vmax; width: 6vmax; ">Sign Out</button>
+                                <a href="{{route('login.logout')}}" class="border-0 p-3 text-center text-light text-decoration-none" style="background-color: rgb(94, 94, 94) ;border-radius: 50vmax; font-size: 0.8vmax; width: 6vmax; ">Sign Out</a>
                             </div>
                         </div>
                     </div>

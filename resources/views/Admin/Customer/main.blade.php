@@ -93,7 +93,7 @@
                                         @foreach($customers as $customer)
                                         <tr>
                                             <th scope="row" class="col-1">{{$customer -> id}}</th>
-                                            <td class="col-3">{{$customer -> name}}</td>
+                                            <td class="col-3">{{$customer -> name}}</td>    
                                             <td class="col-2">1</td>
                                             <td class="col-2">1</td>
                                             <td class="col-2">
