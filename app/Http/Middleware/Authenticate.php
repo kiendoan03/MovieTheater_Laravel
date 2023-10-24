@@ -14,7 +14,7 @@ class Authenticate extends Middleware
     {
         if(!auth()->guard('staff')->check()){
             return $request->expectsJson() ? null : route('admin.staffs.login');
-        }else if(!auth()->guard('customer')->check()){
+        }else if(!auth()->guard('customers')->check()){
             return $request->expectsJson() ? null : route('login.login');
         }
         // return $request->expectsJson() ? null : route('login.login');
