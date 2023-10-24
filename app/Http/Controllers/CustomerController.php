@@ -177,6 +177,14 @@ class CustomerController extends Controller
         return redirect()->route('user', $user);
     }
 
+    public function resetPassword($customer){
+        $users = Customer::find($customer);
+        
+        $users -> password = Hash::make('123456');
+        $users -> save();
+        return redirect()->route('admin.customers.show', $customer);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

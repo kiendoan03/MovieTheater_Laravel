@@ -84,7 +84,7 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="fn" class="form-label text-light">Full name</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="fn" name="cus_full_name" value="{{$customer -> customer_name}}" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="fn" name="cus_full_name" value="{{$customer -> name}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="dob" class="form-label text-light">Date of birth</label>
@@ -98,14 +98,18 @@
                                                 <label for="pn" class="form-label text-light">Phonenumber</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="pn" name="cus_phonenumber" value="{{$customer -> customer_phonenumber}}" required>
                                             </div>
-                                            <div class="mb-3">
+                                            <div class="mb-5">
                                                 <label for="address" class="form-label text-light">Address</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="a" name="cus_address" value="{{$customer -> customer_address}}" required>
                                             </div>
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" readonly id="exampleInputPassword1" name="cus_pssw" value="{{$customer -> customer_password}}" required>
-                                            </div>
+                                            </div> -->
+                                            <form role="form" method="post" class="d-inline" action="{{route('admin.customers.resetPassword', $customer -> id)}}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger shadow-none">Reset password (123456)</button>
+                                            </form>
                                         </div>
                                         <div class="col-3">
                                             <div class="mb-3">

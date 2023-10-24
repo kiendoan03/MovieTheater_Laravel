@@ -68,6 +68,7 @@ Route::prefix('Admin/Customer')->name('admin.')->middleware('auth:staff')->group
     Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
     Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
     Route::get('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'showAdminSite'])->name('customers.show');
+    Route::post('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'resetPassword'])->name('customers.resetPassword');
 });
 
 Route::prefix('Admin/Staff')->name('admin.')->group(function(){
