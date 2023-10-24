@@ -27,10 +27,13 @@ class MovieController extends Controller
     {
         $movies = Movie::all();
         $now = Carbon::today();
-        $now -> setTimezone('Asia/Ho_Chi_Minh');   
+        $now -> setTimezone('Asia/Ho_Chi_Minh');  
+        $admin = Auth::guard('staff')->user();
+
         return view('Admin.Movie.main',[
             'movies' => $movies,
             'now' => $now,
+            'admin' => $admin,
         ]);
     }
 
@@ -43,11 +46,14 @@ class MovieController extends Controller
         $actors = Actor::all()->sortBy('actor_name');
         $directors = Director::all()->sortBy('director_name');
         $categories = Category::all()->sortBy('category_name');
+        $admin = Auth::guard('staff')->user();
+
         return view('Admin.Movie.create',[
             'movies' => $movies,
             'actors' => $actors,
             'directors' => $directors,
             'categories' => $categories,
+            'admin' => $admin,
         ]);
     }
 
@@ -246,6 +252,8 @@ class MovieController extends Controller
         ->where('movies.id', $movie -> id)
         ->get(['movies.id', 'director_movies.*', 'directors.*']);
 
+        $admin = Auth::guard('staff')->user();
+
         return view('Admin.Movie.edit',[
             'movie' => $movie,
             'actors' => $actors,
@@ -256,6 +264,7 @@ class MovieController extends Controller
             'movie_cate' => $movie_cate,
             'movie_actor' => $movie_actor,
             'movie_director' => $movie_director,
+            'admin' => $admin,
         ]);
     }
 

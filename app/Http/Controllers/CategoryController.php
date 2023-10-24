@@ -7,6 +7,8 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\category_movie;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoryController extends Controller
 {
@@ -16,9 +18,11 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
+        $admin = Auth::guard('staff')->user();
 
         return view('admin.category.main',[
             'categories' => $categories,
+            'admin' => $admin,
         ]
         );
     }
@@ -28,7 +32,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $admin = Auth::guard('staff')->user();
+
+        return view('admin.category.create',[
+            'admin' => $admin,
+        ]);
     }
 
     /**
@@ -57,10 +65,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $admin = Auth::guard('staff')->user();
         
         return view('admin.category.edit',[
             'category' => $category,
-        
+            'admin' => $admin,
         ]);
     }
 

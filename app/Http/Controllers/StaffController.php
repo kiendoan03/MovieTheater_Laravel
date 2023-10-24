@@ -7,6 +7,9 @@ use App\Http\Requests\StoreStaffRequest;
 use Illuminate\Support\Arr;
 use App\Http\Requests\UpdateStaffRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StaffController extends Controller
 {
@@ -16,12 +19,16 @@ class StaffController extends Controller
     public function index()
     {
         //
-        $staffs = Staff::all();
-
-        return view('admin.staff.main',[
-            'staffs' => $staffs,
-        ]);
-        return view('admin.staff.main');
+            $staffs = Staff::all();
+            $admin = Auth::guard('staff')->user();
+            return view('admin.staff.main',[
+                'staffs' => $staffs,
+                'admin' => $admin,
+            ]);
+       
+        // return view('admin.staff.main',[
+        //     'staffs' => $staffs,
+        // ]);
     }
 
     /**
@@ -30,7 +37,11 @@ class StaffController extends Controller
     public function create()
     {
         //
-        return view('admin.staff.create');
+        $admin = Auth::guard('staff')->user();
+
+        return view('admin.staff.create',[
+            'admin' => $admin,
+        ]);
     }
 
     /**
@@ -39,41 +50,34 @@ class StaffController extends Controller
     public function store(StoreStaffRequest $request)
     {
         //
-        if($request -> validated()){
-            $password = $request->staff_password;
-            $re_password = $request->staff_re_psw;
+    }
 
+    public function register(StoreStaffRequest $request){
+
+        if ($request->staff_password !== $request->staff_re_psw) {
+            return redirect()->back()->withErrors(['password' => 'Mật khẩu không khớp.'])->withInput();
+        }
             $staff_img = $request->file('staff_img')-> getClientOriginalName();
 
             if(!Storage::exists('public/img/staff/'.$staff_img)){
                 Storage::putFileAs('public/img/staff/', $request->file('staff_img'), $staff_img);
             }
+        // dd($request->staff_full_name);
+            $staff = Staff::create([
+            'name' => $request->staff_full_name,
+            'staff_username' => $request->staff_username,
+            'staff_email' => $request->staff_email,
+            'password' => Hash::make($request->staff_password),
+            'staff_address' => $request->staff_address,
+            'staff_date_of_birth' => $request->staff_dob,
+            'staff_phonenumber' => $request->staff_phonenumber,
+            'staff_avatar' => $staff_img,
+            'staff_role' => $request->staff_role,
 
-            $array = [];
-            $array = Arr::add($array, 'name', $request->staff_full_name);
-            $array = Arr::add($array, 'staff_email', $request->staff_email);
-            $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
-            $array = Arr::add($array, 'staff_address', $request->staff_address);
-            $array = Arr::add($array, 'staff_username', $request->staff_username);
-            if($password == $re_password){
-                $array = Arr::add($array, 'password', $password);
-            }else{
-                $error_re_pass = 'Mat khau khong trung khop!!!';
-                    return view('admin.staff.create',[
-                        'error_re_pass' => $error_re_pass,
-                    ]);
-            }
-            $array = Arr::add($array, 'staff_avatar', $staff_img);
-            $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
-            $array = Arr::add($array, 'staff_role', $request->staff_role);
-
-            Staff::create($array);
-
-            return redirect()->route('admin.staffs.index'); 
-        }else{
-            return redirect()->back();
-        }
+        ]);
             
+        return redirect()->route('admin.staffs.index'); 
+    
     }
 
     /**
@@ -84,14 +88,43 @@ class StaffController extends Controller
         //
     }
 
+    public function showLoginForm(){
+        $admin = Auth::guard('staff')->user();
+
+        return view('admin.staff.login',[
+            'admin' => $admin,
+        ]);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('username_or_email', 'password');
+        
+        if (Auth::guard('staff')->attempt(['staff_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
+            Auth::guard('staff')->attempt(['staff_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
+            return redirect()->route('admin.staffs.index');
+        } else {
+            
+            return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
+        }
+    }
+
+    public function logout()
+    {
+        Auth::guard('staff')->logout();
+        return redirect()->route('admin.staffs.login');
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Staff $staff)
     {
         //
+        $admin = Auth::guard('staff')->user();
         return view('admin.staff.edit',[
             'staff' => $staff,
+            'admin' => $admin,
         ]);
     }
 
@@ -100,8 +133,7 @@ class StaffController extends Controller
      */
     public function update(UpdateStaffRequest $request, Staff $staff)
     {
-        //
-        if($request->hasFile('staff_img')){
+         if($request->hasFile('staff_img')){
             $staff_img = $request->file('staff_img')-> getClientOriginalName();
 
             if(!Storage::exists('public/img/staff/'.$staff_img)){
@@ -110,27 +142,40 @@ class StaffController extends Controller
         }else{
             $staff_img = $staff->staff_avatar;
         }
-
-        $password = $request->staff_pssw;
-        $re_password = $request->staff_re_pssw;
-
-        $array = [];
-        $array = Arr::add($array, 'name', $request->staff_full_name);
-        $array = Arr::add($array, 'staff_email', $request->staff_email);
-        $array = Arr::add($array, 'staff_phonenumber', $request->staff_phonenumber);
-        $array = Arr::add($array, 'staff_address', $request->staff_address);
-        $array = Arr::add($array, 'staff_username', $request->staff_username);
-         if($password == $re_password){
-            $array = Arr::add($array, 'password', $password);
+        
+        if($request-> staff_pssw != null){
+            $password = $request->staff_pssw;
+            $re_password = $request->staff_re_pssw;
+            if($password == $re_password){
+                $password = $request->staff_pssw;
+            }else{
+               return redirect()->route('admin.staffs.update', $staff);
+            }
+             $staff->update([
+            'name' => $request -> staff_full_name,
+            'staff_email' => $request -> staff_email,
+            'staff_phonenumber' => $request -> staff_phonenumber,
+            'staff_address' => $request -> staff_address,
+            'staff_username' => $request -> staff_username,
+            'password' => Hash::make($password),
+            'staff_date_of_birth' => $request -> staff_dob,
+            'staff_avatar' => $staff_img,
+            'staff_role' => $request->staff_role,
+            ]);
         }else{
-            return redirect()->route('admin.staffs.update', $staff);
+            $password = $staff->password;
+            $staff->update([
+                'name' => $request -> staff_full_name,
+                'staff_email' => $request -> staff_email,
+                'staff_phonenumber' => $request -> staff_phonenumber,
+                'staff_address' => $request -> staff_address,
+                'staff_username' => $request -> staff_username,
+                'password' => $password,
+                'staff_date_of_birth' => $request -> staff_dob,
+                'staff_avatar' => $staff_img,
+                'staff_role' => $request->staff_role,
+            ]);
         }
-        $array = Arr::add($array, 'staff_avatar', $staff_img);
-        $array = Arr::add($array, 'staff_date_of_birth', $request->staff_dob);
-        $array = Arr::add($array, 'staff_role', $request->staff_role);
-
-        $staff->update($array);
-
         return redirect()->route('admin.staffs.index');
     }
 
@@ -144,4 +189,5 @@ class StaffController extends Controller
 
         return redirect()->route('admin.staffs.index'); 
     }
+    
 }

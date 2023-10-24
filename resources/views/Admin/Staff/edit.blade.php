@@ -29,22 +29,27 @@
                     <a class="navbar-brand" href="#">
                         <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
-                    <div class="dropdown d-flex">
-                        <div class=" d-flex">
-                            <i class="fa-solid fa-Staff my-auto mx-3 text-light"></i>
-                            <p class="my-auto text-light">Admin</p>
-                        </div>
-                        <button class="dropdown-toggle bg-transparent border-0 text-light" style="outline:none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    </button>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item text-light bg-dark" href="">Profile</a></li>
-                            <li><a class="dropdown-item d-block text-light bg-dark" href="">Logout</a></li>
+                    @if(isset($admin))
+                    <div class="dropdown text-center" >
+                            <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/').$admin -> staff_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <p class="my-auto text-light">{{$admin -> name}}</p>  
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                            <li><a class="dropdown-item bg-dark text-light" href="">Profile</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.logout')}}">Logout</a></li>
                         </ul>
                     </div>
+                    @else
+                    <div class="dropdown">
+                        <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden;height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/netfnix/download-removebg-preview.png'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.login')}}">Login</a></li>
+                            </ul>
+                    </div>  
+                    @endif
                 </div>
             </nav>
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-10 margin_top_custom mx-auto" style="margin-top:5em;">
                 <div class="row">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100">
@@ -87,7 +92,7 @@
                                             @endif
                                             <div class="mb-3">
                                                 <label for="fn" class="form-label text-light">Full name</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="fn" name="staff_full_name" value="{{$staff -> staff_name}}" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" id="fn" name="staff_full_name" value="{{$staff -> name}}" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="dob" class="form-label text-light">Date of birth</label>
@@ -119,11 +124,6 @@
                                                 <label for="exampleInputPassword1" class="form-label text-light">Password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword1" name="staff_pssw" value="" >
                                             </div>
-                                            @if($errors -> has('staff_pssw'))
-                                                <div class="fs-5 my-3 text-danger border-0 pb-2 border-light ">
-                                                    {{$errors -> first('staff_pssw')}}
-                                                </div>
-                                            @endif
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword2" class="form-label text-light">Re-enter password</label>
                                                 <input type="password" class="form-control text-light bg-dark border-0 shadow-none" id="exampleInputPassword2   " name="staff_re_pssw" value="" >

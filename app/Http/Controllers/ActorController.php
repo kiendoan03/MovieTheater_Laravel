@@ -19,9 +19,11 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::all();
+        $admin = Auth::guard('staff')->user();
 
         return view('admin.actor.main',[
             'actors' => $actors,
+            'admin' => $admin,
         ]);
     }
 
@@ -30,7 +32,11 @@ class ActorController extends Controller
      */
     public function create()
     {
-        return view('admin.actor.create');
+        $admin = Auth::guard('staff')->user();
+
+        return view('admin.actor.create',[
+            'admin' => $admin,
+        ]);
     }
 
     /**
@@ -87,8 +93,11 @@ class ActorController extends Controller
      */
     public function edit(Actor $actor)
     {
+        $admin = Auth::guard('staff')->user();
+
         return view('admin.actor.edit',[
             'actor' => $actor,
+            'admin' => $admin,
         ]);
     }
 

@@ -10,7 +10,8 @@ use App\Models\schedule_seat;
 use App\Models\Seat;
 use App\Models\Seat_type;
 use Illuminate\Support\Arr;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Illuminate\Support\Facades\Auth;
+
 
 class RoomController extends Controller
 {
@@ -21,8 +22,11 @@ class RoomController extends Controller
     {
         //
         $rooms = Room::all();
+        $admin = Auth::guard('staff')->user();
+
         return view('Admin.room.main',[
             'rooms' => $rooms,
+            'admin' => $admin,
         ]);
     }
 
@@ -32,7 +36,11 @@ class RoomController extends Controller
     public function create()
     {
         //
-        return view('Admin.room.create');
+        $admin = Auth::guard('staff')->user();
+
+        return view('Admin.room.create',[
+            'admin' => $admin,
+        ]);
     }
 
     /**
@@ -100,10 +108,13 @@ class RoomController extends Controller
         //
         $type = Seat_type::all();
         $seats = Seat::where('room_id', '=', $room -> id)->get();
+        $admin = Auth::guard('staff')->user();
+
         return view('admin.room.info',[
             'room' => $room,
             'seats' => $seats,
             'type' => $type,
+            'admin' => $admin,
         ]);
     }
 

@@ -19,9 +19,11 @@ class DirectorController extends Controller
     public function index()
     {
         $directors = Director::all();
+        $admin = Auth::guard('staff')->user();
 
         return view('admin.director.main',[
             'directors' => $directors,
+            'admin' => $admin,
         
         ]);
     }
@@ -31,7 +33,11 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        return view('admin.director.create');
+        $admin = Auth::guard('staff')->user();
+
+        return view('admin.director.create',[
+            'admin' => $admin,
+        ]);
     }
 
     /**
@@ -88,8 +94,11 @@ class DirectorController extends Controller
      */
     public function edit(Director $director)
     {
+        $admin = Auth::guard('staff')->user();
+
         return view('admin.director.edit',[
             'director' => $director,
+            'admin' => $admin,
         ]);   
     }
 

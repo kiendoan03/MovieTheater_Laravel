@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('Admin/Movie')->name('admin.')->group(function () {
+Route::prefix('Admin/Movie')->name('admin.')->middleware('auth:staff')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\MovieController::class, 'index'])->name('movies.index');
     Route::get('/create', [\App\Http\Controllers\MovieController::class, 'create'])->name('movies.create');
@@ -26,7 +26,7 @@ Route::prefix('Admin/Movie')->name('admin.')->group(function () {
     Route::put('/{movie}/edit', [\App\Http\Controllers\MovieController::class, 'update'])->name('movies.update');
     Route::delete('/{movie}/delete', [\App\Http\Controllers\MovieController::class, 'destroy'])->name('movies.destroy');
 });
-Route::prefix('Admin/Category')->name('admin.')->group(function () {
+Route::prefix('Admin/Category')->name('admin.')->middleware('auth:staff')->group(function () {
     Route::get('/', [\App\Http\Controllers\CategoryController::class, 'index'])->name('categories.index');
     Route::get('/create', [\App\Http\Controllers\CategoryController::class, 'create'])->name('categories.create');
     Route::post('/create', [\App\Http\Controllers\CategoryController::class, 'store'])->name('categories.store');
@@ -35,7 +35,7 @@ Route::prefix('Admin/Category')->name('admin.')->group(function () {
     Route::delete('/{category}/delete', [\App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.destroy');
 });
 
-Route::prefix('Admin/Actor')->name('admin.')->group(function () {
+Route::prefix('Admin/Actor')->name('admin.')->middleware('auth:staff')->group(function () {
     Route::get('/', [\App\Http\Controllers\ActorController::class, 'index'])->name('actors.index');
     Route::get('/create', [\App\Http\Controllers\ActorController::class, 'create'])->name('actors.create');
     Route::post('/create', [\App\Http\Controllers\ActorController::class, 'store'])->name('actors.store');
@@ -44,7 +44,7 @@ Route::prefix('Admin/Actor')->name('admin.')->group(function () {
     Route::delete('/{actor}/delete', [\App\Http\Controllers\ActorController::class, 'destroy'])->name('actors.destroy');
 });
 
-Route::prefix('Admin/Director')->name('admin.')->group(function () {
+Route::prefix('Admin/Director')->name('admin.')->middleware('auth:staff')->group(function () {
     Route::get('/', [\App\Http\Controllers\DirectorController::class, 'index'])->name('directors.index');
     Route::get('/create', [\App\Http\Controllers\DirectorController::class, 'create'])->name('directors.create');
     Route::post('/create', [\App\Http\Controllers\DirectorController::class, 'store'])->name('directors.store');
@@ -62,7 +62,7 @@ Route::prefix('Login')->name('login.')->group(function(){
 
 });
 
-Route::prefix('Admin/Customer')->name('admin.')->group(function(){
+Route::prefix('Admin/Customer')->name('admin.')->middleware('auth:staff')->group(function(){
 
     Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
     Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
@@ -72,10 +72,13 @@ Route::prefix('Admin/Customer')->name('admin.')->group(function(){
 Route::prefix('Admin/Staff')->name('admin.')->group(function(){
     Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('staffs.index');
     Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.create');
-    Route::post('/create', [App\Http\Controllers\StaffController::class, 'store'])->name('staffs.store');
+    Route::post('/create', [App\Http\Controllers\StaffController::class, 'register'])->name('staffs.store');
     Route::get('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staffs.edit');
     Route::put('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'update'])->name('staffs.update');
     Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy');
+    Route::get('/login', [\App\Http\Controllers\StaffController::class, 'showLoginForm'])->name('staffs.login');
+    Route::post('/login', [\App\Http\Controllers\StaffController::class, 'login'])->name('staffs.login.check_login');
+    Route::get('/logout', [\App\Http\Controllers\StaffController::class, 'logout'])->name('staffs.logout');
 });
 
 Route::prefix('Admin/Room')->name('admin.')->group(function(){
@@ -102,11 +105,11 @@ Route::prefix('/')->group(function(){
     Route::get('/{movie}/detail', [App\Http\Controllers\MovieController::class, 'detail'])->name('detail');
     Route::get('/{movie_actor}/actor', [App\Http\Controllers\ActorController::class, 'show'])->name('actor');
     Route::get('/{movie_director}/director', [App\Http\Controllers\DirectorController::class, 'show'])->name('director');
-    Route::get('/{user}/user', [App\Http\Controllers\CustomerController::class, 'show'])->name('user');
-    Route::put('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'update'])->name('user.update');
-    Route::post('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt');
+    Route::get('/{user}/user', [App\Http\Controllers\CustomerController::class, 'show'])->name('user')->middleware('auth:customers');
+    Route::put('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'update'])->name('user.update')->middleware('auth:customers');
+    Route::post('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt')->middleware('auth:customers');
     Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order')->middleware('auth:customers');
-    Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket');
-    Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket');
+    Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket')->middleware('auth:customers');
+    Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('auth:customers');
 });
 

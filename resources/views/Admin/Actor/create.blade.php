@@ -30,22 +30,27 @@
                     <a class="navbar-brand" href="#">
                         <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
-                    <div class="dropdown d-flex">
-                        <div class=" d-flex">
-                            <i class="fa-solid fa-user my-auto mx-3 text-light"></i>
-                            <p class="my-auto text-light">Admin</p>
-                        </div>
-                        <button class="dropdown-toggle bg-transparent border-0 text-light" style="outline:none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        </button>
-                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item text-light bg-dark" href="">Profile</a></li>
-                            <li><a class="dropdown-item d-block text-light bg-dark" href="">Logout</a></li>
+                    @if(isset($admin))
+                    <div class="dropdown text-center" >
+                            <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/').$admin -> staff_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <p class="my-auto text-light">{{$admin -> name}}</p>  
+                        <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                            <li><a class="dropdown-item bg-dark text-light" href="">Profile</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.logout')}}">Logout</a></li>
                         </ul>
                     </div>
+                    @else
+                    <div class="dropdown">
+                        <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden;height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/netfnix/download-removebg-preview.png'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.login')}}">Login</a></li>
+                            </ul>
+                    </div>  
+                    @endif
                 </div>
             </nav>
         </div>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-10 mx-auto" style="margin-top:5em;">
                 <div class="row">
                     <div class="col-3 shadow p-3 bg-dark rounded mb-3 min-vh-100 bg">

@@ -18,9 +18,11 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::all();
+        $admin = Auth::guard('staff')->user();
 
         return view('admin.customer.main',[
             'customers' => $customers,
+            'admin' => $admin,
         ]);
         
     }
@@ -31,8 +33,10 @@ class CustomerController extends Controller
     }
 
     public function showAdminSite(Customer $customer){
+        $admin = Auth::guard('staff')->user();
         return view('admin.customer.info',[
             'customer' => $customer,
+            'admin' => $admin,
         ]);
     }
 
@@ -78,7 +82,7 @@ class CustomerController extends Controller
             'customer_date_of_birth' => $request->date_of_birth,
             'customer_phonenumber' => $request->cus_phonenumber,
             'customer_avatar' => 'avatar_default.jpg',
-            'customer_name' => $request->full_name,
+            // 'customer_name' => $request->full_name,
         ]);
             
         return redirect()->route('login.login'); 

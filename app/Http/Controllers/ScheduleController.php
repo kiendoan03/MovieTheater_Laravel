@@ -29,8 +29,11 @@ class ScheduleController extends Controller
         ->join('rooms', 'rooms.id', '=', 'schedules.room_id')
         ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*']);
 
+        $admin = Auth::guard('staff')->user();
+
         return view('Admin.schedule.main',[
             'schedulesInfo' => $schedulesInfo,
+            'admin' => $admin,
         ]);
     }
 
@@ -40,6 +43,8 @@ class ScheduleController extends Controller
     public function create()
     {
         //
+        $admin = Auth::guard('staff')->user();
+
         $schedules = Schedule::all();
         $movies = Movie::all();  
         $rooms = Room::all();
@@ -47,6 +52,7 @@ class ScheduleController extends Controller
             'schedules' => $schedules,
             'movies' => $movies,
             'rooms' => $rooms,
+            'admin' => $admin,
         ]);
     }
 
@@ -131,11 +137,14 @@ class ScheduleController extends Controller
         ->where('schedules.id','=', $schedule->id)
         ->get(['rooms.*', 'schedules.*']);
 
+        $admin = Auth::guard('staff')->user();
+
         return view('admin.schedule.info',[
             'seats' => $seats,
             'type' => $type,
             'schedule' => $schedule,
             'room' => $room,
+            'admin' => $admin,
         ]);
     }
 
@@ -152,12 +161,14 @@ class ScheduleController extends Controller
         ->where('schedules.id','=', $schedule->id)
         ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*']);
         
+        $admin = Auth::guard('staff')->user();
 
         return view('Admin.schedule.edit',[
             
             'movies' => $movies,
             'rooms' => $rooms,
             'schedulesInfo' => $schedulesInfo,
+            'admin' => $admin,
 
         ]);
     }
