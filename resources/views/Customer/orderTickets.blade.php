@@ -35,7 +35,7 @@
                         <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/').$user -> customer_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
                         <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
                             <li><a class="dropdown-item bg-dark text-light" href="{{route('user',$user -> id)}}">Profile</a></li>
-                            <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                            <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.login')}}">Admin site</a></li>
                             <li><a class="dropdown-item bg-dark text-light" href="{{route('login.logout')}}">Logout</a></li>
                         </ul>
                     </div>
@@ -43,7 +43,7 @@
                     <div class="dropdown">
                         <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden;height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/netfnix/download-removebg-preview.png'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
                             <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
-                                <li><a class="dropdown-item bg-dark text-light" href="#">Admin site</a></li>
+                                <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.login')}}">Admin site</a></li>
                                 <li><a class="dropdown-item bg-dark text-light" href="{{route('login.login')}}">Login</a></li>
                             </ul>
                     </div>  
@@ -257,11 +257,19 @@
                            
                          @endforeach
                     </div>
-                    <form role="form" method="post" action="{{route('bookTicket',['schedule_id' => $seat -> schedule_id])}}">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit" class="btn btn-danger shadow-none">Booking</button>
-                    </form>
+                    <div class="d-inline">
+                         <form role="form" method="post" class="d-inline" action="{{route('bookTicket',['schedule_id' => $seat -> schedule_id])}}">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-danger shadow-none">Booking</button>
+                        </form>
+                        <form role="form" method="post" class="d-inline" action="{{route('undon',['schedule_id' => $seat -> schedule_id])}}">
+                            @csrf
+                            <button type="submit" class="btn btn-danger shadow-none mx-5">Clear</button>
+                        </form> 
+                    <!-- <a href="{{route('undon',['schedule_id' => $seat -> schedule_id])}}" class="btn btn-danger d-inline p-2 mx-5"  >Clear</a>  -->
+                    </div>
+                  
                 </div>
     </div>
                         <div class="row d-inline">

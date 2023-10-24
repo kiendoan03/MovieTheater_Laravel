@@ -239,6 +239,17 @@ class ScheduleController extends Controller
         return redirect()->route('admin.schedules.index');
     }
 
+    public function undonScheduleBook($schedule_id){
+        $seats = schedule_seat::where('schedule_id', '=', $schedule_id)->where('status','=','2')->get();
+        foreach($seats as $seat){
+            $array = [];
+            $array = Arr::add($array, 'status', 0);
+            schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+        }
+        return redirect()->route('order',['schedule' => $schedule_id,]);
+
+    }
+
     public function showSchedule($schedule){
              $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
             ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/Admin/Dashboard',[App\Http\Controllers\DashboardController::class, 'index'])->name('admin.dashboard');
 
 Route::prefix('Admin/Movie')->name('admin.')->middleware('auth:staff')->group(function () {
 
@@ -111,5 +112,6 @@ Route::prefix('/')->group(function(){
     Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order')->middleware('auth:customers');
     Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket')->middleware('auth:customers');
     Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('auth:customers');
+    Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('auth:customers');
 });
 
