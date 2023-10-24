@@ -72,6 +72,7 @@
                         <div class="mb-3">
                             <input type="password" class="border-0 border-bottom col-12 py-3 bg-transparent text-white" placeholder="Password" name="password" style="outline: none;" required>
                         </div>
+                         <a class="text-decoration-danger fs-6 text-danger fw-light fst-italic" href="">Forget password???</a>
                         <button type="submit" name="submit_btn" class="text-dark py-3 mt-3 col-12 border-0 bg-transparent login__button position-relative">
                             <div class="text-white">Login</div>
                         </button>
