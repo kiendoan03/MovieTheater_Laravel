@@ -20,6 +20,9 @@ return new class extends Migration
             ->onDelete('cascade');
             $table->primary(['schedule_id', 'seat_id']);
             $table->integer('status');
+            $table->foreignId('customer_id')->nullable()->constrained('customers')->default(null);
+            $table->foreignId('staff_id')->nullable()->constrained('staff')->default(null);
+            $table->timestamps();
         });
     }
 

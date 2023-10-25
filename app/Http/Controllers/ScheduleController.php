@@ -240,10 +240,12 @@ class ScheduleController extends Controller
     }
 
     public function undonScheduleBook($schedule_id){
-        $seats = schedule_seat::where('schedule_id', '=', $schedule_id)->where('status','=','2')->get();
+        $user = Auth::guard('customers')->user();
+        $seats = schedule_seat::where('schedule_id', '=', $schedule_id)->where('status','=','2')->where('customer_id','=',$user -> id)->get();
         foreach($seats as $seat){
             $array = [];
             $array = Arr::add($array, 'status', 0);
+            $array = Arr::add($array, 'customer_id', null);
             schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
         }
         return redirect()->route('order',['schedule' => $schedule_id,]);
@@ -263,10 +265,12 @@ class ScheduleController extends Controller
             ->where('schedules.id','=', $schedule)
             ->get(['movies.*', 'schedules.*','schedules.id as schedule_id', 'rooms.*', 'movies.id as movie_id']);
 
+            $user = Auth::guard('customers')->user();
+
             $total_price = 0;
             foreach($seats as $price){
-                if($price -> schedule_seat_status == 2){
-                $total_price += $price -> price;
+                if($price -> schedule_seat_status == 2 && $price -> customer_id == $user -> id){
+                     $total_price += $price -> price;
                 }
             }
             if(Auth::guard('customers')->check()){
@@ -296,17 +300,25 @@ class ScheduleController extends Controller
             $seat = schedule_seat::where('seat_id','=',$seat_id)
             ->where('schedule_id','=',$schedule_id)
             ->get();
+            $user = Auth::guard('customers')->user();
 
             foreach($seat as $seat){
-                if($seat -> status == 0){
+                if($seat -> customer_id == null || $seat -> customer_id == $user -> id){
+                    if($seat -> status == 0){
                     $array = [];
                     $array = Arr::add($array, 'status', 2);
+                    $array = Arr::add($array, 'customer_id', $user -> id);
                     schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                    }elseif($seat -> status == 2){
+                        $array = [];
+                        $array = Arr::add($array, 'status', 0);
+                        $array = Arr::add($array, 'customer_id', null);
+                        schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                    }
                 }else{
-                    $array = [];
-                    $array = Arr::add($array, 'status', 0);
-                    schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                    return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
                 }
+                
             }
 
             
@@ -314,6 +326,7 @@ class ScheduleController extends Controller
                 'schedule' => $schedule_id,
                 'seats' => $seats,
                 'type' => $type,
+                'user' => $user,
             ]);
        
     }
@@ -324,11 +337,10 @@ class ScheduleController extends Controller
         ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
         ->where('schedule_seats.schedule_id', '=', $schedule_id)
         ->where('schedule_seats.status', '=', 2)
+        ->where('schedule_seats.customer_id', '=', Auth::guard('customers')->user()->id)
         ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedule_seats.status as schedule_seat_status', 'seats.id as seat_id']);
 
         $final_price = 0;
-
-       
 
         foreach($seats as $seat){
             $final_price = $seat -> price;
@@ -345,19 +357,23 @@ class ScheduleController extends Controller
                 $user = null;
             }
             Ticket::create($array);
+            
+            $user = Auth::guard('customers')->user(); 
+
             $arr = [];
             $arr = Arr::add($arr, 'status', 3);
+            $arr = Arr::add($arr, 'customer_id', $user -> id);
             schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($arr);
         }else{
-            // $error = 'This seat is already booked';
             return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
         }
         }
-            $user = Auth::guard('customers')->user();
+            // $user = Auth::guard('customers')->user();
           
-        return redirect()->route('qrcode',[
-            'schedule' => $schedule_id,
-            'user' => $user -> id,
-        ]);
+        // return redirect()->route('qrcode',[
+        //     'schedule' => $schedule_id,
+        //     'user' => $user -> id,
+        // ]);
+        return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
     }
 }
