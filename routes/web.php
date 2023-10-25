@@ -4,6 +4,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Http\Controllers\QrCodeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,3 +118,4 @@ Route::prefix('/')->group(function(){
     Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('auth:customers');
 });
 
+Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode');

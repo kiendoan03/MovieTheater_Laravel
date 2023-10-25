@@ -319,6 +319,7 @@ class ScheduleController extends Controller
     }
 
     public function bookTicket($schedule_id){
+
         $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
         ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
         ->where('schedule_seats.schedule_id', '=', $schedule_id)
@@ -349,11 +350,14 @@ class ScheduleController extends Controller
             schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($arr);
         }else{
             // $error = 'This seat is already booked';
+            return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
         }
         }
-        
-        return redirect()->route('order',[
+            $user = Auth::guard('customers')->user();
+          
+        return redirect()->route('qrcode',[
             'schedule' => $schedule_id,
+            'user' => $user -> id,
         ]);
     }
 }

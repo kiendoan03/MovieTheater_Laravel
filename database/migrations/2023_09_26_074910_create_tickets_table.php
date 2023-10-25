@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('seat_id')->references('seat_id')->on('schedule_seats') ->onDelete('cascade');;
             $table->foreignId('customer_id')->nullable()->constrained('customers')->default(null);
             $table->foreignId('staff_id')->nullable()->constrained('staff')->default(null);
+            $table->timestamps();
         });
     }
 
