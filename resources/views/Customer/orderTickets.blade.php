@@ -201,8 +201,11 @@
                    
                     <div class="row content mt-3 mb-3 ">
                          @foreach($schedule as $schedule)
-                            <div class="row col-2 mb-3">
-                                <a href="{{route('detail',$schedule -> movie_id)}}" class="btn btn-danger mt-3">Back</a>
+                            <div class="row  mb-3">
+                                <a href="{{route('detail',$schedule -> movie_id)}}" class="text-decoration-none mt-3"> 
+                                    <span class="border rounded-pill text-light text-center px-3 py-2 fs-5" style="cursor: pointer;">
+                                    <i class="fa-solid fa-left-long me-2"></i>  Back 
+                            </span></a>
                             </div>
                         <div class="row">
                              <div class="col-6 hide-scrollbar" style="height: 30vmax; overflow-x: hidden; overflow-y: scroll;">
@@ -273,11 +276,11 @@
                          <form role="form" method="post" class="d-inline" action="{{route('bookTicket',['schedule_id' => $seat -> schedule_id])}}">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-danger shadow-none">Booking</button>
+                            <button type="submit" class="btn btn-danger shadow-none"><i class="fa-solid fa-ticket me-2"></i> Booking</button>
                         </form>
                         <form role="form" method="post" class="d-inline" action="{{route('undon',['schedule_id' => $seat -> schedule_id])}}">
                             @csrf
-                            <button type="submit" class="btn btn-danger shadow-none mx-5">Clear</button>
+                            <button type="submit" class="btn btn-danger shadow-none mx-5"><i class="fa-solid fa-eraser me-2"></i> Clear</button>
                         </form> 
                     <!-- <a href="{{route('undon',['schedule_id' => $seat -> schedule_id])}}" class="btn btn-danger d-inline p-2 mx-5"  >Clear</a>  -->
                     </div>
