@@ -305,10 +305,10 @@ class ScheduleController extends Controller
             foreach($seat as $seat){
                 if($seat -> customer_id == null || $seat -> customer_id == $user -> id){
                     if($seat -> status == 0){
-                    $array = [];
-                    $array = Arr::add($array, 'status', 2);
-                    $array = Arr::add($array, 'customer_id', $user -> id);
-                    schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+                        $array = [];
+                        $array = Arr::add($array, 'status', 2);
+                        $array = Arr::add($array, 'customer_id', $user -> id);
+                        schedule_seat::where('seat_id', '=', $seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
                     }elseif($seat -> status == 2){
                         $array = [];
                         $array = Arr::add($array, 'status', 0);
