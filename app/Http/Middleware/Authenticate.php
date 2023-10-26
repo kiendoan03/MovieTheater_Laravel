@@ -12,11 +12,44 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if(!auth()->guard('staff')->check()){
-            return $request->expectsJson() ? null : route('admin.staffs.login');
-        }else if(!auth()->guard('customers')->check()){
-            return $request->expectsJson() ? null : route('login.login');
-        }
-        // return $request->expectsJson() ? null : route('login.login');
+        // if (!auth()->guard('staff')->check() && !auth()->guard('customers')->check()) {
+        //     if ($request->expectsJson()) {
+        //         return null;
+        //     } else {
+        //         // Trả về trang đăng nhập cho guard 'customers' nếu không có user nào được xác thực
+        //         return route('login.login');
+        //     }
+        // } else if (!auth()->guard('staff')->check()) {
+        //     if ($request->expectsJson()) {
+        //         return null;
+        //     } else {
+        //         // Trả về trang đăng nhập cho guard 'staff' nếu chỉ guard 'staff' chưa được xác thực
+        //         return route('admin.staffs.login');
+        //     }
+        // } else if (!auth()->guard('customers')->check()) {
+        //     if ($request->expectsJson()) {
+        //         return null;
+        //     } else {
+        //         // Trả về trang đăng nhập cho guard 'customers' nếu chỉ guard 'customers' chưa được xác thực
+        //         return route('login.login');
+        //     }
+        // }
+        // if ($request->expectsJson()) {
+        //     return null;
+        // }
+    
+        // if (!auth()->guard('staff')->check()) {
+        //     // Xử lý khi guard 'staff' chưa được xác thực
+        //     return route('admin.staffs.login');
+        // }
+    
+        // if (!auth()->guard('customers')->check()) {
+        //     // Xử lý khi guard 'customers' chưa được xác thực
+        //     return route('login.login');
+        // }
+    
+        // // Xử lý khi cả hai guard đều đã được xác thực
+    
+        return null;
     }
 }

@@ -25,7 +25,7 @@
             <!-- Header -->
             <nav class="navbar navbar-expand-lg fixed-top " style="background-color: black;">
                 <div class="container  mx-auto p-0">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{route('admin.dashboard')}}">
                         <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                     </a>
                     @if(isset($admin))

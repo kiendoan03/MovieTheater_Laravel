@@ -29,6 +29,12 @@ class CustomerController extends Controller
 
     public function showLoginForm()
     {
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+           return redirect()->route('index',[
+               'user' => $user,
+           ]);
+       }
         return view('Login.login');
     }
 

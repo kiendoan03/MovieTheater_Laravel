@@ -17,7 +17,7 @@
 
         <nav class="navbar navbar-expand-lg fixed-top" style="background-color: black;">
             <div class="container mx-auto p-0">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{route('admin.dashboard')}}">
                     <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
                 </a>
                 @if(isset($admin))
@@ -32,9 +32,6 @@
                     @else
                     <div class="dropdown">
                         <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden;height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/netfnix/download-removebg-preview.png'))}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
-                            <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
-                                <li><a class="dropdown-item bg-dark text-light" href="{{route('admin.staffs.login')}}">Login</a></li>
-                            </ul>
                     </div>  
                     @endif
             </div>

@@ -89,11 +89,14 @@ class StaffController extends Controller
     }
 
     public function showLoginForm(){
-        $admin = Auth::guard('staff')->user();
-
-        return view('admin.staff.login',[
-            'admin' => $admin,
-        ]);
+        if(Auth::guard('staff')->check()){
+             $admin = Auth::guard('staff')->user();
+            return redirect()->route('admin.dashboard',[
+                'admin' => $admin,
+            ]);
+        }
+       
+        return view('admin.staff.login');
     }
 
     public function login(Request $request)

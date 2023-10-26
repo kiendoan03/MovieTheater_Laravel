@@ -387,6 +387,12 @@ class MovieController extends Controller
     }
 
     public function search(){
+        if(Auth::guard('customers')->check()){
+            $user = Auth::guard('customers')->user();
+            return view('Customer.search',[
+                'user' => $user,
+            ]);
+        }
         return view('Customer.search');
     }
 }
