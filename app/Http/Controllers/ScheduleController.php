@@ -321,7 +321,6 @@ class ScheduleController extends Controller
                 
             }
 
-            
             return redirect()->route('order',[
                 'schedule' => $schedule_id,
                 'seats' => $seats,
@@ -370,10 +369,10 @@ class ScheduleController extends Controller
         }
             // $user = Auth::guard('customers')->user();
           
-        // return redirect()->route('qrcode',[
-        //     'schedule' => $schedule_id,
-        //     'user' => $user -> id,
-        // ]);
-        return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
+        return redirect()->route('qrcode',[
+            'schedule' => $schedule_id,
+            'user' => $user -> id,
+        ]);
+        // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
     }
 }

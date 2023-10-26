@@ -73,7 +73,7 @@ Route::prefix('Admin/Customer')->name('admin.')->middleware('auth:staff')->group
     Route::post('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'resetPassword'])->name('customers.resetPassword');
 });
 
-Route::prefix('Admin/Staff')->name('admin.')->group(function(){
+Route::prefix('Admin/Staff')->name('admin.')->middleware('auth:staff')->group(function(){
     Route::get('/', [App\Http\Controllers\StaffController::class, 'index'])->name('staffs.index');
     Route::get('/create', [App\Http\Controllers\StaffController::class, 'create'])->name('staffs.create');
     Route::post('/create', [App\Http\Controllers\StaffController::class, 'register'])->name('staffs.store');
@@ -118,4 +118,4 @@ Route::prefix('/')->group(function(){
     Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('auth:customers');
 });
 
-Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode');
+Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('auth:customers');

@@ -330,6 +330,14 @@
     
     <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
 
+    <!-- <script>
+        function reloadPage() {
+            location.reload();
+        }
+
+        setInterval(reloadPage, 3000);
+    </script> -->
+
 </body>
 
 </html>
