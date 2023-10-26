@@ -92,5 +92,7 @@
 </div>
         
     </div>
+    <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
