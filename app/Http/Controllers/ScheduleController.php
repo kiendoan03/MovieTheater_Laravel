@@ -116,7 +116,7 @@ class ScheduleController extends Controller
             schedule_seat::create($seat_schedule);
         }
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.schedules.index')->with('success', 'Created successfully');
     }
 
     /**
@@ -170,7 +170,7 @@ class ScheduleController extends Controller
             'schedulesInfo' => $schedulesInfo,
             'admin' => $admin,
 
-        ]);
+        ])->with('success', 'Updated successfully');
     }
 
     /**
@@ -220,7 +220,7 @@ class ScheduleController extends Controller
 
         $schedule -> update($array);
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.schedules.index')->with('success', 'Updated successfully');
 
     }
 
@@ -236,7 +236,7 @@ class ScheduleController extends Controller
         $schedule->delete();
         $seat -> delete();
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.schedules.index')->with('success', 'Deleted successfully');
     }
 
     public function undonScheduleBook($schedule_id){
@@ -248,7 +248,7 @@ class ScheduleController extends Controller
             $array = Arr::add($array, 'customer_id', null);
             schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
         }
-        return redirect()->route('order',['schedule' => $schedule_id,]);
+        return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Undone successfully');
 
     }
 
@@ -372,7 +372,7 @@ class ScheduleController extends Controller
         return redirect()->route('qrcode',[
             'schedule' => $schedule_id,
             'user' => $user -> id,
-        ]);
+        ])->with('success', 'Booked successfully');
         // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
     }
 }

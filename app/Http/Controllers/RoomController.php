@@ -89,7 +89,7 @@ class RoomController extends Controller
             }
          }
 
-        return redirect()->route('admin.rooms.index');
+        return redirect()->route('admin.rooms.index')->with('success', 'Add room successfully!');
     }
 
     /**
@@ -155,7 +155,7 @@ class RoomController extends Controller
                 'room' => $room,
                 'seats' => $seats,
                 'type' => $type,
-            ]);
+            ])->with('success', 'Update room successfully!');
     }
 
     /**
@@ -166,7 +166,7 @@ class RoomController extends Controller
         //
         $schedule_room = Schedule::where('room_id', '=', $room -> id)->count();
         if($schedule_room > 0){
-            return redirect()->route('admin.rooms.index');
+            return redirect()->route('admin.rooms.index')->with('error', 'Delete room fail!');
         }else{
             $seat = Seat::where('room_id', '=', $room -> id);
 
@@ -174,7 +174,7 @@ class RoomController extends Controller
 
             $room->delete();
 
-            return redirect()->route('admin.rooms.index');     
+            return redirect()->route('admin.rooms.index')->with('success', 'Delete room successfully!');     
         }
        
     }

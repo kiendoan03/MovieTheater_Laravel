@@ -76,7 +76,7 @@ class StaffController extends Controller
 
         ]);
             
-        return redirect()->route('admin.staffs.index'); 
+        return redirect()->route('admin.staffs.index')->with('success', 'Add staff successfully!'); 
     
     }
 
@@ -105,7 +105,7 @@ class StaffController extends Controller
         
         if (Auth::guard('staff')->attempt(['staff_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
             Auth::guard('staff')->attempt(['staff_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
-            return redirect()->route('admin.staffs.index');
+            return redirect()->route('admin.staffs.index')->with('success', 'Login successfully!');
         } else {
             
             return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
@@ -128,7 +128,7 @@ class StaffController extends Controller
         return view('admin.staff.edit',[
             'staff' => $staff,
             'admin' => $admin,
-        ]);
+        ])->with('success', 'Edit staff successfully!');
     }
 
     /**
@@ -179,7 +179,7 @@ class StaffController extends Controller
                 'staff_role' => $request->staff_role,
             ]);
         }
-        return redirect()->route('admin.staffs.index');
+        return redirect()->route('admin.staffs.index')->with('success', 'Edit staff successfully!');
     }
 
     /**
@@ -190,7 +190,7 @@ class StaffController extends Controller
         //
         $staff->delete();
 
-        return redirect()->route('admin.staffs.index'); 
+        return redirect()->route('admin.staffs.index')->with('success', 'Delete staff successfully!'); 
     }
     
 }

@@ -52,7 +52,7 @@ class CustomerController extends Controller
         
         if (Auth::guard('customers')->attempt(['customer_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
             Auth::guard('customers')->attempt(['customer_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
-            return redirect()->route('index');
+            return redirect()->route('index')->with('success', 'Login successfully!');
         } else {
             
             return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
@@ -91,7 +91,7 @@ class CustomerController extends Controller
             // 'customer_name' => $request->full_name,
         ]);
             
-        return redirect()->route('login.login'); 
+        return redirect()->route('login.login')->with('success', 'Register successfully!'); 
     
     }
 
@@ -132,7 +132,7 @@ class CustomerController extends Controller
         }
         $users -> customer_avatar = $cus_img;
         $users -> save();
-        return redirect()->route('user', $user);
+        return redirect()->route('user', $user)->with('success', 'Change avatar successfully!');
     }
 
     /**
@@ -180,7 +180,7 @@ class CustomerController extends Controller
             // $users -> name = $request -> cus_name;
             // $users -> save();
            
-        return redirect()->route('user', $user);
+        return redirect()->route('user', $user)->with('success', 'Edit profile successfully!');
     }
 
     public function resetPassword($customer){
@@ -188,7 +188,7 @@ class CustomerController extends Controller
         
         $users -> password = Hash::make('123456');
         $users -> save();
-        return redirect()->route('admin.customers.show', $customer);
+        return redirect()->route('admin.customers.show', $customer)->with('success', 'Reset password to 123456 successfully!');
     }
 
     /**
@@ -197,12 +197,12 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete(); 
-        return redirect()->route('admin.customers.index');
+        return redirect()->route('admin.customers.index')->with('success', 'Delete successfully!');
     }
 
     public function logout()
     {
         Auth::guard('customers')->logout();
-        return redirect()->route('index');
+        return redirect()->route('index')->with('success', 'Logout successfully!');
     }
 }

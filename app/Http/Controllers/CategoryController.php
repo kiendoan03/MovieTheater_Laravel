@@ -49,7 +49,7 @@ class CategoryController extends Controller
 
         Category::create($array); 
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Add category successfully!');
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Update category successfully!');
     }
 
     /**
@@ -92,6 +92,6 @@ class CategoryController extends Controller
             $item->delete();
         }
         $category->delete();
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')->with('success', 'Delete category successfully!');
     }
 }

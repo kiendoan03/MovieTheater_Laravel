@@ -56,7 +56,7 @@ class ActorController extends Controller
 
         Actor::create($array);
 
-        return redirect()->route('admin.actors.index');
+        return redirect()->route('admin.actors.index')->with('success', 'Add actor successfully!');
     }
 
     /**
@@ -122,7 +122,7 @@ class ActorController extends Controller
 
         $actor->update($array);
 
-        return redirect()->route('admin.actors.index');
+        return redirect()->route('admin.actors.index')->with('success', 'Edit actor successfully!');
     }
 
     /**
@@ -136,6 +136,6 @@ class ActorController extends Controller
         }
         $actor->delete();
 
-        return redirect()->route('admin.actors.index'); 
+        return redirect()->route('admin.actors.index')->with('success', 'Delete actor successfully!'); 
     }
 }

@@ -121,7 +121,7 @@ class MovieController extends Controller
             director_movie::create($director_movie);
         }
 
-        return redirect()->route('admin.movies.index');
+        return redirect()->route('admin.movies.index')->with('success', 'Add movie successfully!');
     }
 
     /**
@@ -360,7 +360,7 @@ class MovieController extends Controller
             director_movie::create($director_movie);
         }
 
-        return redirect()->route('admin.movies.index');
+        return redirect()->route('admin.movies.index')->with('success', 'Update movie successfully!');
     }
 
     /**
@@ -369,21 +369,27 @@ class MovieController extends Controller
     public function destroy(Movie $movie)
     {
         //
-        $cate_movie = category_movie::where('movie_id', '=', $movie -> id);
-        $actor_movie = actor_movie::where('movie_id', '=', $movie -> id);
-        $director_movie = director_movie::where('movie_id', '=', $movie -> id);
-        foreach($cate_movie as $cate){
-            $cate->delete();
-        }
-        foreach($actor_movie as $actor){
-            $actor->delete();
-        }
-        foreach($director_movie as $director){
-            $director->delete();
-        }
-        $movie->delete();
+        $schedule_movie = Schedule::where('room_id', '=', $movie -> id)->count();
+        if($schedule_movie > 0){
+            return redirect()->route('admin.movies.index')->with('error', 'Delete movie fail!');
+        }else{
+            $cate_movie = category_movie::where('movie_id', '=', $movie -> id);
+            $actor_movie = actor_movie::where('movie_id', '=', $movie -> id);
+            $director_movie = director_movie::where('movie_id', '=', $movie -> id);
+            foreach($cate_movie as $cate){
+                $cate->delete();
+            }
+            foreach($actor_movie as $actor){
+                $actor->delete();
+            }
+            foreach($director_movie as $director){
+                $director->delete();
+            }
+            $movie->delete();
 
-        return redirect()->route('admin.movies.index');
+            return redirect()->route('admin.movies.index')->with('success', 'Delete movie successfully!');
+        }
+       
     }
 
     public function search(){

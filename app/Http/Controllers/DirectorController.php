@@ -57,7 +57,7 @@ class DirectorController extends Controller
 
         Director::create($array);
 
-        return redirect()->route('admin.directors.index');
+        return redirect()->route('admin.directors.index')->with('success', 'Add director successfully!');
     }
 
     /**
@@ -123,7 +123,7 @@ class DirectorController extends Controller
 
         $director->update($array);
 
-        return redirect()->route('admin.directors.index');
+        return redirect()->route('admin.directors.index')->with('success', 'Edit director successfully!');
     }
 
     /**
@@ -137,6 +137,6 @@ class DirectorController extends Controller
         }
         $director->delete();
 
-        return redirect()->route('admin.directors.index');
+        return redirect()->route('admin.directors.index')->with('success', 'Delete director successfully!');
     }
 }
