@@ -116,6 +116,7 @@ Route::prefix('/')->group(function(){
     Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket')->middleware('auth:customers');
     Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('auth:customers');
     Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('auth:customers');
+    Route::get('/search', [App\Http\Controllers\MovieController::class, 'search'])->name('search');
 });
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('auth:customers');

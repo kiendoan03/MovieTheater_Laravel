@@ -385,4 +385,8 @@ class MovieController extends Controller
 
         return redirect()->route('admin.movies.index');
     }
+
+    public function search(){
+        return view('Customer.search');
+    }
 }
