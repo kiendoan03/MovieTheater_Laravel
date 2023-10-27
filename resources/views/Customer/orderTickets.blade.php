@@ -347,8 +347,8 @@
    
     
     <script src="/bootstrapLib/bootstrap.bundle.min.js"></script>
-<!-- 
-    <script>
+
+    <!-- <script>
         function reloadPage() {
             location.reload();
         }

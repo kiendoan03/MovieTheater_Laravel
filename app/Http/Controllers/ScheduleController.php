@@ -112,8 +112,14 @@ class ScheduleController extends Controller
             $seat_schedule = Arr::add($seat_schedule, 'schedule_id', $schedule_id);
             $seat_schedule = Arr::add($seat_schedule, 'seat_id', $s->id);
             $seat_schedule = Arr::add($seat_schedule, 'status', $s -> status);
-
-            schedule_seat::create($seat_schedule);
+             
+            $count_schedule_seat = schedule_seat::where('schedule_id', $schedule_id)->where('seat_id', $s->id)->count();
+            if($count_schedule_seat == 0){
+               schedule_seat::create($seat_schedule); 
+            }else{
+                return redirect()->route('admin.schedules.create')-> with('error', 'Error');
+            }
+            
         }
 
         return redirect()->route('admin.schedules.index')->with('success', 'Created successfully');
@@ -343,11 +349,15 @@ class ScheduleController extends Controller
 
         foreach($seats as $seat){
             $final_price = $seat -> price;
-            $count = Ticket::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->count();
+            $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
+            foreach($schedule_seat_id as $schedule_seat_id){
+                 $count = Ticket::where('schedule_seat_id','=', $schedule_seat_id -> id)->count();
             if($count == 0){
-            $array = [];
-            $array = Arr::add($array, 'schedule_id', $schedule_id);
-            $array = Arr::add($array, 'seat_id', $seat -> seat_id);
+                // $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
+                $array = [];
+            // $array = Arr::add($array, 'schedule_id', $schedule_id);
+            // $array = Arr::add($array, 'seat_id', $seat -> seat_id);
+            $array = Arr::add($array, 'schedule_seat_id', $schedule_seat_id->id);
             $array = Arr::add($array, 'final_price', $final_price);
             if(Auth::guard('customers')->check()){
                 $user = Auth::guard('customers')->user(); 
@@ -366,6 +376,8 @@ class ScheduleController extends Controller
         }else{
             return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
         }
+            }
+           
         }
             // $user = Auth::guard('customers')->user();
           
