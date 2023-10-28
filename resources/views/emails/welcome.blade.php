@@ -2,14 +2,14 @@
 # NETFNIX QRCode
 
 You need to store this QRCode.
-  <div class="row">
+<div class="row">
                 @foreach($info_ticket as $info_ticket)
                     <div class="col-sm-5 mx-auto">
                             <div class="card my-5 border-0" style="border-radius: 3vmax" >
                                 <div class="card-header py-3 text-center bg-danger" style="border-radius: 3vmax 3vmax 0 0">
                                     <p class="fs-1 fw-bold">{{$info_ticket -> cus_name}}</p> 
                                     <h3>Netfnix QR Code </h3>
-                                </div> 
+                                </div>      
                                 @php
                                     $seats = $info_ticket -> number; 
                                      if($seats <= 12){
@@ -37,7 +37,7 @@ You need to store this QRCode.
                             </div> 
                     </div>
                 @endforeach
-        </div>
+</div>
 <x-mail::button :url="'http://127.0.0.1:8000/'">
 NETFNIX
 </x-mail::button>

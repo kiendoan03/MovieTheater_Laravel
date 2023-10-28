@@ -120,6 +120,7 @@ Route::prefix('/')->group(function(){
     Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('customer.auth');
     Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('customer.auth');
     Route::get('/search', [App\Http\Controllers\MovieController::class, 'search'])->name('search');
+    Route::post('/vnpay', [App\Http\Controllers\ScheduleController::class, 'vnpay'])->name('vnpay');
 });
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('customer.auth');
@@ -131,3 +132,5 @@ Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'inde
 // })->name('email');
 
 Route::get('/{user}/{schedule}/email', [App\Http\Controllers\EmailController::class, 'sendWelcomeEmail'])->name('email');
+
+

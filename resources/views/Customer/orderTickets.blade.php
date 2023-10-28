@@ -296,6 +296,10 @@
                             <button type="submit" class="btn btn-danger shadow-none mx-5"><i class="fa-solid fa-eraser me-2"></i> Clear</button>
                         </form> 
                     <!-- <a href="{{route('undon',['schedule_id' => $seat -> schedule_id])}}" class="btn btn-danger d-inline p-2 mx-5"  >Clear</a>  -->
+                        <form role="form" method="post" class="d-inline" action="{{route('vnpay')}}">
+                            @csrf
+                            <button type="submit" class="btn btn-danger shadow-none mx-5" name="redirect"><i class="fa-solid fa-eraser me-2"></i>Vnpay</button>
+                        </form> 
                     </div>
                   
                 </div>
