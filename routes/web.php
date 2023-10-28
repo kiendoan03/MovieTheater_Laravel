@@ -127,5 +127,5 @@ Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'inde
 Route::get('/email', function(){
     $user = Auth::guard('customers')->user();
     Mail::to($user -> customer_email)->send(new WelcomeMail());
-    return new WelcomeMail();
+    return 'da gui mail';
 })->name('email');
