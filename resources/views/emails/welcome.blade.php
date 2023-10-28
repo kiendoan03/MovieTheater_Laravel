@@ -27,6 +27,8 @@
                                         }
                                     @endphp
                                     <br>
+                                    # {{$seats}}
+                                    <br>
                                 {!! QrCode::size(350)->generate($info_ticket -> movie_name.
                                                 "\n".$info_ticket -> room_name."\n".'Date: '.$info_ticket->date.
                                                 "\n".'Start time: ' .$info_ticket->start_time.
