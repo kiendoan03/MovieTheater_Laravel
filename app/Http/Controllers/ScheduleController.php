@@ -379,11 +379,15 @@ class ScheduleController extends Controller
             }
            
         }
-            // $user = Auth::guard('customers')->user();
+            $user = Auth::guard('customers')->user();
           
-        return redirect()->route('qrcode',[
+        // return redirect()->route('qrcode',[
+        //     'schedule' => $schedule_id,
+        //     'user' => $user -> id,
+        // ])->with('success', 'Booked successfully');
+        return redirect()->route('email',[
             'schedule' => $schedule_id,
-            'user' => $user -> id,
+            'user' => $user ,
         ])->with('success', 'Booked successfully');
         // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
     }

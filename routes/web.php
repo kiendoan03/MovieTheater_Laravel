@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Controllers\QrCodeController;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,3 +123,9 @@ Route::prefix('/')->group(function(){
 });
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('customer.auth');
+
+Route::get('/email', function(){
+    $user = Auth::guard('customers')->user();
+    Mail::to($user -> customer_email)->send(new WelcomeMail());
+    return new WelcomeMail();
+})->name('email');

@@ -28,6 +28,10 @@ class QrCodeController extends Controller
         'info_ticket' => $info_ticket,
         'user' => $user,
       ]);
+        // return redirect()->route('email',[
+        //   'info_ticket' => $info_ticket,
+        //   'user' => $user,
+        // ]);
       }
         
     }
