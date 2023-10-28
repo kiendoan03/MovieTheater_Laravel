@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+
 use Illuminate\Queue\SerializesModels;
 
 class WelcomeMail extends Mailable
@@ -16,10 +17,11 @@ class WelcomeMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(protected $user,protected $schedule,protected $info_ticket)
     {
-        //
+    //    dd($info_ticket);
     }
+    
 
     /**
      * Get the message envelope.
@@ -38,7 +40,12 @@ class WelcomeMail extends Mailable
     {
         return new Content(
             markdown: 'emails.welcome',
-        );
+            with: [
+                'user' => $this->user,
+                'schedule' => $this->schedule,
+                'info_ticket' => $this->info_ticket,
+            ],
+            );
     }
 
     /**

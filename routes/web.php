@@ -124,8 +124,10 @@ Route::prefix('/')->group(function(){
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('customer.auth');
 
-Route::get('/email', function(){
-    $user = Auth::guard('customers')->user();
-    Mail::to($user -> customer_email)->send(new WelcomeMail());
-    return 'da gui mail';
-})->name('email');
+// Route::get('/{info_ticket}/{user}/{schedule}/email', function($info_ticket,$user,$schedule){
+//     $user = Auth::guard('customers')->user();
+//     Mail::to($user -> customer_email)->send(new WelcomeMail($info_ticket,$user,$schedule));
+//     return 'da gui mail';
+// })->name('email');
+
+Route::get('/{user}/{schedule}/email', [App\Http\Controllers\EmailController::class, 'sendWelcomeEmail'])->name('email');
