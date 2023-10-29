@@ -27,7 +27,9 @@ class EmailController extends Controller
           ->get(['tickets.final_price','movies.movie_name','rooms.room_name','seats.number','customers.name as cus_name','tickets.created_at','schedules.date','schedules.start_time','schedules.end_time']);
           $user = Auth::guard('customers')->user();  
     Mail::to($user -> customer_email)->send(new WelcomeMail($user,$schedule,$info_ticket));
-    return 'da gui mail';
+        return redirect()->route('order',[
+            'schedule' => $schedule,
+        ])->with('success','Booked successfully!!');
     }
     
 }

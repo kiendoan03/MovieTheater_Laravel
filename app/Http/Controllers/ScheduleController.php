@@ -13,6 +13,7 @@ use App\Models\Ticket;
 use App\Models\schedule_seat;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 
@@ -245,18 +246,18 @@ class ScheduleController extends Controller
         return redirect()->route('admin.schedules.index')->with('success', 'Deleted successfully');
     }
 
-    public function undonScheduleBook($schedule_id){
-        $user = Auth::guard('customers')->user();
-        $seats = schedule_seat::where('schedule_id', '=', $schedule_id)->where('status','=','2')->where('customer_id','=',$user -> id)->get();
-        foreach($seats as $seat){
-            $array = [];
-            $array = Arr::add($array, 'status', 0);
-            $array = Arr::add($array, 'customer_id', null);
-            schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
-        }
-        return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Undone successfully');
+    // public function undonScheduleBook($schedule_id){
+    //     $user = Auth::guard('customers')->user();
+    //     $seats = schedule_seat::where('schedule_id', '=', $schedule_id)->where('status','=','2')->where('customer_id','=',$user -> id)->get();
+    //     foreach($seats as $seat){
+    //         $array = [];
+    //         $array = Arr::add($array, 'status', 0);
+    //         $array = Arr::add($array, 'customer_id', null);
+    //         schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($array);
+    //     }
+    //     return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Undone successfully');
 
-    }
+    // }
 
     public function showSchedule($schedule){
              $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
@@ -388,20 +389,35 @@ class ScheduleController extends Controller
         return redirect()->route('email',[
             'schedule' => $schedule_id,
             'user' => $user ,
-        ])->with('success', 'Booked successfully');
+        ])->with('success', 'Check your email');
         // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
     }
 
-    public function vnpay(){
+    public function vnpay($schedule_id){
+        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+        ->where('schedule_seats.schedule_id', '=', $schedule_id)
+        ->where('schedule_seats.status', '=', 2)
+        ->where('schedule_seats.customer_id', '=', Auth::guard('customers')->user()->id)
+        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedule_seats.status as schedule_seat_status', 'seats.id as seat_id']);
+
+        $final_price = 0;
+
+        foreach($seats as $seat){
+            $final_price += $seat -> price;
+        }
+    
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";//link sau khi thanh toan thanh cong
+        $vnp_Returnurl = "http://127.0.0.1:8000/".$schedule_id."/booking";//link sau khi thanh toan thanh cong
         $vnp_TmnCode = "5WX1UF5V";//Mã website tại VNPAY 
         $vnp_HashSecret = "RHEUKIPURAKFHXVNQMUSJKZNQBBMSPWY"; //Chuỗi bí mật
+       
+        $uniqid = Str::random(9) . (string)Carbon::now();
 
-        $vnp_TxnRef = '2'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = '3'; //thong tin don hang
+        $vnp_TxnRef = $uniqid; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_OrderInfo = 'Thanh toan ve'; //thong tin don hang
         $vnp_OrderType = 'billpayment' ; 
-        $vnp_Amount = 20000 * 100; //so tien don hang
+        $vnp_Amount = $final_price * 100; //so tien don hang
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];

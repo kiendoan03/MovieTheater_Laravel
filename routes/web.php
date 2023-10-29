@@ -117,10 +117,10 @@ Route::prefix('/')->group(function(){
     Route::post('/{user}/user', [\App\Http\Controllers\CustomerController::class, 'changeAvt'])->name('user.changeAvt')->middleware('customer.auth');
     Route::get('/{schedule}/order', [App\Http\Controllers\ScheduleController::class, 'showSchedule'])->name('order')->middleware('customer.auth');
     Route::put('/{seat_id}/{schedule_id}/order', [\App\Http\Controllers\ScheduleController::class, 'orderTicket'])->name('orderTicket')->middleware('customer.auth');
-    Route::put('/{schedule_id}/book', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('customer.auth');
-    Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('customer.auth');
+    Route::get('/{schedule_id}/booking', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('customer.auth');
+    // Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('customer.auth');
     Route::get('/search', [App\Http\Controllers\MovieController::class, 'search'])->name('search');
-    Route::post('/vnpay', [App\Http\Controllers\ScheduleController::class, 'vnpay'])->name('vnpay');
+    Route::post('/{schedule_id}/vnpay', [App\Http\Controllers\ScheduleController::class, 'vnpay'])->name('vnpay');
 });
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('customer.auth');

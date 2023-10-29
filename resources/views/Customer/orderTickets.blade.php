@@ -286,19 +286,11 @@
                          @endforeach
                     </div>
                     <div class="d-inline">
-                         <form role="form" method="post" class="d-inline" action="{{route('bookTicket',['schedule_id' => $seat -> schedule_id])}}">
+               
+                        
+                        <form role="form" method="post" class="d-inline" action="{{route('vnpay',['schedule_id' => $seat -> schedule_id])}}">
                             @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger shadow-none"><i class="fa-solid fa-ticket me-2"></i> Booking</button>
-                        </form>
-                        <form role="form" method="post" class="d-inline" action="{{route('undon',['schedule_id' => $seat -> schedule_id])}}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger shadow-none mx-5"><i class="fa-solid fa-eraser me-2"></i> Clear</button>
-                        </form> 
-                    <!-- <a href="{{route('undon',['schedule_id' => $seat -> schedule_id])}}" class="btn btn-danger d-inline p-2 mx-5"  >Clear</a>  -->
-                        <form role="form" method="post" class="d-inline" action="{{route('vnpay')}}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger shadow-none mx-5" name="redirect"><i class="fa-solid fa-eraser me-2"></i>Vnpay</button>
+                            <button type="submit" class="btn btn-danger shadow-none mx-5" name="redirect"><i class="fa-solid fa-eraser me-2"></i>Payment</button>
                         </form> 
                     </div>
                   
