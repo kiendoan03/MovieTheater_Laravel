@@ -26,15 +26,14 @@
     <div class="container-fluid mb-5" >
         <div class="row">
             <!-- Header -->
-
             <nav class="navbar navbar-expand-lg fixed-top" style="background-color: black;">
                 <div class="container mx-auto p-0">
-                    <a class="navbar-brand" href="#">
-                        <img src="/img/page_logo/NetFnix Full logo.png" alt="" height="50" class="d-inline-block align-text-top">
+                    <a class="navbar-brand mx-0" href="{{route('admin.dashboard')}}">
+                        <img src="/img/page_logo/NetFnix Full logo.png" alt="" style="height: 4vmax;" class="d-inline-block align-text-top mx-auto">
                     </a>
                     @if(isset($admin))
                     <div class="dropdown text-center" >
-                            <img class="col-12 border  " style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/').$admin -> staff_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
+                            <img class="col-12 border  mx-auto" style="border-radius: 50%;object-fit: cover; overflow: hidden; height: 3vmax; width: 3vmax;" src="{{asset(\Illuminate\Support\Facades\Storage::url('img/staff/').$admin -> staff_avatar)}}" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" height="" alt="">
                             <p class="my-auto text-light">{{$admin -> name}}</p>  
                         <ul class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton1"> 
                             <li><a class="dropdown-item bg-dark text-light" href="">Profile</a></li>

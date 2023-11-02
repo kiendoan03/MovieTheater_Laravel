@@ -105,7 +105,7 @@ class StaffController extends Controller
         
         if (Auth::guard('staff')->attempt(['staff_username' => $credentials['username_or_email'], 'password' => $credentials['password']]) ||
             Auth::guard('staff')->attempt(['staff_email' => $credentials['username_or_email'], 'password' => $credentials['password']])) {
-            return redirect()->route('admin.staffs.index')->with('success', 'Login successfully!');
+            return redirect()->route('admin.dashboard')->with('success', 'Login successfully!');
         } else {
             
             return redirect()->back()->withErrors(['login' => 'Tên người dùng hoặc mật khẩu không chính xác.'])->withInput();
@@ -115,7 +115,7 @@ class StaffController extends Controller
     public function logout()
     {
         Auth::guard('staff')->logout();
-        return redirect()->route('admin.staffs.login');
+        return redirect()->route('admin.staffs.login')->with('success', 'Logout successfully!');
     }
 
     /**
