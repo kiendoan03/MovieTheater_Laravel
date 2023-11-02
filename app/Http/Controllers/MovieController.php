@@ -14,6 +14,7 @@ use App\Models\actor_movie;
 use App\Models\Schedule;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
@@ -393,12 +394,55 @@ class MovieController extends Controller
     }
 
     public function search(){
+
+        $categories = Category::all();
+
         if(Auth::guard('customers')->check()){
             $user = Auth::guard('customers')->user();
             return view('Customer.search',[
                 'user' => $user,
+                'categories' => $categories,
             ]);
         }
-        return view('Customer.search');
+        return view('Customer.search',[
+            'categories' => $categories,
+        ]);
+    }
+
+    public function search_result(Request $request){
+        $categories = Category::all();
+        if($request->search_content == null){
+            $cate = $request->category;
+            $now = Carbon::today();
+            $now -> setTimezone('Asia/Ho_Chi_Minh');
+            $movies = Movie::join('category_movies', 'category_movies.movie_id', '=', 'movies.id')
+            ->where('category_movies.category_id', $cate)
+            // ->where('release_date', '<=', $now)
+            -> where('end_date', '>=', $now)
+            ->get();
+        }else{
+            $search_content = $request->search_content;
+            $now = Carbon::today();
+            $now -> setTimezone('Asia/Ho_Chi_Minh');    
+            $movies = Movie::where('movie_name', 'like', '%'.$search_content.'%')
+            // ->where('release_date', '<=', $now)
+            -> where('end_date', '>=', $now)->get();
+            
+        }
+        if(Auth::guard('customers')->check()){
+                $user = Auth::guard('customers')->user();
+                return view('Customer.search',[
+                    'movies' => $movies,
+                    'now' => $now,
+                    'user' => $user,
+                    'categories' => $categories,
+                ]);
+            }else{
+                return view('Customer.search',[
+                    'movies' => $movies,
+                    'now' => $now,
+                    'categories' => $categories,
+                ]);
+            }
     }
 }

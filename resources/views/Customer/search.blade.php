@@ -62,90 +62,58 @@
 
         <section>
             <div class="row mt-5">
-                <div class="col-4">
+                <div class="col-6">
                     <span class="text-muted" style="font-size: 0.8vmax;">Search</span>
-                    <div class="input-group mt-2">
-                        <input type="text" style="background-color: rgb(75, 75, 75); border-radius: 1vmax 0 0 1vmax; " class="form-control border-0 text-light shadow-none" placeholder="Search">
-                        <button class="btn border-0 shadow-none" style="background-color: rgb(75, 75, 75); border-radius: 0 1vmax 1vmax 0;" type="button" id="button-addon2"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+                    <form method="post" action="{{route('search_result')}}">
+                        @csrf
+                        <div class="input-group mt-2">
+                            <input type="text" name="search_content" style="background-color: rgb(75, 75, 75); border-radius: 1vmax 0 0 1vmax; " class="form-control border-0 text-light shadow-none" placeholder="Search">
+                            <button class="btn border-0 shadow-none" style="background-color: rgb(75, 75, 75); border-radius: 0 1vmax 1vmax 0;" type="submit" id="button-addon2"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <div class="row"> 
+                        <form method="post" action="{{route('search_result')}}">
+                            @csrf
+                            <div class="col-5 mx-2" style="float: left;">
+                                <span class="text-muted" style="font-size: 0.8vmax;">Genre</span>
+                            
+                                    
+                                    <select name="category" class="form-select form-select-sm mt-2 border-0 shadow-none text-light" aria-label=".form-select-sm example" style="background-color: rgb(75, 75, 75); border-radius: 1vmax; height: 1.82vmax; padding-left: 0.6vmax;">
+                                        <option selected hidden >Genre</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category -> id}}">{{$category -> category_name}}</option>
+                                        @endforeach
+                                    </select>
+                            </div> 
+                            <div class="col-5 text-center mx-2" style="line-height: 5.7; float:right">
+                                 <button class="btn bg-danger w-100 text-light shadow-none" type="submit" style="border-radius: 1vmax;">Search</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="row">
-                        <div class="col-4">
-                            <span class="text-muted" style="font-size: 0.8vmax;">Genre</span>
-                            <select class="form-select form-select-sm mt-2 border-0 shadow-none text-light" aria-label=".form-select-sm example" style="background-color: rgb(75, 75, 75); border-radius: 1vmax; height: 1.82vmax; padding-left: 0.6vmax;">
-                            <option selected hidden >Genre</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                        <div class="col-4">
-                            <span class="text-muted" style="font-size: 0.8vmax;">Year</span>
-                            <select class="form-select form-select-sm mt-2 border-0 shadow-none text-light" aria-label=".form-select-sm example" style="background-color: rgb(75, 75, 75); border-radius: 1vmax; height: 1.82vmax; padding-left: 0.6vmax;">
-                            <option selected hidden>Year</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                        <div class="col-4">
-                            <span class="text-muted" style="font-size: 0.8vmax;">IMDb rating</span>
-                            <select class="form-select form-select-sm mt-2 border-0 shadow-none text-light" aria-label=".form-select-sm example" style="background-color: rgb(75, 75, 75); border-radius: 1vmax; height: 1.82vmax; padding-left: 0.6vmax;">
-                            <option selected hidden>IMDb rating</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                          </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4 text-center" style="line-height: 5.5;">
-                    <button class="btn bg-danger w-100 text-light shadow-none" style="border-radius: 1vmax;">Search</button>
-                </div>
+                
             </div>
         </section>
-        <section class="mt-5">
-            <div class="row">
-                <div class="col-6">
-                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail-the-nun-2.jpg'))}}" class="rounded-3" style=" object-fit: fill;width: 48vmax;">
-                </div>
-                <div class="col-6">
-                    <div class="row">
-                        <div class="col-6 ">
-                               <div class="col-10">
-                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('/img/movie_poster/poster-the-nun-2.jpg'))}}" class="rounded-3" style=" object-fit: cover;height: 27vmax;" alt="">
-                                </div> 
-                        </div>
-                        <div class="col-6">
-                            <div class="row mb-3">
-                                <div class="col-12">
-                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/Thumbnail_Venice.png'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                                </div>
+
+        <section>
+        <div class="row mt-5 mb-5">
+           @if(isset($movies))
+                @foreach($movies as $movie)
+                        <div class="col-3 mb-5">
+                            <div class="card bg-transparent" style="width: 20vmax;">
+                                    <a href="{{route('detail',$movie)}}">
+                                        <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/'). $movie -> thumbnail_img)}}" class="card-img-top object-fit-cover " style ="opacity:0.9; border-radius :1vmax;  box-shadow: #fff 0px 5px 15px;object-fit:cover; " alt="...">
+                                    </a>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail_the_exorcist.jpg'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                                </div>
+                            <div class="card-body ">
+                                    <span class="card-text text-light " style="font-size: 1.3vmax; ">{{$movie -> movie_name}}</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="col-3">
-                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail_the_exorcist.jpg'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail_the_exorcist.jpg'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail_the_exorcist.jpg'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{{asset(\Illuminate\Support\Facades\Storage::url('img/movie_thumbnail/thumbnail_the_exorcist.jpg'))}}" class="rounded-3" style=" object-fit: cover;width: 23vmax;" alt="">
-                </div>
-            </div>
+                @endforeach
+            @endif                
+            </div>          
         </section>
 
     </div>

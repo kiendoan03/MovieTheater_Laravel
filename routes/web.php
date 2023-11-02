@@ -120,7 +120,8 @@ Route::prefix('/')->group(function(){
     Route::get('/{schedule_id}/booking', [\App\Http\Controllers\ScheduleController::class, 'bookTicket'])->name('bookTicket')->middleware('customer.auth');
     // Route::post('/{schedule_id}/book', [App\Http\Controllers\ScheduleController::class, 'undonScheduleBook'])->name('undon')->middleware('customer.auth');
     Route::get('/search', [App\Http\Controllers\MovieController::class, 'search'])->name('search');
-    Route::post('/{schedule_id}/vnpay', [App\Http\Controllers\ScheduleController::class, 'vnpay'])->name('vnpay');
+    Route::post('/search', [App\Http\Controllers\MovieController::class, 'search_result'])->name('search_result');
+    Route::post('/{schedule_id}/vnpay', [App\Http\Controllers\ScheduleController::class, 'vnpay'])->name('vnpay')->middleware('customer.auth');
 });
 
 Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'index'])->name('qrcode')->middleware('customer.auth');
@@ -131,6 +132,6 @@ Route::get('/{schedule}/{user}/generate-qrcode', [QrCodeController::class, 'inde
 //     return 'da gui mail';
 // })->name('email');
 
-Route::get('/{user}/{schedule}/email', [App\Http\Controllers\EmailController::class, 'sendWelcomeEmail'])->name('email');
+Route::get('/{user}/{schedule}/email', [App\Http\Controllers\EmailController::class, 'sendWelcomeEmail'])->name('email')->middleware('customer.auth');
 
 

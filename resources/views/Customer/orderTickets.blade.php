@@ -286,11 +286,9 @@
                          @endforeach
                     </div>
                     <div class="d-inline">
-               
-                        
                         <form role="form" method="post" class="d-inline" action="{{route('vnpay',['schedule_id' => $seat -> schedule_id])}}">
                             @csrf
-                            <button type="submit" class="btn btn-danger shadow-none mx-5" name="redirect"><i class="fa-solid fa-eraser me-2"></i>Payment</button>
+                            <button type="submit" class="btn btn-danger shadow-none mx-5" name="redirect"><i class="fa-solid fa-ticket me-2" style="color: #f7f7f7;"></i>Payment</button>
                         </form> 
                     </div>
                   
