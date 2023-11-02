@@ -123,13 +123,7 @@
                                                 <a href="{{route('admin.schedules.edit',$schedule -> schedule_id)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <form class="d-inline" method="post" action="{{route('admin.schedules.destroy',$schedule -> schedule_id)}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-outline-danger my-1">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                                
 
                                             </td>
                                            

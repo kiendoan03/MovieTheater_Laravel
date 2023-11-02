@@ -104,7 +104,7 @@ Route::prefix('Admin/Schedule') -> name('admin.')->middleware('staff.auth')-> gr
     Route::get('/{schedule}/edit', [\App\Http\Controllers\ScheduleController::class, 'edit'])->name('schedules.edit');
     Route::put('/{schedule}/edit', [\App\Http\Controllers\ScheduleController::class, 'update'])->name('schedules.update');
     Route::get('/{schedule}/seat', [\App\Http\Controllers\ScheduleController::class, 'show'])->name('schedules.seat');
-    Route::delete('/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'destroy'])->name('schedules.destroy');
+    // Route::delete('/{schedule}/delete', [\App\Http\Controllers\ScheduleController::class, 'destroy'])->name('schedules.destroy');
 });
 
 Route::prefix('/')->group(function(){

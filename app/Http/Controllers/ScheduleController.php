@@ -234,16 +234,17 @@ class ScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
     public function destroy(Schedule $schedule)
     {
-        //  
-        $seat = schedule_seat::where('schedule_id', '=', $schedule -> id);
+    //     //  
+    //     $seat = schedule_seat::where('schedule_id', '=', $schedule -> id);
        
-        $schedule->delete();
-        $seat -> delete();
+    //     $schedule->delete();
+    //     $seat -> delete();
 
-        return redirect()->route('admin.schedules.index')->with('success', 'Deleted successfully');
-    }
+    //     return redirect()->route('admin.schedules.index')->with('success', 'Deleted successfully');
+    // }
 
     // public function undonScheduleBook($schedule_id){
     //     $user = Auth::guard('customers')->user();
@@ -256,7 +257,7 @@ class ScheduleController extends Controller
     //     }
     //     return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Undone successfully');
 
-    // }
+    }
 
     public function showSchedule($schedule){
              $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
