@@ -82,6 +82,11 @@ class MovieController extends Controller
             Storage::putFileAs('public/movie_trailer/', $request->file('movie_trailer'), $movie_trailer);
         }
         //$obj = new Movie();
+        if($request->movie_release_date > $request->movie_end_date){
+            return redirect()->route('admin.movies.create')->with('error', 'Add movie fail!');
+        }elseif($request->movie_release_date < Carbon::today()){
+            return redirect()->route('admin.movies.create')->with('error', 'Add movie fail!');
+        }
         $array =[];
         $array = Arr::add($array, 'movie_name', $request->movie_name);
         $array = Arr::add($array, 'rating', 5);
@@ -374,18 +379,10 @@ class MovieController extends Controller
         if($schedule_movie > 0){
             return redirect()->route('admin.movies.index')->with('error', 'Delete movie fail!');
         }else{
-            $cate_movie = category_movie::where('movie_id', '=', $movie -> id);
-            $actor_movie = actor_movie::where('movie_id', '=', $movie -> id);
-            $director_movie = director_movie::where('movie_id', '=', $movie -> id);
-            foreach($cate_movie as $cate){
-                $cate->delete();
-            }
-            foreach($actor_movie as $actor){
-                $actor->delete();
-            }
-            foreach($director_movie as $director){
-                $director->delete();
-            }
+           
+            category_movie::where('movie_id','=',$movie -> id) -> delete();
+            actor_movie::where('movie_id','=',$movie -> id) -> delete();
+            director_movie::where('movie_id','=',$movie -> id) -> delete();
             $movie->delete();
 
             return redirect()->route('admin.movies.index')->with('success', 'Delete movie successfully!');

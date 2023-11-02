@@ -47,7 +47,7 @@ class ScheduleController extends Controller
         $admin = Auth::guard('staff')->user();
 
         $schedules = Schedule::all();
-        $movies = Movie::all();  
+        $movies = Movie::where('release_date','<=',Carbon::today())->where('end_date','>=',Carbon::today())->get();  
         $rooms = Room::all();
         return view('Admin.schedule.create',[
             'schedules' => $schedules,
@@ -236,8 +236,7 @@ class ScheduleController extends Controller
      */
     public function destroy(Schedule $schedule)
     {
-        //
-        
+        //  
         $seat = schedule_seat::where('schedule_id', '=', $schedule -> id);
        
         $schedule->delete();

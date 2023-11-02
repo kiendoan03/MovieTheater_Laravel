@@ -87,10 +87,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $cate_movie = category_movie::where('category_id', $category->id);
-        foreach($cate_movie as $item){
-            $item->delete();
-        }
+        category_movie::where('category_id', $category->id)->delete();
+       
         $category->delete();
         return redirect()->route('admin.categories.index')->with('success', 'Delete category successfully!');
     }
