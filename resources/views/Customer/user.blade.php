@@ -8,10 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <link rel="icon" href="/img/page_logo/download-removebg-preview.png">
     <link rel="stylesheet" href="{{asset(\Illuminate\Support\Facades\Storage::url('css/scroll/hideScrollBar.css'))}}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <title>Netfnix</title>
 </head>
 
-<body style="background-color: black;">
+<body style="background-color: black;" class="text-light">
     <div class="container-fluid">
 
     <header class="row d-flex  p-3  justify-content-between" style="background-color:none">
@@ -99,13 +104,13 @@
                             <p class="text-muted mb-3 " style="font-size: 0.8vmax; ">Member since {{$user -> created_at}}</p>
                             <div class="mt-5 ">
                                 <p class="text-muted mb-3 " style="font-size: 1vmax; ">Viewing activity</p>
-                                <div class="mb-3 "> 
+                                <!-- <div class="mb-3 "> 
                                     <span class="text-light " style="font-size: 0.8vmax; ">Watched movies</span>
                                     <span class="text-light " style="float: right; font-size: 0.8vmax; ">10</span>
-                                </div>
+                                </div> -->
                                 <div>
                                     <span class="text-light " style="font-size: 0.8vmax; ">Purchased tickets</span>
-                                    <span class="text-light " style="float: right; font-size: 0.8vmax; ">10</span>
+                                    <span class="text-light " style="float: right; font-size: 0.8vmax; ">{{$ticket}}</span>
                                 </div>
                             </div>
                             <div class="action my-5 text-center ">
@@ -213,41 +218,36 @@
                                 <div class="d-inline ">
                                     <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; float: right; "></i>
                                 </div>
-                                <p class="text-muted mt-3 ">Here you can edit public information about yourself. The changes will be display within 5 minutes.</p>
+                                <p class="text-muted mt-3 ">Pay easily with VNPAY.</p>
                             </div>
                             <div class="col-7 ">
                                 <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
                                     <div class="mx-2 my-2 ">
                                         <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
+                                            <label class="col-sm-2 col-form-label text-light ">Bank</label>
                                             <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="email@example.com ">
+                                                <input type="text " readonly class="form-control-plaintext text-light " value="NCB">
                                             </div>
                                         </div>
                                         <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
+                                            <label class="col-sm-2 col-form-label text-light ">Card number</label>
                                             <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="email@example.com ">
+                                                <input type="text " readonly class="form-control-plaintext text-light " value="*** *** *** *** *** 2198">
                                             </div>
                                         </div>
                                         <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
+                                            <label class="col-sm-2 col-form-label text-light ">Cardholder name</label>
                                             <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="email@example.com ">
+                                                <input type="text " readonly class="form-control-plaintext text-light "value="NGUYEN VAN A">
                                             </div>
                                         </div>
                                         <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
+                                            <label class="col-sm-2 col-form-label text-light ">Release date</label>
                                             <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="email@example.com ">
+                                                <input type="text " readonly class="form-control-plaintext text-light " value="07/15">
                                             </div>
                                         </div>
-                                        <div class="mb-3 row ">
-                                            <label for="staticEmail " class="col-sm-2 col-form-label text-light ">Email</label>
-                                            <div class="col-sm-10 ">
-                                                <input type="text " readonly class="form-control-plaintext text-light " id="staticEmail " value="email@example.com ">
-                                            </div>
-                                        </div>
+                                       
                                     </div>
 
                                 </div>
@@ -256,13 +256,84 @@
                         </div>
                     </section>
 
-                  
+                    <section class="mt-5 mb-5">
+                        <div class="row ">
+                            <div class="col-5 ">
+                                <div class="text-muted d-inline " style="font-size: 1.5vmax; ">Purchased tickets</div>
+                                <div class="d-inline ">
+                                    <i class="fa-regular fa-pen-to-square " style="color: #ffffff; font-size: 1.2vmax; float: right; "></i>
+                                </div>
+                                <p class="text-muted mt-3 ">.</p>
+                            </div>
+                            <div class="col-7 ">
+                                <div class="row mx-3 " style="background-color:rgb(63, 63, 63); border-radius: 1vmax; ">
+                                    <div class="mx-2 my-2 ">
+                                        <table id="myTable" class="table my-3 text-light">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">No.</th>
+                                                    <th scope="col">Moive</th>
+                                                    <th scope="col">Room</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Start time</th>
+                                                    <th scope="col">End time</th>
+                                                    <th scope="col">Seat</th>
+                                                    <th scope="col">Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $i = 1;
+                                                @endphp
+                                                @foreach($cus_ticket as $ticket)
+                                                    <tr>
+                                                        <th scope="row" class="col-1">{{$i}}</th>
+                                                        <td class="col-2">{{$ticket -> movie_name}}</td>    
+                                                        <td class="col-1">{{$ticket -> room_name}}</td>
+                                                        <td class="col-2">{{$ticket -> date}}</td>
+                                                        <td class="col-2">{{$ticket -> start_time}}</td>
+                                                        <td class="col-2">{{$ticket -> end_time}}</td>
+                                                        @if($ticket -> number <= 12)
+                                                            <td class="col-1">A{{$ticket -> number}}</td>
+                                                        @elseif($ticket -> number <= 24)
+                                                            <td class="col-1">B{{$ticket -> number - 12}}</td>
+                                                        @elseif($ticket -> number <= 36)
+                                                            <td class="col-1">C{{$ticket -> number - 24}}</td>
+                                                        @elseif($ticket -> number <= 48)
+                                                            <td class="col-1">D{{$ticket -> number - 36}}</td>
+                                                        @elseif($ticket -> number <= 60)
+                                                            <td class="col-1">E{{$ticket -> number - 48}}</td>
+                                                        @elseif($ticket -> number <= 66)
+                                                            <td class="col-1">F{{$ticket -> number - 60}}</td>
+                                                        @endif
+                                                        <td class="col-2">{{$ticket -> final_price}}</td>
+                                                    </tr>
+                                                    @php
+                                                        $i++;
+                                                    @endphp
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
 
                 </div>
             </div>
         </section>
 
     </div>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+        
+    </script>
     <script>
         function show_img() {
             cus_img.src = URL.createObjectURL(event.target.files[0]);

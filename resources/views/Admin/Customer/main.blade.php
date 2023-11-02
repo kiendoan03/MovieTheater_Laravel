@@ -82,8 +82,8 @@
                                         <tr>
                                             <th scope="col">No.</th>
                                             <th scope="col">Full name</th>
-                                            <th scope="col">Watched movies</th>
-                                            <th scope="col">Purchased tickets</th>
+                                            <th scope="col">Email</th>
+                                            <!-- <th scope="col">Purchased tickets</th> -->
                                             <th scope="col">Image</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -94,22 +94,16 @@
                                         <tr>
                                             <th scope="row" class="col-1">{{$customer -> id}}</th>
                                             <td class="col-3">{{$customer -> name}}</td>    
-                                            <td class="col-2">1</td>
-                                            <td class="col-2">1</td>
-                                            <td class="col-2">
+                                            <td class="col-3">{{$customer -> customer_email}}</td>
+                                            <!-- <td class="col-2">1</td> -->
+                                            <td class="col-3">
                                                 <img class="col-8" src ="{{asset(\Illuminate\Support\Facades\Storage::url('img/user/'). $customer -> customer_avatar)}}" />
                                             </td>
                                             <td class="col-2">
                                                 <a href="{{route('admin.customers.show', $customer)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-sharp fa-solid fa-eye"></i>
                                                 </a>
-                                                <form class="d-inline" method="post" action="{{route('admin.customers.destroy', $customer)}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-outline-danger my-1">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                </form>
+                                                
 
                                             </td>
                                         </tr>

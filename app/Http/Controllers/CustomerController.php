@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
@@ -40,9 +41,11 @@ class CustomerController extends Controller
 
     public function showAdminSite(Customer $customer){
         $admin = Auth::guard('staff')->user();
+        $ticket = Ticket::where('customer_id', $customer->id)->count();
         return view('admin.customer.info',[
             'customer' => $customer,
             'admin' => $admin,
+            'ticket' => $ticket,
         ]);
     }
 
@@ -103,9 +106,19 @@ class CustomerController extends Controller
     public function show(Customer $customer ,$user)
     {
         $user = Customer::find($user);
-      
+        $ticket = Ticket::where('customer_id', $user->id)->count();
+        $cus_ticket = Ticket::join('schedule_seats','tickets.schedule_seat_id','=','schedule_seats.id')
+        ->join('schedules','schedule_seats.schedule_id','=','schedules.id')
+        ->join('movies','schedules.movie_id','=','movies.id')
+        ->join('rooms','schedules.room_id','=','rooms.id')
+        ->join('seats','schedule_seats.seat_id','=','seats.id')
+        ->join('customers','tickets.customer_id','=','customers.id')
+        ->where('tickets.customer_id','=',$user->id)
+        ->get(['tickets.final_price','movies.movie_name','rooms.room_name','seats.number','customers.name as cus_name','tickets.created_at','schedules.date','schedules.start_time','schedules.end_time']);
         return view('Customer.user',[
             'user' => $user,
+            'ticket' => $ticket,
+            'cus_ticket' => $cus_ticket,
         ]);
     }
 
@@ -194,11 +207,11 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
-    {
-        $customer->delete(); 
-        return redirect()->route('admin.customers.index')->with('success', 'Delete successfully!');
-    }
+    // public function destroy(Customer $customer)
+    // {
+    //     $customer->delete(); 
+    //     return redirect()->route('admin.customers.index')->with('success', 'Delete successfully!');
+    // }
 
     public function logout()
     {

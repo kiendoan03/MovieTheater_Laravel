@@ -71,7 +71,7 @@ Route::prefix('Login')->name('login.')->group(function(){
 Route::prefix('Admin/Customer')->name('admin.')->middleware('staff.auth')->group(function(){
 
     Route::get('/' , [App\Http\Controllers\CustomerController::class, 'index'])->name('customers.index');
-    Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
+    // Route::delete('/{customer}/delete' , [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
     Route::get('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'showAdminSite'])->name('customers.show');
     Route::post('/{customer}/information' , [App\Http\Controllers\CustomerController::class, 'resetPassword'])->name('customers.resetPassword');
 });
@@ -82,7 +82,7 @@ Route::prefix('Admin/Staff')->name('admin.')->group(function(){
     Route::post('/create', [App\Http\Controllers\StaffController::class, 'register'])->name('staffs.store')->middleware('staff.auth');
     Route::get('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'edit'])->name('staffs.edit')->middleware('staff.auth');
     Route::put('/{staff}/edit', [\App\Http\Controllers\StaffController::class, 'update'])->name('staffs.update')->middleware('staff.auth');
-    Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy')->middleware('staff.auth');
+    // Route::delete('/{staff}/delete', [\App\Http\Controllers\StaffController::class, 'destroy'])->name('staffs.destroy')->middleware('staff.auth');
     Route::get('/login', [\App\Http\Controllers\StaffController::class, 'showLoginForm'])->name('staffs.login');
     Route::post('/login', [\App\Http\Controllers\StaffController::class, 'login'])->name('staffs.login.check_login');
     Route::get('/logout', [\App\Http\Controllers\StaffController::class, 'logout'])->name('staffs.logout');

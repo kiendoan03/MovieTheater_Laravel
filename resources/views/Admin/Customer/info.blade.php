@@ -112,13 +112,13 @@
                                             </form>
                                         </div>
                                         <div class="col-3">
-                                            <div class="mb-3">
+                                            <!-- <div class="mb-3">
                                                 <label for="pn" class="form-label text-light">Watched movies</label>
                                                 <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="pn" name="cus_phonenumber" value="21" required>
-                                            </div>
+                                            </div> -->
                                             <div class="mb-3">
                                                 <label for="address" class="form-label text-light">Purchased tickets</label>
-                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="a" name="cus_address" value="22" required>
+                                                <input type="text" class="form-control text-light bg-dark border-0 shadow-none" readonly id="a" name="cus_address" value="{{$ticket}}" required>
                                             </div>
                                         </div>
                                         <div class="col-3">

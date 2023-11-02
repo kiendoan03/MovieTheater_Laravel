@@ -123,13 +123,13 @@
                                                 <a href="{{route('admin.staffs.edit',$staff)}}" type="button" class="btn btn-outline-light my-1" tabindex="-1" role="button" aria-disabled="true">
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </a>
-                                                <form class="d-inline" method="post" action="{{route('admin.staffs.destroy', $staff)}}">
+                                                <!-- <form class="d-inline" method="post" action="">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-outline-danger my-1">
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
-                                                </form>
+                                                </form> -->
 
                                             </td>
                                         </tr>
