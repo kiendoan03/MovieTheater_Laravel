@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -51,6 +52,27 @@ class DashboardController extends Controller
         //    $total_movie_income = $movie_income->sum('final_price');
         // }
 
+        $order = DB::table('tickets')
+        ->select(DB::raw('MONTH(created_at) as month'), DB::raw('SUM(final_price) as total'))
+        ->groupBy('month')
+        ->orderBy('month', 'asc')
+        ->get();
+            $label = array();
+            $data = array();
+            for ($i = 1; $i <= 12; $i++) {
+                $month = date('F', mktime(0, 0, 0, $i, 1));
+                $total = 0;
+                foreach ($order as $item) {
+                    $orderMonth = date('F', mktime(0, 0, 0, $item->month, 1));
+                    if ($month == $orderMonth) {
+                        $total = $item->total;
+                        break;
+                    }
+                }
+                $label[] = $month;
+                $data[] = $total;
+            }
+
         return view('admin.dashboard',[
             'total_movies'=>$total_movies,
             'movie_showing'=>$movie_showing,
@@ -62,6 +84,8 @@ class DashboardController extends Controller
             'admin'=>$admin,
             'month_income'=>$month_income,
             'month_year'=>$month_year,
+            'labels'=>$label,
+            'data'=>$data,
             // 'year_income'=>$year_income,
             // 'movie_income'=>$movie_income,
             // 'total_movie_income'=>$total_movie_income,
