@@ -213,10 +213,10 @@
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: {!! json_encode($labels) !!},
+                labels:<?php echo json_encode($labels) ?>,
                 datasets: [{
                     label: 'Total income per month(VND)',
-                    data: {!! json_encode($data) !!},
+                    data: <?php echo json_encode($data) ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(255, 159, 64, 0.2)',
