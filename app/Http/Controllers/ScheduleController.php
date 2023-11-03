@@ -339,58 +339,74 @@ class ScheduleController extends Controller
 
     public function bookTicket($schedule_id){
 
-        $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
-        ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
-        ->where('schedule_seats.schedule_id', '=', $schedule_id)
-        ->where('schedule_seats.status', '=', 2)
-        ->where('schedule_seats.customer_id', '=', Auth::guard('customers')->user()->id)
-        ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedule_seats.status as schedule_seat_status', 'seats.id as seat_id']);
+        if (isset($_GET['vnp_ResponseCode'])) {
+            $vnp_ResponseCode = $_GET['vnp_ResponseCode'];
+            // Xử lý kết quả thanh toán dựa trên vnp_ResponseCode
+            if ($vnp_ResponseCode == '00') {
 
-        $final_price = 0;
+                // Thanh toán thành công
+                // Xử lý mã đơn hàng $vnp_TxnRef và cập nhật trạng thái thanh toán
+                $seats = schedule_seat::join('seats', 'seats.id', '=', 'schedule_seats.seat_id')
+            ->join('seat_types', 'seat_types.id', '=', 'seats.type_id')
+            ->where('schedule_seats.schedule_id', '=', $schedule_id)
+            ->where('schedule_seats.status', '=', 2)
+            ->where('schedule_seats.customer_id', '=', Auth::guard('customers')->user()->id)
+            ->get(['schedule_seats.*', 'seats.*', 'seat_types.*', 'schedule_seats.status as schedule_seat_status', 'seats.id as seat_id']);
 
-        foreach($seats as $seat){
-            $final_price = $seat -> price;
-            $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
-            foreach($schedule_seat_id as $schedule_seat_id){
-                 $count = Ticket::where('schedule_seat_id','=', $schedule_seat_id -> id)->count();
-            if($count == 0){
-                // $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
-                $array = [];
-            // $array = Arr::add($array, 'schedule_id', $schedule_id);
-            // $array = Arr::add($array, 'seat_id', $seat -> seat_id);
-            $array = Arr::add($array, 'schedule_seat_id', $schedule_seat_id->id);
-            $array = Arr::add($array, 'final_price', $final_price);
-            if(Auth::guard('customers')->check()){
+            $final_price = 0;
+
+            foreach($seats as $seat){
+                $final_price = $seat -> price;
+                $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
+                foreach($schedule_seat_id as $schedule_seat_id){
+                    $count = Ticket::where('schedule_seat_id','=', $schedule_seat_id -> id)->count();
+                if($count == 0){
+                    // $schedule_seat_id = schedule_seat::where('schedule_id', '=', $schedule_id)->where('seat_id', '=', $seat->seat_id)->get(['id']);
+                    $array = [];
+                // $array = Arr::add($array, 'schedule_id', $schedule_id);
+                // $array = Arr::add($array, 'seat_id', $seat -> seat_id);
+                $array = Arr::add($array, 'schedule_seat_id', $schedule_seat_id->id);
+                $array = Arr::add($array, 'final_price', $final_price);
+                if(Auth::guard('customers')->check()){
+                    $user = Auth::guard('customers')->user(); 
+                    $array = Arr::add($array, 'customer_id', $user -> id);
+                }else{
+                    $user = null;
+                }
+                Ticket::create($array);
+                
                 $user = Auth::guard('customers')->user(); 
-                $array = Arr::add($array, 'customer_id', $user -> id);
-            }else{
-                $user = null;
-            }
-            Ticket::create($array);
-            
-            $user = Auth::guard('customers')->user(); 
 
-            $arr = [];
-            $arr = Arr::add($arr, 'status', 3);
-            $arr = Arr::add($arr, 'customer_id', $user -> id);
-            schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($arr);
-        }else{
-            return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
-        }
+                $arr = [];
+                $arr = Arr::add($arr, 'status', 3);
+                $arr = Arr::add($arr, 'customer_id', $user -> id);
+                schedule_seat::where('seat_id', '=', $seat->seat_id)->where('schedule_id','=', $schedule_id) -> update($arr);
+            }else{
+                return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'This seat is already booked');
             }
-           
+                }
+            
+            }
+                $user = Auth::guard('customers')->user();
+            
+            // return redirect()->route('qrcode',[
+            //     'schedule' => $schedule_id,
+            //     'user' => $user -> id,
+            // ])->with('success', 'Booked successfully');
+            return redirect()->route('email',[
+                'schedule' => $schedule_id,
+                'user' => $user ,
+            ])->with('success', 'Check your email');
+            // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
+                } else {
+                    // Thanh toán không thành công
+                    // Xử lý mã đơn hàng $vnp_TxnRef và cập nhật trạng thái thanh toán
+                return redirect()->route('order',['schedule' => $schedule_id,])->with('error', 'Booked fail');
+
+                }
         }
-            $user = Auth::guard('customers')->user();
-          
-        // return redirect()->route('qrcode',[
-        //     'schedule' => $schedule_id,
-        //     'user' => $user -> id,
-        // ])->with('success', 'Booked successfully');
-        return redirect()->route('email',[
-            'schedule' => $schedule_id,
-            'user' => $user ,
-        ])->with('success', 'Check your email');
-        // return redirect()->route('order',['schedule' => $schedule_id,])->with('success', 'Booked successfully');
+
+        
     }
 
     public function vnpay($schedule_id){
