@@ -192,6 +192,9 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="mb-3 text-center">
+                                <h3>Total income per month(VND)</h3>
+                            </div>
                             <div>
                                 <canvas id="myChart"></canvas>
                             </div>
@@ -214,7 +217,7 @@
             data: {
                 labels:<?php echo json_encode($labels) ?>,
                 datasets: [{
-                    label: 'Total income per month(VND)',
+                    //label: 'Total income per month(VND)',
                     data: <?php echo json_encode($data) ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -241,6 +244,11 @@
                 scales: {
                     y: {
                         beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 }
             }
