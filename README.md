@@ -1,3 +1,7 @@
+Online movie ticket booking website
+
+There're some images of my product
+
 Home page
 
 ![home](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/4b785052-48be-48ea-a8b5-a0cbada0be6e)
