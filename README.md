@@ -14,7 +14,7 @@ Change avatar user
 ![127 0 0 1_8000_1_user](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/840ef976-2cdf-4571-8ad2-3b14a49e48ec)
 
 Change user's informations
-![Uploading 127.0.0.1_8000_1_user (1).png…]()
+![127 0 0 1_8000_1_user (1)](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/49371d23-00ca-45b1-af13-c2ae325b6cea)
 
 Director information page
 ![127 0 0 1_8000_1_director (1)](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/f02d3752-f0c1-4a50-95e6-af96c322769d)
