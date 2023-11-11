@@ -12,8 +12,8 @@ Ticket booking page
 
 Pay for tickets with VNPAY
 
-vn_paymentv2_Ncb_Transaction_Index html_token=be87514d6bb34b7eb6aa19079d554cb4](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/fdb24ec0-2268-47ad-a6ab-c7b69badeb4a)
-![sandbox vnpayment vn_paymentv2_Ncb_Transaction_Confirm html](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/cf5fcd9d-7635-4cf5-86fe-c2880847458a)![sandbox vnpayment 
+![sandbox vnpayment vn_paymentv2_Ncb_Transaction_Index html_token=be87514d6bb34b7eb6aa19079d554cb4](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/ebf7e7fd-6914-4526-a20a-38eace4e28e7)
+![sandbox vnpayment vn_paymentv2_Ncb_Transaction_Confirm html](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/4e702f0a-555c-43d3-9db0-f10b4d5612e3)
 
 After successful payment, customers will receive an email containing a QR code
 
@@ -37,11 +37,11 @@ Change user's informations
 
 Director information page
 
-![127 0 0 1_8000_1_director (1)](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/cb90bbce-f454-4211-ad4b-4cf46a8d44ac)
+![127 0 0 1_8000_1_director (1)](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/aac29a82-6916-4f72-a398-284bf8c02aa0)
 
 Actor information page
 
-![127 0 0 1_8000_1_actor](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/8f3045e6-5e12-4c49-886b-e9eff6776aca)
+![127 0 0 1_8000_1_actor](https://github.com/kiendoan03/MovieTheater_Laravel/assets/110959854/8e219776-d151-49f5-b22a-3ecebb7fb88b)
 
 Search page
 
